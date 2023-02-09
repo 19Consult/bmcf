@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>COFOUNDER</title>
+    <link rel="icon" href="img/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="css/main.css" />
+</head>
+
+<body>
+    <main class="wrapper profile">
+        <nav class="nav">
+            <div class="nav__logo"><img src="img/logo_dashboard.svg" alt="logo"></div>
+            <div class="nav__title">BeMy Cofounder</div>
+            <div class="nav__back"><a href="#">Go Back</a><span>My Profile</span></div>
+        </nav>
+        <div class="profile__wrapper">
+            <form class="form-profile" action="">
+                <div class="row base">
+                    <div class="col title">Basic Info <span>*</span></div>
+                    <div class="col fields">
+                        <div class="col row-field">
+                            <div class="form_input_wrap">
+                                <select>
+                                    <option selected="true" disabled="disabled" id="salutation">Select</option>
+                                    <option>New Featured</option>
+                                    <option>Most Popular</option>
+                                    <option>New</option>
+                                </select>
+                                <label for="salutation">Salutation</label>
+                            </div>
+                        </div>
+                        <div class="row row-field">
+                            <div class="form_input_wrap">
+                                <input type="text" id="first-name">
+                                <label for="first-name">First Name</label>
+                            </div>
+                            <div class="form_input_wrap">
+                                <input type="text" id="last-name">
+                                <label for="last-name">Last Name</label>
+                            </div>
+                        </div>
+                        <div class="col row-field">
+                            <div class="form_input_wrap">
+                                <input type="date" id="date-of-birth">
+                                <label for="date-of-birth">Date of Birth</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row contact">
+                    <div class="col title">Contact<span>*</span></div>
+                    <div class="col fields">
+                        <div class="col row-field">
+                            <div class="form_input_wrap">
+                                <input type="tel" id="phone" placeholder="+43 6XX XXXXXX">
+                                <label for="phone">Phone</label>
+                            </div>
+                        </div>
+                        <div class="col row-field">
+                            <div class="form_input_wrap">
+                                <input type="mail" id="mail">
+                                <label for="mail">Your Email</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row picture">
+                    <div class="col title">Profile Picture</div>
+                    <div class="col fields picture">
+                        <div class="col row-field">
+                            <div class="form_input_wrap">
+                                <div class="add-photo" id="show-photo-wrapper">
+                                    <div id="show-photo"></div><span></span>
+                                </div>
+                                <label>
+                                    <input type="file" name="photo" accept="image/*,image/jpeg" id="file-uploader"><span class="btn btn--solid btn--arrow btn--photo">Upload Photo</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row about">
+                    <div class="col title">About you</div>
+                    <div class="col fields textarea">
+                        <div class="form_input_wrap">
+                            <textarea name="" cols="30" rows="12"> </textarea>
+                            <label for="first-name">Tell more about yourself</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row company">
+                    <div class="col title">Company</div>
+                    <div class="col fields">
+                        <div class="col row-field">
+                            <div class="form_input_wrap">
+                                <input type="text" id="company-name">
+                                <label for="company-name">Company Name (Optional)</label>
+                            </div>
+                        </div>
+                        <div class="col row-field">
+                            <div class="form_input_wrap">
+                                <input type="text" id="ocupation">
+                                <label for="ocupation">Ocupation</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col title">Business Address</div>
+                    <div class="col fields">
+                        <div class="row row-field">
+                            <div class="form_input_wrap">
+                                <input type="text" id="street" placeholder="Your Street " name="street">
+                                <label for="street">Street</label>
+                            </div>
+                            <div class="form_input_wrap">
+                                <select>
+                                    <option selected="true" disabled="disabled" id="city" name="city">Select city</option>
+                                    <option>New Featured</option>
+                                    <option>Most Popular</option>
+                                    <option>New</option>
+                                </select>
+                                <label for="city">City</label>
+                            </div>
+                        </div>
+                        <div class="row row-field">
+                            <div class="form_input_wrap">
+                                <input type="text" id="house" placeholder="ex, 3/4" name="house">
+                                <label for="house">House and Door Number</label>
+                            </div>
+                            <div class="form_input_wrap">
+                                <input type="text" id="postal-code" placeholder="Postal Code" name="postal-code">
+                                <label for="postal-code">Postal Code</label>
+                            </div>
+                        </div>
+                    </div>
+                </div><span class="btn btn--solid btn--arrow send">Submit & Start Project</span>
+            </form>
+        </div>
+    </main>
+    <script src="js/libs/jquery-3.6.0.min.js"></script>
+    <script src="js/libs/select2.min.js"></script>
+    <script src="js/libs/jquery.inputmask.min.js"></script>
+    <script src="js/main.js"> </script>
+</body>
+
+</html>
