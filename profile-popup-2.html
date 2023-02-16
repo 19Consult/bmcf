@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>COFOUNDER</title>
+    <link rel="icon" href="img/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="css/main.css" />
+</head>
+
+<body>
+    <main class="wrapper profile">
+        <nav class="nav">
+            <div class="nav__logo"><img src="img/logo_dashboard.svg" alt="logo"></div>
+            <div class="nav__title">BeMy Cofounder</div>
+            <div class="nav__back"><a href="#">Go Back</a><span>My Profile</span></div>
+        </nav>
+        <div class="profile__wrapper">
+            <form class="form-profile" action="">
+                <div class="row base">
+                    <div class="col title">Basic Info <span>*</span></div>
+                    <div class="col fields">
+                        <div class="col row-field">
+                            <div class="form_input_wrap">
+                                <select>
+                                    <option selected="true" disabled="disabled" id="salutation">Select</option>
+                                    <option>New Featured</option>
+                                    <option>Most Popular</option>
+                                    <option>New</option>
+                                </select>
+                                <label for="salutation">Salutation</label>
+                            </div>
+                        </div>
+                        <div class="row row-field">
+                            <div class="form_input_wrap">
+                                <input type="text" id="first-name">
+                                <label for="first-name">First Name</label>
+                            </div>
+                            <div class="form_input_wrap">
+                                <input type="text" id="last-name">
+                                <label for="last-name">Last Name</label>
+                            </div>
+                        </div>
+                        <div class="col row-field">
+                            <div class="form_input_wrap">
+                                <input type="date" id="date-of-birth">
+                                <label for="date-of-birth">Date of Birth</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row contact">
+                    <div class="col title">Contact<span>*</span></div>
+                    <div class="col fields">
+                        <div class="col row-field">
+                            <div class="form_input_wrap">
+                                <input type="tel" id="phone" placeholder="+43 6XX XXXXXX">
+                                <label for="phone">Phone</label>
+                            </div>
+                        </div>
+                        <div class="col row-field">
+                            <div class="form_input_wrap">
+                                <input type="mail" id="mail">
+                                <label for="mail">Your Email</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row picture">
+                    <div class="col title">Profile Picture</div>
+                    <div class="col fields picture">
+                        <div class="col row-field">
+                            <div class="form_input_wrap">
+                                <div class="add-photo" id="show-photo-wrapper">
+                                    <div id="show-photo"></div><span></span>
+                                </div>
+                                <label>
+                                    <input type="file" name="photo" accept="image/*,image/jpeg" id="file-uploader"><span class="btn btn--solid btn--arrow btn--photo">Upload Photo</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row about">
+                    <div class="col title">About you</div>
+                    <div class="col fields textarea">
+                        <div class="form_input_wrap">
+                            <textarea name="" cols="30" rows="12"> </textarea>
+                            <label for="first-name">Tell more about yourself</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row company">
+                    <div class="col title">Company</div>
+                    <div class="col fields">
+                        <div class="col row-field">
+                            <div class="form_input_wrap">
+                                <input type="text" id="company-name">
+                                <label for="company-name">Company Name (Optional)</label>
+                            </div>
+                        </div>
+                        <div class="col row-field">
+                            <div class="form_input_wrap">
+                                <input type="text" id="ocupation">
+                                <label for="ocupation">Ocupation</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col title">Business Address</div>
+                    <div class="col fields">
+                        <div class="row row-field">
+                            <div class="form_input_wrap">
+                                <input type="text" id="street" placeholder="Your Street " name="street">
+                                <label for="street">Street</label>
+                            </div>
+                            <div class="form_input_wrap">
+                                <select>
+                                    <option selected="true" disabled="disabled" id="city" name="city">Select city</option>
+                                    <option>New Featured</option>
+                                    <option>Most Popular</option>
+                                    <option>New</option>
+                                </select>
+                                <label for="city">City</label>
+                            </div>
+                        </div>
+                        <div class="row row-field">
+                            <div class="form_input_wrap">
+                                <input type="text" id="house" placeholder="ex, 3/4" name="house">
+                                <label for="house">House and Door Number</label>
+                            </div>
+                            <div class="form_input_wrap">
+                                <input type="text" id="postal-code" placeholder="Postal Code" name="postal-code">
+                                <label for="postal-code">Postal Code</label>
+                            </div>
+                        </div>
+                    </div>
+                </div><span class="btn btn--solid btn--arrow send">Submit & Start Project</span>
+            </form>
+        </div>
+        <div class="co-founder-create-project create-project--popup">
+            <div class="create-project--popup-wrap">
+                <div class="create-project--popup-content">
+                    <nav class="nav">
+                        <div class="nav__back"><a href="#">Go Back</a><span>Your Basic Interests</span></div>
+                    </nav>
+                    <div class="project-preview__content">
+                        <form action="">
+                            <div class="row base category">
+                                <div class="col title">Select 3 categories</div>
+                                <div class="col fields">
+                                    <div class="col row-field">
+                                        <div class="form_input_wrap">
+                                            <select>
+                                                <option selected="true" disabled="disabled" id="salutation">Select</option>
+                                                <option>Accommodation and Food Services</option>
+                                                <option>Administrative and Support Services</option>
+                                                <option>Agriculture, Forestry and Fishing</option>
+                                                <option>Arts, Entertainment and Recreation</option>
+                                                <option>Construction & Building</option>
+                                                <option>Education</option>
+                                                <option>Energy</option>
+                                                <option>Financial and Insurance </option>
+                                                <option>Human Health and Social Work Activities</option>
+                                                <option>Information and Communication</option>
+                                                <option>Manufacturing</option>
+                                                <option>Mining and Quarrying</option>
+                                                <option>Professional, Scientific and Technical Activities</option>
+                                                <option>Real Estate Activities</option>
+                                                <option>Transportation and Storage</option>
+                                                <option>Travel & Tourism</option>
+                                                <option>Utilities</option>
+                                                <option>Wholesale and Retail Trade</option>
+                                                <option>Other</option>
+                                            </select>
+                                            <label for="salutation">Categorty 1</label>
+                                        </div>
+                                        <div class="form_input_wrap">
+                                            <select>
+                                                <option selected="true" disabled="disabled" id="salutation">Select</option>
+                                                <option>Food-Service Contractors</option>
+                                                <option>Restaurants</option>
+                                                <option>Takeaway & Fast-Food Restaurants</option>
+                                                <option>Hotels</option>
+                                                <option>Nightclubs & Bars</option>
+                                                <option>Call Centres</option>
+                                                <option>Employment Services</option>
+                                                <option>Office Equipment Rental & Leasing</option>
+                                                <option>Temporary-Employment Placement</option>
+                                                <option>Dairy</option>
+                                                <option>Flower & Plant Growing</option>
+                                                <option>Forestry & Logging</option>
+                                                <option>Fruit & Vegetable Growing</option>
+                                                <option>Marine Fishing</option>
+                                                <option>Poultry</option>
+                                                <option>Cattle and Sheep</option>
+                                                <option>Vet</option>
+                                                <option>Amusement & Theme Parks</option>
+                                                <option>Botanical & Zoological Gardens</option>
+                                                <option>Gambling & Betting </option>
+                                                <option>Gyms & Fitness </option>
+                                                <option>Performing Arts</option>
+                                                <option>Photography</option>
+                                                <option>Cinema</option>
+                                                <option>Film and Theatre</option>
+                                                <option>Broadcasting</option>
+                                                <option>Engineering & Technology</option>
+                                                <option>Construction & Project Management</option>
+                                                <option>Architecture</option>
+                                                <option>Landscaping Services</option>
+                                                <option>Pest Control</option>
+                                                <option>Equipment Rental & Leasing</option>
+                                                <option>Facilities Management & Security</option>
+                                                <option>Building & Industrial Cleaning</option>
+                                                <option>Building Materials</option>
+                                                <option>General Secondary Education </option>
+                                                <option>Pre-Primary Education</option>
+                                                <option>Primary Education </option>
+                                                <option>Technical & Vocational </option>
+                                                <option>Universities </option>
+                                                <option>Electricity Distribution</option>
+                                                <option>Electricity Production</option>
+                                                <option>Electricity Supply</option>
+                                                <option>Electricity Transmission</option>
+                                                <option>Gas Distribution</option>
+                                                <option>Gas Supply</option>
+                                                <option>Energy Saving</option>
+                                                <option>Clean Energy</option>
+                                                <option>Banking</option>
+                                                <option>Credit </option>
+                                                <option>Investment</option>
+                                                <option>Insurance</option>
+                                                <option>Tax</option>
+                                                <option>Technology</option>
+                                                <option>Biotechnology </option>
+                                                <option>Child Care </option>
+                                                <option>Dental Health</option>
+                                                <option>Diagnostic & Ambulance Services</option>
+                                                <option>General Medical Practices </option>
+                                                <option>Hospitals</option>
+                                                <option>Learning Disability, Mental Health & Substance Abuse </option>
+                                                <option>Retirement and Residential Nursing Care</option>
+                                                <option>Social Services </option>
+                                                <option>Specialist Medical Technology</option>
+                                                <option>Publishing (online/print)</option>
+                                                <option>Software Development</option>
+                                                <option>Computer Consultancy</option>
+                                                <option>Computer and Communications technology</option>
+                                                <option>Data Processing & Hosting Services</option>
+                                                <option>Agricultural & Forestry</option>
+                                                <option>Aerospace</option>
+                                                <option>Communication Equipment</option>
+                                                <option>Computer & Peripheral Equipment</option>
+                                                <option>Consumer Electronics Manufacturing</option>
+                                                <option>Electrical Appliance</option>
+                                                <option>Engine & Turbine</option>
+                                                <option>Fertiliser & Nitrogen Compound</option>
+                                                <option>Fibre-Optic Cable </option>
+                                                <option>Food & Beverage Machinery</option>
+                                                <option>Iron & Steel Manufacturing</option>
+                                                <option>Kitchen Furniture Manufacturing</option>
+                                                <option>Medical & Dental Instrument Manufacturing</option>
+                                                <option>Motor Vehicle Manufacturing</option>
+                                                <option>Motorcycle Manufacturing</option>
+                                                <option>Paper & Paperboard Manufacturing</option>
+                                                <option>Pharmaceutical Preparations Manufacturing</option>
+                                                <option>Pet Food Manufacturing</option>
+                                                <option>Radiator & Boiler Manufacturing</option>
+                                                <option>Railway Equipment Manufacturing</option>
+                                                <option>Recreational Boat & Yacht Building</option>
+                                                <option>Sanitary Product Manufacturing</option>
+                                                <option>Mineral Mining</option>
+                                                <option>Natural Resource Extraction</option>
+                                                <option>Accounting & Auditing</option>
+                                                <option>Advertising</option>
+                                                <option>Legal</option>
+                                                <option>Management Consultancy</option>
+                                                <option>Market Research</option>
+                                                <option>Public Relations</option>
+                                                <option>Design</option>
+                                                <option>Agency</option>
+                                                <option>Management</option>
+                                                <option>Technology</option>
+                                                <option>Services</option>
+                                                <option>Technology</option>
+                                                <option>Tour Operators</option>
+                                                <option>Travel Agencies </option>
+                                                <option>Services</option>
+                                                <option>Technology</option>
+                                                <option>Services</option>
+                                                <option>Technology</option>
+                                            </select>
+                                            <label for="salutation">Categorty 2</label>
+                                        </div>
+                                        <div class="form_input_wrap">
+                                            <select>
+                                                <option selected="true" disabled="disabled" id="salutation">Select</option>
+                                                <option>Other</option>
+                                            </select>
+                                            <label for="salutation">Categorty 3</label>
+                                        </div>
+                                    </div>
+                                    <div class="col row-field key">
+                                        <div class="row row-field">
+                                            <div class="form_input_wrap">
+                                                <input type="text" id="key-word-1" name="key-word-1" placeholder="Key Word">
+                                                <label for="key-word-1">Key words (up to 3)</label>
+                                            </div>
+                                            <div class="form_input_wrap">
+                                                <input type="text" id="last-name" name="key-word-2" placeholder="Key Word">
+                                            </div>
+                                            <div class="form_input_wrap">
+                                                <input type="text" id="last-name" name="key-word-3" placeholder="Key Word">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><a class="btn--arrow btn--solid" href="#">Submit Project</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="co-founder-create-project create-project--popup open">
+            <div class="create-project--popup-wrap">
+                <div class="create-project--popup-content">
+                    <nav class="nav">
+                        <div class="nav__back"><a href="#">Go Back</a><span>Create Project</span></div>
+                    </nav>
+                    <div class="project-preview__content">
+                        <form action="">
+                            <div class="row base">
+                                <div class="col title">Your Basic Interests</div>
+                                <div class="col fields">
+                                    <div class="row row-field">
+                                        <div class="form_input_wrap full-width">
+                                            <input type="text" id="project-name" placeholder="Project Name">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row base category">
+                                <div class="col title">Project Categories</div>
+                                <div class="col fields">
+                                    <div class="col row-field">
+                                        <div class="form_input_wrap">
+                                            <select>
+                                                <option selected="true" disabled="disabled" id="salutation">Select</option>
+                                                <option>Accommodation and Food Services</option>
+                                                <option>Administrative and Support Services</option>
+                                                <option>Agriculture, Forestry and Fishing</option>
+                                                <option>Arts, Entertainment and Recreation</option>
+                                                <option>Construction & Building</option>
+                                                <option>Education</option>
+                                                <option>Energy</option>
+                                                <option>Financial and Insurance </option>
+                                                <option>Human Health and Social Work Activities</option>
+                                                <option>Information and Communication</option>
+                                                <option>Manufacturing</option>
+                                                <option>Mining and Quarrying</option>
+                                                <option>Professional, Scientific and Technical Activities</option>
+                                                <option>Real Estate Activities</option>
+                                                <option>Transportation and Storage</option>
+                                                <option>Travel & Tourism</option>
+                                                <option>Utilities</option>
+                                                <option>Wholesale and Retail Trade</option>
+                                                <option>Other</option>
+                                            </select>
+                                            <label for="salutation">Categorty 1</label>
+                                        </div>
+                                        <div class="form_input_wrap">
+                                            <select>
+                                                <option selected="true" disabled="disabled" id="salutation">Select</option>
+                                                <option>Food-Service Contractors</option>
+                                                <option>Restaurants</option>
+                                                <option>Takeaway & Fast-Food Restaurants</option>
+                                                <option>Hotels</option>
+                                                <option>Nightclubs & Bars</option>
+                                                <option>Call Centres</option>
+                                                <option>Employment Services</option>
+                                                <option>Office Equipment Rental & Leasing</option>
+                                                <option>Temporary-Employment Placement</option>
+                                                <option>Dairy</option>
+                                                <option>Flower & Plant Growing</option>
+                                                <option>Forestry & Logging</option>
+                                                <option>Fruit & Vegetable Growing</option>
+                                                <option>Marine Fishing</option>
+                                                <option>Poultry</option>
+                                                <option>Cattle and Sheep</option>
+                                                <option>Vet</option>
+                                                <option>Amusement & Theme Parks</option>
+                                                <option>Botanical & Zoological Gardens</option>
+                                                <option>Gambling & Betting </option>
+                                                <option>Gyms & Fitness </option>
+                                                <option>Performing Arts</option>
+                                                <option>Photography</option>
+                                                <option>Cinema</option>
+                                                <option>Film and Theatre</option>
+                                                <option>Broadcasting</option>
+                                                <option>Engineering & Technology</option>
+                                                <option>Construction & Project Management</option>
+                                                <option>Architecture</option>
+                                                <option>Landscaping Services</option>
+                                                <option>Pest Control</option>
+                                                <option>Equipment Rental & Leasing</option>
+                                                <option>Facilities Management & Security</option>
+                                                <option>Building & Industrial Cleaning</option>
+                                                <option>Building Materials</option>
+                                                <option>General Secondary Education </option>
+                                                <option>Pre-Primary Education</option>
+                                                <option>Primary Education </option>
+                                                <option>Technical & Vocational </option>
+                                                <option>Universities </option>
+                                                <option>Electricity Distribution</option>
+                                                <option>Electricity Production</option>
+                                                <option>Electricity Supply</option>
+                                                <option>Electricity Transmission</option>
+                                                <option>Gas Distribution</option>
+                                                <option>Gas Supply</option>
+                                                <option>Energy Saving</option>
+                                                <option>Clean Energy</option>
+                                                <option>Banking</option>
+                                                <option>Credit </option>
+                                                <option>Investment</option>
+                                                <option>Insurance</option>
+                                                <option>Tax</option>
+                                                <option>Technology</option>
+                                                <option>Biotechnology </option>
+                                                <option>Child Care </option>
+                                                <option>Dental Health</option>
+                                                <option>Diagnostic & Ambulance Services</option>
+                                                <option>General Medical Practices </option>
+                                                <option>Hospitals</option>
+                                                <option>Learning Disability, Mental Health & Substance Abuse </option>
+                                                <option>Retirement and Residential Nursing Care</option>
+                                                <option>Social Services </option>
+                                                <option>Specialist Medical Technology</option>
+                                                <option>Publishing (online/print)</option>
+                                                <option>Software Development</option>
+                                                <option>Computer Consultancy</option>
+                                                <option>Computer and Communications technology</option>
+                                                <option>Data Processing & Hosting Services</option>
+                                                <option>Agricultural & Forestry</option>
+                                                <option>Aerospace</option>
+                                                <option>Communication Equipment</option>
+                                                <option>Computer & Peripheral Equipment</option>
+                                                <option>Consumer Electronics Manufacturing</option>
+                                                <option>Electrical Appliance</option>
+                                                <option>Engine & Turbine</option>
+                                                <option>Fertiliser & Nitrogen Compound</option>
+                                                <option>Fibre-Optic Cable </option>
+                                                <option>Food & Beverage Machinery</option>
+                                                <option>Iron & Steel Manufacturing</option>
+                                                <option>Kitchen Furniture Manufacturing</option>
+                                                <option>Medical & Dental Instrument Manufacturing</option>
+                                                <option>Motor Vehicle Manufacturing</option>
+                                                <option>Motorcycle Manufacturing</option>
+                                                <option>Paper & Paperboard Manufacturing</option>
+                                                <option>Pharmaceutical Preparations Manufacturing</option>
+                                                <option>Pet Food Manufacturing</option>
+                                                <option>Radiator & Boiler Manufacturing</option>
+                                                <option>Railway Equipment Manufacturing</option>
+                                                <option>Recreational Boat & Yacht Building</option>
+                                                <option>Sanitary Product Manufacturing</option>
+                                                <option>Mineral Mining</option>
+                                                <option>Natural Resource Extraction</option>
+                                                <option>Accounting & Auditing</option>
+                                                <option>Advertising</option>
+                                                <option>Legal</option>
+                                                <option>Management Consultancy</option>
+                                                <option>Market Research</option>
+                                                <option>Public Relations</option>
+                                                <option>Design</option>
+                                                <option>Agency</option>
+                                                <option>Management</option>
+                                                <option>Technology</option>
+                                                <option>Services</option>
+                                                <option>Technology</option>
+                                                <option>Tour Operators</option>
+                                                <option>Travel Agencies </option>
+                                                <option>Services</option>
+                                                <option>Technology</option>
+                                                <option>Services</option>
+                                                <option>Technology</option>
+                                            </select>
+                                            <label for="salutation">Categorty 2</label>
+                                        </div>
+                                        <div class="form_input_wrap">
+                                            <select>
+                                                <option selected="true" disabled="disabled" id="salutation">Select</option>
+                                                <option>Other</option>
+                                            </select>
+                                            <label for="salutation">Categorty 3</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><a class="btn--arrow btn--solid" href="#">Submit Project</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="js/libs/jquery-3.6.0.min.js"></script>
+    <script src="js/libs/select2.min.js"></script>
+    <script src="js/libs/jquery.inputmask.min.js"></script>
+    <script src="js/main.js"> </script>
+</body>
+
+</html>
