@@ -235,6 +235,13 @@ b {
   font-display: swap;
 }
 @font-face {
+  src: local("WorkSans-Regular"), url("../fonts/WorkSans-Regular.woff2") format("woff2"), url("../fonts/WorkSans-Regular.woff") format("woff");
+  font-family: "WorkSans";
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
   src: local("WorkSans-Light"), url("../fonts/WorkSans-Light.woff2") format("woff2"), url("../fonts/WorkSans-Light.woff") format("woff");
   font-family: "WorkSans";
   font-weight: 300;
@@ -854,6 +861,7 @@ input[type=checkbox] + label::before {
   display: -ms-flexbox;
   display: flex;
   min-height: calc(100vh - 82px);
+  overflow: hidden;
 }
 .dashboard-wrapper .profile__wrapper {
   width: 100%;
@@ -1416,7 +1424,20 @@ input[type=checkbox] + label::before {
   transition: var(--anim4);
 }
 .project-preview__wrap--page {
-  display: none;
+  position: fixed;
+  left: 100%;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: start;
+  -webkit-transition: left 1s;
+  -o-transition: left 1s;
+  transition: left 1s;
+  opacity: 0;
+}
+.project-preview__wrap--page.open {
+  position: relative;
+  left: 0%;
+  opacity: 1;
 }
 .project-preview__popup {
   overflow: hidden;
@@ -1562,6 +1583,12 @@ input[type=checkbox] + label::before {
 }
 .project-form {
   margin-top: 40px;
+}
+.project-form .full-text {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 .project-form .col.title {
   padding-left: unset;
@@ -1803,7 +1830,7 @@ input[type=checkbox] + label::before {
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
-  padding: 28px 31px 20px;
+  padding: 28px 26px 20px 31px;
 }
 .project-create__top-descr-top {
   display: -webkit-box;
@@ -2035,6 +2062,10 @@ input[type=checkbox] + label::before {
 }
 .project-create .project-idea .project-preview__author {
   margin-top: 30px;
+}
+.project-create p {
+  font-size: 14px;
+  line-height: 17px;
 }
 
 .progress {

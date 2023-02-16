@@ -54,13 +54,12 @@ jQuery(document).ready(function ($) {
 	})
 	$('.projects-search-v2 .project__title').click(function(){
 		$('.projects-wrapper').fadeOut(function(){
-			$('.project-preview__wrap--page').fadeIn(100);
+			$('.project-preview__wrap--page').addClass('open');
 		});
 	})
 	$('.projects-search-v2 .nav__back a').click(function(){
-		$('.project-preview__wrap--page').fadeOut(function(){
-			$('.projects-wrapper').fadeIn(100);
-		});
+		$('.projects-wrapper').delay(400).fadeIn(100);
+		$('.project-preview__wrap--page').removeClass('open');
 	})
 
 	$('.profile .btn.send').click(function (e) { 
