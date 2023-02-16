@@ -510,6 +510,9 @@ form.type-1 .btn {
   line-height: 18px;
   color: var(--color-3);
 }
+.nav__title.hide-border::after {
+  content: none;
+}
 .nav__title::after {
   content: "";
   position: absolute;
@@ -1821,6 +1824,12 @@ input[type=checkbox] + label::before {
   width: 254px;
   background: var(--color-4);
   cursor: pointer;
+}
+.project-create__top-img.has-img img {
+  min-width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 .project-create__top-img img {
   width: 75px;
