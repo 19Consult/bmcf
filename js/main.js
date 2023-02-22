@@ -1,9 +1,3 @@
-/* eslint-disable indent */
-/* eslint-disable func-names */
-/* eslint-disable no-tabs */
-/* eslint-disable linebreak-style */
-/* eslint-disable no-unused-vars */
-/* eslint-disable prefer-arrow-callback */
 jQuery(document).ready(function ($) {
 	$('body').on('click', '.show-password', function () {
 		if ($(this).is(':checked')) {
