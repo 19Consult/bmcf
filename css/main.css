@@ -2413,6 +2413,7 @@ input[type=checkbox] + label::before {
   -webkit-transition: left 1s;
   -o-transition: left 1s;
   transition: left 1s;
+  color: var(--color-6);
 }
 .nda-more-wrap .nav {
   border-bottom: 1px solid #e5eaf5;
@@ -2607,6 +2608,11 @@ input[type=checkbox] + label::before {
   -webkit-transition: var(--anim4);
   -o-transition: var(--anim4);
   transition: var(--anim4);
+  overflow: auto;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 .nda-agreement .nav {
   padding: 23px 17px;
@@ -2621,7 +2627,8 @@ input[type=checkbox] + label::before {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  height: 100%;
+  margin: auto;
+  width: 100%;
 }
 .nda-agreement__text {
   margin: 35px auto;
@@ -4271,4 +4278,3 @@ body {
     padding: 40px 20px;
   }
 }
-/*# sourceMappingURL=main.css.map */
