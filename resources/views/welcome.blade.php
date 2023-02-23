@@ -10,7 +10,7 @@
         <div class="home-page__middle">
             <div class="col left">
                 <div class="home-page__title-top">Looking FOR a</div>
-                <h2 class="home-page__title">COFOUNDER?</h2><a class="btn btn--border" href="{{ route('register') }}">START HERE</a>
+                <h2 class="home-page__title">COFOUNDER?</h2><a class="btn btn--border" href="{{ route('sign-up-founder') }}">START HERE</a>
                 <div class="home-page__descr-wrapper">
                     <div class="home-page__descr-title">time to move forward-fast</div>
                     <div class="home-page__descr">Being a founder can be a lonely business and hard work is seldom enough to guarantee success. BeMyCoFounder is a FREE platform to help match you with the experts your project needs.</div>

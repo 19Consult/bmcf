@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\RegistController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,9 +21,18 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
+/**
+ * here are routes that are available only to unauthorized users
+ */
+Route::middleware('guest')->group(function () {
+    Route::get('/sign-up-founder', [RegistController::class, 'signUpFounder'])->name('sign-up-founder');
+});
 
+/**
+ * here are routes that are available only to authorized users
+ */
 Route::middleware(['auth'])->group(function () {
-    // здесь находятся маршруты, которые доступны только авторизованным пользователям
+
 });
