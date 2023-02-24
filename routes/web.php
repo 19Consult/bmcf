@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RegistController;
 use Illuminate\Support\Facades\Route;
@@ -27,7 +28,14 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
  * here are routes that are available only to unauthorized users
  */
 Route::middleware('guest')->group(function () {
-    Route::get('/sign-up-founder', [RegistController::class, 'signUpFounder'])->name('sign-up-founder');
+
+    Route::get('/sign-up-founder', [RegisterController::class, 'showRegistrationFormType2'])->name('sign-up-founder');
+    Route::post('/sign-up-founder', [RegisterController::class, 'registerType2']);
+
+    Route::get('/sign-up-co-founder', [RegisterController::class, 'showRegistrationFormType3'])->name('sign-up-co-founder');
+    Route::post('/sign-up-co-founder', [RegisterController::class, 'registerType2']);
+
+
 });
 
 /**
@@ -35,4 +43,8 @@ Route::middleware('guest')->group(function () {
  */
 Route::middleware(['auth'])->group(function () {
 
+    Route::get('/logout', function () {
+        Auth::logout();
+        return redirect(route('welcome'));
+    })->name('logout');
 });

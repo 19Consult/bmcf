@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <main class="wrapper home-page sign-in sign-up-founder">
+    <main class="wrapper home-page sign-in sign-up-co-founder">
         <div class="container">
             <div class="home-page__top">
                 <div class="home-page__top-logo"><a href="{{route("welcome")}}"><img src="{{asset("img/logo.svg")}}" alt="Logo"></a></div><a class="home-page__top-sign-in btn btn--border" href="#">sign IN</a>
@@ -10,15 +10,15 @@
             <div class="home-page__middle-wrapper">
                 <div class="home-page__middle">
                     <div class="col left">
-                        <div class="home-page__title-top">Create A FOUNDER account</div>
+                        <div class="home-page__title-top">Create A CO-FOUNDER account</div>
                         <h2 class="home-page__title">Sign Up</h2>
                     </div>
                     <div class="col right">
-                        <form class="type-1" method="POST" action="{{ route('sign-up-founder') }}">
+                        <form class="type-1" method="POST" action="{{ route('sign-up-co-founder') }}">
                             @csrf
                             <div class="form_input_wrap">
                                 @error('email')
-                                    <span class="invalid-feedback error-message" role="alert">
+                                <span class="invalid-feedback error-message" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
@@ -27,7 +27,7 @@
                             </div>
                             <div class="form_input_wrap password">
                                 @error('password')
-                                    <span class="invalid-feedback error-message" role="alert">
+                                <span class="invalid-feedback error-message" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
