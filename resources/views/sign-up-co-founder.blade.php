@@ -5,7 +5,7 @@
     <main class="wrapper home-page sign-in sign-up-co-founder">
         <div class="container">
             <div class="home-page__top">
-                <div class="home-page__top-logo"><a href="{{route("welcome")}}"><img src="{{asset("img/logo.svg")}}" alt="Logo"></a></div><a class="home-page__top-sign-in btn btn--border" href="#">sign IN</a>
+                <div class="home-page__top-logo"><a href="{{route("welcome")}}"><img src="{{asset("img/logo.svg")}}" alt="Logo"></a></div><a class="home-page__top-sign-in btn btn--border" href="{{route("login")}}">sign IN</a>
             </div>
             <div class="home-page__middle-wrapper">
                 <div class="home-page__middle">

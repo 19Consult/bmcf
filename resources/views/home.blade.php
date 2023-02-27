@@ -16,6 +16,14 @@
                     {{ __('You are logged in!') }}
                 </div>
             </div>
+
+            <ul style="
+                    border: 1px solid;
+                    margin: 15px 0px;
+                ">
+                <li style="padding: 5px 0px;"><a href="{{route('profile')}}">Profile</a> </li>
+            </ul>
+
         </div>
     </div>
 </div>

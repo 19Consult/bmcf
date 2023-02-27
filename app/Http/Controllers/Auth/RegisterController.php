@@ -80,6 +80,7 @@ class RegisterController extends Controller
 
     /**
      * Form for /sign-up-founder
+     * Owner/Investor
      */
 
     public function registerType2(Request $request){
@@ -96,12 +97,12 @@ class RegisterController extends Controller
 
     public function showRegistrationFormType2(){
         $role_token = app("roleIdMD5_register");
-        return view('sign-up-founder', ['role_md5' => $role_token[1]]);
+        return view('sign-up-founder', ['role_md5' => $role_token[2]]);
     }
 
     public function showRegistrationFormType3(){
         $role_token = app("roleIdMD5_register");
-        return view('sign-up-co-founder', ['role_md5' => $role_token[2]]);
+        return view('sign-up-co-founder', ['role_md5' => $role_token[3]]);
     }
 
     protected function validatorType2(array $data){
