@@ -15,8 +15,8 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->singleton('roleIdMD5_register', function () {
             $roleIdMD5_register = [
-                1 => md5("Owner"),
-                2 => md5("Investor"),
+                2 => md5("Owner"),
+                3 => md5("Investor"),
             ];
             return $roleIdMD5_register;
         });

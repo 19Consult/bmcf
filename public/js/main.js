@@ -65,36 +65,36 @@ jQuery(document).ready(function ($) {
 		$('.nda-more-wrap').removeClass('open');
 	})
 
-	$('.profile .btn.send').click(function (e) { 
+	$('.profile .btn.send').click(function (e) {
 		// e.preventDefault();
 		$('.create-project--popup').addClass('open');
 	});
 
-	$('.project-create__top-descr .field-add').click(function (e) { 
+	$('.project-create__top-descr .field-add').click(function (e) {
 		// e.preventDefault();
 		$('.project-create__top--popup').addClass('open');
 	});
 
 	// project create story
-	$('.project-field .field-add').click(function (e) { 
+	$('.project-field .field-add').click(function (e) {
 		// e.preventDefault();
 		$('.project-field .popup').addClass('open');
 	});
 
 	// Business Plan
-	$('.project-plan .field-add').click(function (e) { 
+	$('.project-plan .field-add').click(function (e) {
 		// e.preventDefault();
 		$('.project-plan .popup').addClass('open');
 	});
 
 	// CoFounder Terms & Conditions
-	$('.project-co-founder .field-add').click(function (e) { 
+	$('.project-co-founder .field-add').click(function (e) {
 		// e.preventDefault();
 		$('.row.project-co-founder .popup').addClass('open');
 	});
 
 	// CoFounder Terms & Conditions - fill
-	$('.project-story .send').click(function (e) { 
+	$('.project-story .send').click(function (e) {
 		// e.preventDefault();
 		$('.popup.fill').addClass('open');
 	});
@@ -153,14 +153,41 @@ jQuery(document).ready(function ($) {
 		$('.nda-agreement--popup').removeClass('open');
 	})
 
+
+    $(".click-select-country").change(function(e){
+        e.preventDefault();
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        if($(this).val() == 0) return false;
+
+        let value = $(this).val();
+
+        $.ajax({
+            url: "/ajax-get-cities",
+            method: 'post',
+            data: {
+                code_country: value,
+            },
+            success: function(result){
+                $('.click-select-cities').find('option').remove();
+                result.cities.forEach(function callback(currentValue) {
+                    $('.click-select-cities').append( $('<option value="' + currentValue + '">' + currentValue + ' </option>'));
+                });
+            }});
+    });
+
 });
 
 var dt = new DataTransfer();
 
 function removeFilesItem(target){
 	let name = $(target).prev().text();
-	let input = $(target).closest('.input-file-row').find('input[type=file]');	
-	$(target).closest('.add-file-input-item').remove();	
+	let input = $(target).closest('.input-file-row').find('input[type=file]');
+	$(target).closest('.add-file-input-item').remove();
 	for(let i = 0; i < dt.items.length; i++) {
 		if(name === dt.items[i].getAsFile().name) {
 			dt.items.remove(i);
