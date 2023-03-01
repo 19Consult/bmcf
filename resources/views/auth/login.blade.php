@@ -16,6 +16,13 @@
                 <div class="col right">
                     <form class="type-1" method="POST" action="{{ route('login') }}">
                         @csrf
+
+                        @if (session('error'))
+                            <div class="alert alert-danger">
+                                {{ session('error') }}
+                            </div>
+                        @endif
+
                         <div class="form_input_wrap">
 
                             @error('email')

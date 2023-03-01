@@ -52,4 +52,14 @@ class User extends Authenticatable
         return (Auth::user()->role == 3);
     }
 
+    public static function checkAdmin(){
+        return (Auth::user()->role == 1);
+    }
+
+    public function detail()
+    {
+        return $this->hasOne(UserDetail::class);
+    }
+
+
 }

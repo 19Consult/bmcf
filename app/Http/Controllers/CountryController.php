@@ -35,4 +35,8 @@ class CountryController extends Controller
         $code_country = $request->get('code_country');
         return response()->json(['success' => true, 'cities' => $this->getCities($code_country)]);
     }
+
+    public function getNameCountry($code){
+        return $this->countries->where('cca2', $code)->first()->name->common;
+    }
 }

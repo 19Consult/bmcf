@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\HomeController;
@@ -50,6 +51,16 @@ Route::middleware(['auth'])->group(function () {
 
     // ajax cities
     Route::post('/ajax-get-cities', [CountryController::class, 'ajaxGetCities']);
+
+    Route::prefix('admin')->middleware(['admin'])->group(function () {
+        Route::get('/', [AdminController::class, 'index'])->name('admin.dashboard');
+        Route::get('/users', [AdminController::class, 'users'])->name('admin.users');
+
+        Route::post('/users/{id}/block', [AdminController::class, 'block'])->name('admin.users.block');
+        Route::post('/users/{id}/unblock', [AdminController::class, 'unblock'])->name('admin.users.unblock');
+
+    });
+
 
     Route::get('/logout', function () {
         Auth::logout();

@@ -4198,12 +4198,6 @@ body {
   font-size: max(1.5rem, 20px);
   line-height: 29px;
 }
-.invalid-feedback.error-message{
-    margin-top: 15px;
-    padding-left: 15px;
-    font-size: 13px;
-}
-
 @media screen and (max-width: 1280px) {
   .home-page__middle .col.right {
     padding-left: unset;
@@ -4283,4 +4277,28 @@ body {
   .home-page__middle .col {
     padding: 40px 20px;
   }
+}
+
+.alert-box {
+  position: fixed;
+  right: 10px;
+  bottom: 10px;
+  background: #ccc;
+  max-width: 400px;
+  padding: 20px;
+  z-index: 10;
+  border-radius: 5px;
+  line-height: 1.5;
+}
+.alert-box .close {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  background: unset;
+  border: unset;
+  cursor: pointer;
+  font-size: 21px;
+  transform: rotate(45deg);
+  line-height: 0.5;
+  padding: unset;
 }

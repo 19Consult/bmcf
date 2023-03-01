@@ -28,6 +28,10 @@ class HomeController extends Controller
      */
     public function index()
     {
+        if (User::checkAdmin()){
+            return redirect(route("admin.dashboard"));
+        }
+
         return view('home');
     }
 
@@ -45,7 +49,8 @@ class HomeController extends Controller
 
         if(User::checkOwner()){
             return view("owner.profile-dashboard-founder", ['data' => $data]);
-        }else{
+        }
+        if (User::checkInvestor()){
             return view("investor.profile-dashboard-co-founder", ['data' => $data]);
         }
 
