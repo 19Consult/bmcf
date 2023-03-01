@@ -59,6 +59,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/users/{id}/block', [AdminController::class, 'block'])->name('admin.users.block');
         Route::post('/users/{id}/unblock', [AdminController::class, 'unblock'])->name('admin.users.unblock');
 
+        Route::get('/users/export-users', [AdminController::class, 'exportUsers'])->name('admin.users.export');
     });
 
 
