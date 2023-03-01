@@ -474,6 +474,9 @@ form .show-password {
 form .show-password:checked {
   opacity: 0.3;
 }
+form .error-message ~ .show-password {
+  bottom: 30px;
+}
 form label {
   margin-bottom: 6px;
   padding-left: 15px;
@@ -4283,9 +4286,10 @@ body {
   position: fixed;
   right: 10px;
   bottom: 10px;
-  background: #ccc;
+  background: #fff;
+  box-shadow: 0 0 5px #cccccc80;
   max-width: 400px;
-  padding: 20px;
+  padding: 20px 30px;
   z-index: 10;
   border-radius: 5px;
   line-height: 1.5;
@@ -4298,7 +4302,6 @@ body {
   border: unset;
   cursor: pointer;
   font-size: 21px;
-  transform: rotate(45deg);
   line-height: 0.5;
   padding: unset;
 }
