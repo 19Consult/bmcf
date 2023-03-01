@@ -180,6 +180,15 @@ jQuery(document).ready(function ($) {
             }});
     });
 
+	$('.alert-box button.close').click(function(){
+		$(this).parents('.alert-box').remove()
+	})
+
+	if( $('.alert-box').length > 0 ) {
+		setTimeout(() => {
+			$('.alert-box').remove()
+		}, 5000);
+	}
 });
 
 var dt = new DataTransfer();
@@ -244,4 +253,6 @@ if( $('.nda-info__signature').length > 0) {
 		context.closePath();
 		draw = false;
 	});
+
+	
 }
