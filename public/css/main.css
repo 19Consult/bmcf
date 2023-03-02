@@ -4305,3 +4305,25 @@ body {
   line-height: 0.5;
   padding: unset;
 }
+
+.btn.btn--solid.delete-account.send {
+    background: red;
+    margin-left: 20px;
+}
+
+.account-deletion-confirmation .profile__wrapper{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+.account-deletion-confirmation .profile__wrapper .text-rb{
+    margin-bottom: 30px;
+    font-size: 25px;
+}
+
+.account-deletion-confirmation .btn.btn--solid.delete-account.send {
+    place-content: center;
+}
+
+

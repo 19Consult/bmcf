@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\UserDetail;
+use App\Models\accountDeletionConfirmation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
-
+use Illuminate\Support\Facades\Mail;
+use App\Mail\MailAccountDeletionConfirmation;
 
 class HomeController extends Controller
 {
@@ -117,6 +119,29 @@ class HomeController extends Controller
         return redirect()->back()->with('success', 'Changes saved successfully!');
 
     }
+
+    public function accountDeletionConfirmation(){
+        return view('account-deletion-confirmation');
+    }
+
+    public function sendDeleteAccount(Request $request){
+
+        accountDeletionConfirmation::create([
+            'user_id' => Auth::id(),
+        ]);
+
+        $emails = '';
+        $admins = User::where('role', 1)->get();
+        if(!empty($admins)){
+            foreach ($admins as $user) {
+                $emails .= $user->email . ',';
+            }
+            Mail::to($emails)->send(new MailAccountDeletionConfirmation());
+        }
+
+        return redirect(route("profile"))->with('success', 'Account deletion request sent!');
+    }
+
 
 
 }

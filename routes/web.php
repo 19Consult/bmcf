@@ -49,12 +49,18 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [HomeController::class, 'profile'])->name('profile');
     Route::post('/profile/save', [HomeController::class, 'profileSave'])->name('profileSave');
 
+    // Account deletion confirmation
+    Route::get('/profile/account-deletion-confirmation', [HomeController::class, 'accountDeletionConfirmation'])->name('AccountDeletionConfirmation');
+    Route::post('/profile/send-delete-account', [HomeController::class, 'sendDeleteAccount'])->name('sendDeleteAccount');
+
     // ajax cities
     Route::post('/ajax-get-cities', [CountryController::class, 'ajaxGetCities']);
 
     Route::prefix('admin')->middleware(['admin'])->group(function () {
         Route::get('/', [AdminController::class, 'index'])->name('admin.dashboard');
         Route::get('/users', [AdminController::class, 'users'])->name('admin.users');
+        Route::get('/users-delete', [AdminController::class, 'usersDelete'])->name('admin.usersDelete');
+        Route::post('/users/{id}/delete', [AdminController::class, 'deleteUser'])->name('admin.users.delete');
 
         Route::post('/users/{id}/block', [AdminController::class, 'block'])->name('admin.users.block');
         Route::post('/users/{id}/unblock', [AdminController::class, 'unblock'])->name('admin.users.unblock');

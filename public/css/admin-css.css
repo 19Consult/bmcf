@@ -102,30 +102,9 @@
 .pagination nav span[aria-current=page] {
     text-decoration: underline;
 }
-/* .pagination nav span {
-    display: flex;
-} */
-
-/* .pagination li {
-    display: inline-block;
-    margin: 0 5px;
+button.btn.btn-sm.btn-success.link-user-edit.delete-user {
+    background: red;
+    border: 0;
+    padding: 8px 10px;
+    font-size: 14px;
 }
-
-.pagination li a {
-    display: block;
-    padding: 5px 10px;
-    border: 1px solid #ccc;
-    color: #333;
-}
-
-.pagination li.active a {
-    background-color: #333;
-    color: #fff;
-    border-color: #333;
-}
-
-.pagination li.disabled a {
-    opacity: 0.5;
-    pointer-events: none;
-}
- */
