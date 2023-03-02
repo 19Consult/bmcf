@@ -1,0 +1,131 @@
+.sidebar.admin-panel a{
+    display: flex;
+    align-items: center;
+    color: white;
+}
+
+.sidebar.admin-panel span{
+    padding-left: 5px;
+}
+
+.admin-users .profile__wrapper{
+    margin: 10px;
+}
+
+.admin-users .profile__wrapper .container-user{
+    border: 1px solid #303e65;
+    margin-top: 10px;
+    border-radius: 5px;
+    background: #f8faff;
+}
+
+.admin-users .container-data-user{
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-weight: 300;
+    font-size: 18px;
+}
+
+.admin-users .container-data-user .section-2{
+    width: 70%;
+    border-left: 1px solid #303e654a;
+}
+
+.admin-users .container-data-user .section-3 {
+    width: 20% !important;
+}
+.admin-users .container-data-user .section-1 {
+    width: 100%;
+}
+
+.admin-users .link-user-edit {
+    color: white;
+    font-weight: 500;
+    background: #303e65;
+    padding: 2px 10px;
+    border-radius: 5px;
+}
+
+.section-1 div, .section-2 div{
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.section-2 div{
+    padding-left: 10px;
+}
+
+.admin-users .form-admin-sort .select2-container{
+    width: auto !important;
+}
+
+.admin-users .form-admin-sort .select2-selection__arrow{
+    padding-left: 4px;
+}
+
+.pagination {
+    width: max-content;
+    margin-left: auto;
+}
+.pagination nav {
+    display: flex;
+    padding: 20px 0;
+    margin-left: auto;
+}
+.pagination nav .flex:nth-child(1) {
+    display: none;
+}
+.pagination nav svg {
+    width: 20px;
+    height: 20px;
+}
+.pagination nav > .hidden {
+    display: flex;
+    align-items: center;
+    column-gap: 20px;
+}
+.pagination nav span.relative {
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+    justify-content: end;
+}
+.pagination nav span[aria-disabled=true] {
+    opacity: 0.4;
+}
+.pagination nav span.relative a[rel=prev],
+.pagination nav span.relative a[rel=next] {
+    font-size: 0;
+}
+.pagination nav span[aria-current=page] {
+    text-decoration: underline;
+}
+/* .pagination nav span {
+    display: flex;
+} */
+
+/* .pagination li {
+    display: inline-block;
+    margin: 0 5px;
+}
+
+.pagination li a {
+    display: block;
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    color: #333;
+}
+
+.pagination li.active a {
+    background-color: #333;
+    color: #fff;
+    border-color: #333;
+}
+
+.pagination li.disabled a {
+    opacity: 0.5;
+    pointer-events: none;
+}
+ */
