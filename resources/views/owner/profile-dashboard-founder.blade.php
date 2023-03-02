@@ -154,6 +154,12 @@
                     <button type="submit" class="btn btn--solid btn--arrow send">Submit & Start Project</button>
 
                 </form>
+
+                @if(\App\Models\accountDeletionConfirmation::checkDeletionConfirmation())
+                    <div>Account deletion request sent</div>
+                @else
+                    <a href="{{route("AccountDeletionConfirmation")}}" class="btn btn--solid delete-account send">Delete account</a>
+                @endif
             </div>
         </div>
     </main>

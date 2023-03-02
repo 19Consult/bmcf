@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\UserDetail;
+use App\Models\accountDeletionConfirmation;
 use Illuminate\Http\Request;
 use League\Csv\Writer;
 
@@ -39,8 +41,7 @@ class AdminController extends Controller
         ]);
     }
 
-    public function block($id)
-    {
+    public function block($id){
         $user = User::find($id);
         $user->is_blocked = true;
         $user->save();
@@ -48,8 +49,7 @@ class AdminController extends Controller
         return redirect()->back()->with('success', 'User has been blocked.');
     }
 
-    public function unblock($id)
-    {
+    public function unblock($id){
         $user = User::find($id);
         $user->is_blocked = false;
         $user->save();
@@ -190,6 +190,36 @@ class AdminController extends Controller
         return response()->streamDownload(function() use ($csv) {
             echo $csv->getContent();
         }, 'users.csv', $headers);
+    }
+
+    public function usersDelete(){
+        $data['title_page'] = 'Delete users';
+
+        $users = [];
+        $delete_users = accountDeletionConfirmation::all();
+        if (!empty($delete_users)){
+            foreach ($delete_users as $val){
+                $users[] = User::where('id', $val->user_id)
+                    ->with('detail')
+                    ->get();
+            }
+            $data['users'] = $users;
+        }
+
+        return view("admin.users-delete", [
+            'data' => $data,
+        ]);
+    }
+
+    public function deleteUser(Request $request, $id){
+        $email = $request->get('email');
+        //delete user
+        User::find($id)->delete();
+        accountDeletionConfirmation::where('user_id', $id)->delete();
+        UserDetail::where('user_id', $id)->delete();
+        //email user
+
+        return redirect()->back()->with('success', 'User deleted successfully.');
     }
 
 }
