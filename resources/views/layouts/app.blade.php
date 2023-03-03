@@ -9,6 +9,7 @@
 
     <title>{{ config('app.name', 'COFOUNDER') }}</title>
     <link rel="icon" href="{{asset("img/favicon.svg")}}" type="image/svg+xml" />
+    <link rel="stylesheet" href="{{asset("css/intlTelInput.min.css")}}" />
     <link rel="stylesheet" href="{{asset("css/main.css")}}" />
 </head>
 <body>
@@ -19,6 +20,7 @@
 <script src="{{asset("js/libs/jquery.scrollbar.min.js")}}"></script>
 <script src="{{asset("js/libs/select2.min.js")}}"></script>
 <script src="{{asset("js/libs/jquery.inputmask.min.js")}}"></script>
+<script src="{{asset("js/intlTelInput.min.js")}}"> </script>
 <script src="{{asset("js/main.js")}}"> </script>
 </body>
 </html>
