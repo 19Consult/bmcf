@@ -12,3 +12,9 @@ window.addEventListener('beforeunload', function(e) {
         return 'You have not saved your data. Are you sure you want to reload the page?';
     }
 });
+
+function saveBtn(){
+    unsavedChanges = false;
+    let form = document.querySelector('form');
+    form.submit();
+}
