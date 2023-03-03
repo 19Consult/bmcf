@@ -130,11 +130,11 @@ class HomeController extends Controller
             'user_id' => Auth::id(),
         ]);
 
-        $emails = '';
+        $emails = [];
         $admins = User::where('role', 1)->get();
         if(!empty($admins)){
             foreach ($admins as $user) {
-                $emails .= $user->email . ',';
+                $emails[] = $user->email;
             }
             Mail::to($emails)->send(new MailAccountDeletionConfirmation());
         }
