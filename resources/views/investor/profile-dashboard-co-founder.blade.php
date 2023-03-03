@@ -165,13 +165,19 @@
                             </div>
                         </div>
                     </div>
-                </div><button type="submit" class="btn btn--solid btn--arrow send">Save</button>
+                </div>
+
+                <div class="form-profile__bottom">
+                    @if(\App\Models\accountDeletionConfirmation::checkDeletionConfirmation())
+                        <div class="warning-box">Account deletion request sent</div>
+                    @else
+                        <a href="{{route("AccountDeletionConfirmation")}}" class="btn btn--solid delete-account send">Delete account</a>
+                    @endif
+                    <button type="submit" class="btn btn--solid btn--arrow send">Save</button>
+                </div>
+
             </form>
-            @if(\App\Models\accountDeletionConfirmation::checkDeletionConfirmation())
-                <div>Account deletion request sent</div>
-            @else
-                <a href="{{route("AccountDeletionConfirmation")}}" class="btn btn--solid delete-account send">Delete account</a>
-            @endif
+            
         </div>
     </div>
 </main>

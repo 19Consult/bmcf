@@ -641,6 +641,7 @@ form.type-1 .btn {
   width: 214px;
   font-size: 14px;
 }
+
 .nav__search {
   margin-right: 37px;
   width: 20px;
@@ -751,6 +752,10 @@ span.select2-dropdown .select2-results__option:nth-child(1) {
   margin: 0 auto;
   padding: 30px 0;
   max-width: 1350px;
+}
+.form-profile__bottom {
+  display: flex;
+  align-items: center;
 }
 .form-profile .row {
   display: -webkit-box;
@@ -921,6 +926,7 @@ input[type=checkbox] + label::before {
 }
 .dashboard-wrapper .profile__wrapper {
   width: 100%;
+  padding: 0 20px;
 }
 .dashboard-wrapper .sidebar {
   display: -webkit-box;
@@ -4282,7 +4288,7 @@ body {
   }
 }
 
-.alert-box {
+.alert {
   position: fixed;
   right: 10px;
   bottom: 10px;
@@ -4294,7 +4300,7 @@ body {
   border-radius: 5px;
   line-height: 1.5;
 }
-.alert-box .close {
+.alert .close {
   position: absolute;
   right: 10px;
   top: 10px;
@@ -4306,9 +4312,21 @@ body {
   padding: unset;
 }
 
+.alert-success {
+  position: fixed;
+  top: 7px;
+  bottom: unset;
+  right: unset;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.alert-dismissible {
+  color: #00b300;
+}
+
 .btn.btn--solid.delete-account.send {
-    background: red;
-    margin-left: 20px;
+  background: red;
+  margin-left: 7.4%;
 }
 
 .account-deletion-confirmation .profile__wrapper{
@@ -4323,7 +4341,20 @@ body {
 }
 
 .account-deletion-confirmation .btn.btn--solid.delete-account.send {
-    place-content: center;
+    justify-content: center;
 }
 
-
+.warning-box {
+  position: fixed;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  background: #fff;
+  padding: 20px 30px;
+  color: red;
+  font-weight: 700;
+  font-size: 18px;
+  border-radius: 10px;
+  box-shadow: 0 0 5px #cccccc80;
+}
