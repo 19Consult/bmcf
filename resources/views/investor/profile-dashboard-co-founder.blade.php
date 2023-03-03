@@ -177,10 +177,11 @@
                 </div>
 
             </form>
-            
+
         </div>
     </div>
 </main>
 
+<script src="{{asset("js/form.js")}}"> </script>
 @endsection
 
