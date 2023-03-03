@@ -222,11 +222,11 @@ class AdminController extends Controller
         UserDetail::where('user_id', $id)->delete();
 
         //send email user
-//        try {
+        try {
             Mail::to($email)->send(new AccountDeletionNotification());
-//        } catch (\Exception $e) {
-//            $e->getMessage();
-//        }
+        } catch (\Exception $e) {
+            $e->getMessage();
+        }
 
         return redirect()->back()->with('success', 'User deleted successfully.');
     }
