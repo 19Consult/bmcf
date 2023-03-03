@@ -150,7 +150,7 @@ img {
   --color-second: #439BB7;
   --color-white: #fff;
   --color-warning: #EB5757;
-  --color-warning-2: #ED190C;
+  --color-warning-2: #f0352b;
   --color-1: #F6F9FF;
   --color-2: #F8FAFF;
   --color-3: #7583AA;
@@ -158,6 +158,7 @@ img {
   --color-5: #ECEFF7;
   --color-6: #303E65;
   --color-7: #ECEFF7;
+  --color-success: #73E79A;
   --anim4: 0.4s ease-in-out;
   --anim2: 0.2s ease-in-out;
   --anim1: 0.1s ease;
@@ -922,7 +923,7 @@ input[type=checkbox] + label::before {
   display: -ms-flexbox;
   display: flex;
   overflow: hidden;
-  min-height: calc(100vh - 82px);
+  min-height: 100vh;
 }
 .dashboard-wrapper .profile__wrapper {
   width: 100%;
@@ -4319,13 +4320,12 @@ body {
   right: unset;
   left: 50%;
   transform: translateX(-50%);
-}
-.alert-dismissible {
-  color: #00b300;
+  z-index: 100;
+  color: var(--color-success);
 }
 
 .btn.btn--solid.delete-account.send {
-  background: red;
+  background: var(--color-warning-2);
   margin-left: 7.4%;
 }
 
@@ -4352,7 +4352,7 @@ body {
   z-index: 10;
   background: #fff;
   padding: 20px 30px;
-  color: red;
+  color: var(--color-warning-2);
   font-weight: 700;
   font-size: 18px;
   border-radius: 10px;
