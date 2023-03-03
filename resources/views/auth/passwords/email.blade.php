@@ -15,14 +15,17 @@
                 </div>
                 <div class="col right">
 
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+
 
                     <form class="type-1" method="POST" action="{{ route('password.email') }}">
                         @csrf
+
+                        @if (session('status'))
+                            <div class="alert alert-success" role="alert">
+                                {{ session('status') }}
+                            </div>
+                        @endif
+
                         <div class="form_input_wrap">
 
                             @error('email')
