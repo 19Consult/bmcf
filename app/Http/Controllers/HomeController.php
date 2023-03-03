@@ -53,6 +53,7 @@ class HomeController extends Controller
         }
 
         $data['allCountry'] = (new CountryController)->allCountries();
+        unset($data['allCountry']['EU']);
 
         if(User::checkOwner()){
             return view("owner.profile-dashboard-founder", ['data' => $data]);
