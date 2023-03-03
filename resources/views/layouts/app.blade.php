@@ -20,7 +20,7 @@
 <script src="{{asset("js/libs/jquery.scrollbar.min.js")}}"></script>
 <script src="{{asset("js/libs/select2.min.js")}}"></script>
 <script src="{{asset("js/libs/jquery.inputmask.min.js")}}"></script>
-<script src="{{asset("js/intlTelInput.min.js")}}"> </script>
+<script src="{{asset("js/libs/intlTelInput.min.js")}}"> </script>
 <script src="{{asset("js/main.js")}}"> </script>
 </body>
 </html>
