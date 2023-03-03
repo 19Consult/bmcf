@@ -11,11 +11,11 @@
                 <div class="home-page__middle">
                     <div class="col left">
                         <div class="home-page__title-top">Account</div>
-                        <h2 class="home-page__title">{{ __('Reset Password') }}</h2>
+                        <h2 class="home-page__title">{{ __('New Password') }}</h2>
                     </div>
                     <div class="col right">
 
-                        <form method="POST" action="{{ route('password.update') }}">
+                        <form method="POST" action="{{ route('password.update') }}" class="type-1">
                             @csrf
 
                             <input type="hidden" name="token" value="{{ $token }}">
