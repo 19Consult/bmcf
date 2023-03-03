@@ -157,7 +157,7 @@
                         @else
                             <a href="{{route("AccountDeletionConfirmation")}}" class="btn btn--solid delete-account send">Delete account</a>
                         @endif
-                        <button type="submit" class="btn btn--solid btn--arrow send">Submit & Start Project</button>
+                        <button type="submit" class="btn btn--solid btn--arrow send send-form">Submit & Start Project</button>
                     </div>
 
                 </form>

@@ -23,7 +23,7 @@ Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 /**
  * here are routes that are available only to unauthorized users
