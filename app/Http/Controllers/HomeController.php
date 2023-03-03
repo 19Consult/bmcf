@@ -136,7 +136,12 @@ class HomeController extends Controller
             foreach ($admins as $user) {
                 $emails[] = $user->email;
             }
-            Mail::to($emails)->send(new MailAccountDeletionConfirmation());
+            try {
+                Mail::to($emails)->send(new MailAccountDeletionConfirmation());
+            } catch (\Exception $e) {
+                $e->getMessage();
+            }
+
         }
 
         return redirect(route("profile"))->with('success', 'Account deletion request sent!');

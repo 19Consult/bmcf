@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\AccountDeletionNotification;
 use App\Models\User;
 use App\Models\UserDetail;
 use App\Models\accountDeletionConfirmation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use League\Csv\Writer;
 
 class AdminController extends Controller
@@ -213,11 +215,18 @@ class AdminController extends Controller
 
     public function deleteUser(Request $request, $id){
         $email = $request->get('email');
+
         //delete user
         User::find($id)->delete();
         accountDeletionConfirmation::where('user_id', $id)->delete();
         UserDetail::where('user_id', $id)->delete();
-        //email user
+
+        //send email user
+        try {
+            Mail::to($email)->send(new AccountDeletionNotification());
+        } catch (\Exception $e) {
+            $e->getMessage();
+        }
 
         return redirect()->back()->with('success', 'User deleted successfully.');
     }
