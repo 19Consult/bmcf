@@ -11,12 +11,12 @@ jQuery(document).ready(function ($) {
 		dropdownCssClass: 'select-dropdown',
 	})
 
+	// $('input[type="tel"]').inputmask({ "mask": "+43 699 999999" });
+
 	const fileUploader = document.getElementById('file-uploader');
 	const reader = new FileReader();
 	const imageWrap = document.getElementById('show-photo-wrapper');
 	const imageGrid = document.getElementById('show-photo');
-
-	$('input[type="tel"]').inputmask({ "mask": "+43 699 999999" });
 
 	if (fileUploader) {
 		fileUploader.addEventListener('change', (event) => {
@@ -27,6 +27,7 @@ jQuery(document).ready(function ($) {
 
 			reader.addEventListener('load', (event) => {
 				const img = document.createElement('img');
+				imageGrid.querySelector('img').remove();
 				imageGrid.appendChild(img);
 				img.src = event.target.result;
 				img.alt = file.name;
@@ -115,7 +116,8 @@ jQuery(document).ready(function ($) {
 
 	$('.scrollbar-inner').scrollbar();
 
-	$('input[type=file]').on('change', function () {
+
+	$('input[type=file][name="file"]').on('change', function () {
 		let $files_list = $(this).parents('.add-file-field').siblings('.add-file-input-text');
 		$files_list.empty();
 
@@ -187,9 +189,54 @@ jQuery(document).ready(function ($) {
 	if( $('.alert-box').length > 0 ) {
 		setTimeout(() => {
 			$('.alert-box').remove()
-		}, 5000);
+		}, 7000);
 	}
+
+	
 });
+
+$(function () {
+	var input = document.querySelectorAll("input[type=tel]");
+	var iti_el = $('.iti.iti--allow-dropdown.iti--separate-dial-code');
+	if(iti_el.length){
+		iti.destroy();
+	}
+	
+	for(var i = 0; i < input.length; i++){
+		iti = intlTelInput(input[i], {
+			autoHideDialCode: false,
+			autoPlaceholder: "aggressive" ,
+			initialCountry: "auto",
+			separateDialCode: true,
+			preferredCountries: ['ua'],
+			customPlaceholder:function(selectedCountryPlaceholder,selectedCountryData){
+				return ''+selectedCountryPlaceholder.replace(/[0-9]/g,'X');
+			},
+			geoIpLookup: function(callback) {
+				$.get('https://ipinfo.io', function() {}, "jsonp").always(function(resp) {
+					var countryCode = (resp && resp.country) ? resp.country : "";
+					callback(countryCode);
+				});
+			},
+			utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/16.0.0/js/utils.js" 
+	});
+
+	$('input[type=tel]').on("focus click countrychange", function(e, countryData) {
+
+		var pl = $(this).attr('placeholder') + '';
+		var res = pl.replace( /X/g ,'9');
+		if(res != 'undefined'){
+			$(this).inputmask(res, {placeholder: "X", clearMaskOnLostFocus: true});
+		}
+	});
+	$('input[type=tel]').on("focusout", function(e, countryData) {
+		var intlNumber = iti.getNumber();
+		console.log(intlNumber);   
+	});
+}
+
+
+})
 
 var dt = new DataTransfer();
 
@@ -202,6 +249,7 @@ function removeFilesItem(target){
 			dt.items.remove(i);
 		}
 	}
+	input[0].files = dt.files;  
 }
 
 // signature
@@ -252,7 +300,5 @@ if( $('.nda-info__signature').length > 0) {
 		context.stroke();
 		context.closePath();
 		draw = false;
-	});
-
-	
+	});	
 }
