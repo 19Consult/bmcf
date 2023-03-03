@@ -46,7 +46,7 @@
                         <div class="col fields">
                             <div class="col row-field">
                                 <div class="form_input_wrap">
-                                    <input type="tel" id="phone" placeholder="+43 6XX XXXXXX" name="phone" required value="{{isset($data['userDetail']->phone) ? $data['userDetail']->phone : ''}}">
+                                    <input type="tel" id="phone"  name="phone" required value="{{isset($data['userDetail']->phone) ? $data['userDetail']->phone : ''}}">
                                     <label for="phone">Phone</label>
                                 </div>
                             </div>
