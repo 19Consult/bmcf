@@ -108,3 +108,7 @@ button.btn.btn-sm.btn-success.link-user-edit.delete-user {
     padding: 8px 10px;
     font-size: 14px;
 }
+.form-admin-sort{
+    display: flex;
+    column-gap: 10px;
+}
