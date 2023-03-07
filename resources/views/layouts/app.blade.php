@@ -7,7 +7,12 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'COFOUNDER') }}</title>
+    @if(\App\Models\User::checkAdmin())
+        <title>{{ config('app.name', 'COFOUNDER') }}</title>
+    @else
+        <title>{{\App\Models\User::getTitle()}}</title>
+    @endif
+
     <link rel="icon" href="{{asset("img/favicon.svg")}}" type="image/svg+xml" />
     <link rel="stylesheet" href="{{asset("css/intlTelInput.min.css")}}" />
     <link rel="stylesheet" href="{{asset("css/main.css")}}" />

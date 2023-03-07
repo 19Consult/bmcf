@@ -39,4 +39,11 @@ class CountryController extends Controller
     public function getNameCountry($code){
         return $this->countries->where('cca2', $code)->first()->name->common;
     }
+
+    public function getCodeCountry($code){
+        if(isset($this->countries->where('name.common', $code)->first()->cca2)){
+            return $this->countries->where('name.common', $code)->first()->cca2;
+        }
+        return false;
+    }
 }

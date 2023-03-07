@@ -24,13 +24,50 @@ class AdminController extends Controller
     public function users(Request $request){
 
         $perPage = $request->input('perPage', 20);
-        $sortField = $request->input('sortField', 'created_at');
+        $sortField = $request->input('sortField', 'id');
         $sortOrder = $request->input('sortOrder', 'desc');
+
+        $searchTerm = $request->input('searchTerm', '');
+        $searchTermResult = $searchTerm;
+
+        $country_code = (new CountryController)->getCodeCountry($searchTerm);
+
+        if ($country_code){
+            $searchTerm = $country_code;
+        }
 
         $data['title_page'] = 'Users';
 
-        $users = User::with('detail')
-            ->orderBy($sortField, $sortOrder)
+        $users = User::where(function ($query) use ($searchTerm) {
+            $query->where('email', 'LIKE', '%' . $searchTerm . '%')
+                ->orWhereHas('detail', function ($query) use ($searchTerm) {
+                    $query->where('user_id', 'LIKE', '%' . $searchTerm . '%')
+                        ->orWhere('first_name', 'LIKE', '%' . $searchTerm . '%')
+                        ->orWhere('last_name', 'LIKE', '%' . $searchTerm . '%')
+                        ->orWhere('date_of_birth', 'LIKE', '%' . $searchTerm . '%')
+                        ->orWhere('phone', 'LIKE', '%' . $searchTerm . '%')
+                        ->orWhere('company_name', 'LIKE', '%' . $searchTerm . '%')
+                        ->orWhere('occupation', 'LIKE', '%' . $searchTerm . '%')
+                        ->orWhere('street', 'LIKE', '%' . $searchTerm . '%')
+                        ->orWhere('postal_code', 'LIKE', '%' . $searchTerm . '%')
+                        ->orWhere('salutation', 'LIKE', '%' . $searchTerm . '%')
+                        ->orWhere('country', 'LIKE', '%' . $searchTerm . '%')
+                        ->orWhere('city', 'LIKE', '%' . $searchTerm . '%');
+                });
+            })
+            ->with('detail')
+            ->when($sortField, function ($query) use ($sortField, $sortOrder) {
+                switch ($sortField) {
+                    case 'last_name':
+                        return $query->orderBy(UserDetail::select('last_name')->whereColumn('users_details.user_id', 'users.id'), $sortOrder);
+                    case 'company_name':
+                        return $query->orderBy(UserDetail::select('company_name')->whereColumn('users_details.user_id', 'users.id'), $sortOrder);
+                    case 'country':
+                        return $query->orderBy(UserDetail::select('country')->whereColumn('users_details.user_id', 'users.id'), $sortOrder);
+                    default:
+                        return $query->orderBy($sortField, $sortOrder);
+                }
+            })
             ->paginate($perPage);
 
         $data['users'] = $users;
@@ -40,6 +77,8 @@ class AdminController extends Controller
             'data' => $data,
             'perPage' => $perPage,
             'sortOrder' => $sortOrder,
+            'searchTerm' => $searchTermResult,
+            'sortField' => $sortField,
         ]);
     }
 

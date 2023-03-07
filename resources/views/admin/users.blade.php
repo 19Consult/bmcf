@@ -11,15 +11,31 @@
                 <form method="GET" action="{{ route('admin.users') }}" class="form-admin-sort">
 
                     <select name="sortOrder" onchange="this.form.submit()">
-                        <option value="asc" {{ $perPage == 'asc' ? 'selected' : '' }}>ASC</option>
-                        <option value="desc" {{ $perPage == 'desc' ? 'selected' : '' }}>DESC</option>
+                        <option></option>
+                        <option value="asc" {{ $sortOrder == 'asc' ? 'selected' : '' }}>ASC</option>
+                        <option value="desc" {{ $sortOrder == 'desc' ? 'selected' : '' }}>DESC</option>
                     </select>
 
                     <select name="perPage" onchange="this.form.submit()">
+                        <option></option>
                         <option value="20" {{ $perPage == 20 ? 'selected' : '' }}>20</option>
                         <option value="30" {{ $perPage == 30 ? 'selected' : '' }}>30</option>
                         <option value="50" {{ $perPage == 50 ? 'selected' : '' }}>50</option>
                     </select>
+
+                    <select class="class-sortField" name="sortField" onchange="this.form.submit()">
+                        <option></option>
+                        <option value="id" {{ $sortField == 'id' ? 'selected' : '' }}>Id</option>
+                        <option value="last_name" {{ $sortField == 'last_name' ? 'selected' : '' }}>Last Name</option>
+                        <option value="company_name" {{ $sortField == 'company_name' ? 'selected' : '' }}>Company name</option>
+                        <option value="country" {{ $sortField == 'country' ? 'selected' : '' }}>Country</option>
+                    </select>
+
+                    <div class="form_input_wrap">
+                        <input type="text" placeholder="Search" name="searchTerm" value="{{isset($searchTerm) ? $searchTerm : ''}}">
+                    </div>
+
+                    <button type="submit" class="btn btn--solid btn--arrow send send-form">Search</button>
 
                 </form>
 
@@ -35,6 +51,7 @@
                                 <div>User ID: {{($user->id)}}</div>
                                 <div>Role: {{$userRole->name}}</div>
                                 <div>Email: {{$user->email}}</div>
+                                <div>Phone: {{!empty($user->detail->phone) ? $user->detail->phone : ''}}</div>
                                 <div>Salutation: {{!empty($user->detail->salutation) ? $user->detail->salutation : ''}}</div>
                                 <div>First Name: {{!empty($user->detail->first_name) ? $user->detail->first_name : ''}}</div>
                                 <div>Last Name: {{!empty($user->detail->last_name) ? $user->detail->last_name : ''}}</div>
