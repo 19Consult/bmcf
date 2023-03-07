@@ -53,6 +53,7 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     public static function checkAdmin(){
+        if (empty(Auth::user()->role )){return false;}
         return (Auth::user()->role == 1);
     }
 
@@ -61,5 +62,17 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasOne(UserDetail::class);
     }
 
+    public function getTitle(){
+        $title = '';
+        if (empty(Auth::user()->role )){return $title;}
+
+        $role_id = Auth::user()->role;
+        if ($role_id == 2){
+            $title = 'Founder';
+        } elseif ($role_id = 3){
+            $title = 'Investor';
+        }
+        return $title;
+    }
 
 }
