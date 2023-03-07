@@ -741,6 +741,8 @@ span.select2-dropdown {
   border: unset;
   color: var(--color-6);
   background-color: var(--color-2);
+  width: max-content !important;
+  box-shadow: 5px 6px 8px -5px #00000014;
 }
 span.select2-dropdown .select2-results__option {
   padding: 11px 20px;
