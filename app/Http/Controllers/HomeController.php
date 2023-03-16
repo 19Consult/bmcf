@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\MailAccountDeletionConfirmation;
+use App\Models\Projects;
 
 class HomeController extends Controller
 {
@@ -33,13 +34,21 @@ class HomeController extends Controller
         if (User::checkAdmin()){
             return redirect(route("admin.dashboard"));
         }
+        if (User::checkInvestor()){
+            return redirect(route("homeInvestor"));
+        }
 
         $user_detail = UserDetail::where('user_id', Auth::id())->first();
         if (!$user_detail && !User::checkAdmin()){
             return redirect(route("profile"));
         }
+        $data['title_page'] = 'My Projects';
+        $user_detail = UserDetail::where('user_id', Auth::id())->first();
+        $data['user_photo'] = $user_detail->photo;
 
-        return view('home');
+        $data['projects'] = Projects::where("user_id", Auth::id())->get();
+
+        return view('home', ['data' => $data]);
     }
 
     public function profile(){

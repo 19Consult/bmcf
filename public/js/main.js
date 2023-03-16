@@ -1,3 +1,11 @@
+// import * as CKEDITOR from 'ckeditor/ckeditor/ckeditor.js';
+// export default CKEDITOR;
+// import ClassicEditor from 'ckeditor4';
+// const editor = CKEDITOR.create( document.querySelector( '#editor' ) );
+//
+//
+// CKEDITOR.replace('editor');
+
 jQuery(document).ready(function ($) {
 	$('body').on('click', '.show-password', function () {
 		if ($(this).is(':checked')) {
@@ -192,7 +200,7 @@ jQuery(document).ready(function ($) {
 		}, 7000);
 	}
 
-	
+
 });
 
 $(function () {
@@ -201,7 +209,7 @@ $(function () {
 	if(iti_el.length){
 		iti.destroy();
 	}
-	
+
 	for(var i = 0; i < input.length; i++){
 		iti = intlTelInput(input[i], {
 			autoHideDialCode: false,
@@ -218,7 +226,7 @@ $(function () {
 					callback(countryCode);
 				});
 			},
-			utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/16.0.0/js/utils.js" 
+			utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/16.0.0/js/utils.js"
 	});
 
 	$('input[type=tel]').on("focus click countrychange", function(e, countryData) {
@@ -231,7 +239,7 @@ $(function () {
 	});
 	$('input[type=tel]').on("focusout", function(e, countryData) {
 		var intlNumber = iti.getNumber();
-		console.log(intlNumber);   
+		console.log(intlNumber);
 	});
 }
 
@@ -249,7 +257,7 @@ function removeFilesItem(target){
 			dt.items.remove(i);
 		}
 	}
-	input[0].files = dt.files;  
+	input[0].files = dt.files;
 }
 
 // signature
@@ -300,5 +308,5 @@ if( $('.nda-info__signature').length > 0) {
 		context.stroke();
 		context.closePath();
 		draw = false;
-	});	
+	});
 }

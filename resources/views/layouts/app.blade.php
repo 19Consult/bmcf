@@ -27,5 +27,9 @@
 <script src="{{asset("js/libs/jquery.inputmask.min.js")}}"></script>
 <script src="{{asset("js/libs/intlTelInput.min.js")}}"> </script>
 <script src="{{asset("js/main.js")}}"> </script>
+
+    <script src="{{asset("js/libs/ckeditor/ckeditor.js")}}"> </script>
+{{--    <script src="//cdn.ckeditor.com/4.20.2/standard/ckeditor.js"></script>--}}
+
 </body>
 </html>

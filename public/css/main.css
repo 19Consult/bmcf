@@ -4358,3 +4358,28 @@ body {
   border-radius: 10px;
   box-shadow: 0 0 5px #cccccc80;
 }
+
+.project-create__top-img.show {
+    height: 270px;
+    overflow: hidden;
+    display: flex;
+}
+.project-create__top-img.show img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.name-project-title input {
+    background: var(--color-7) !important;
+}
+.project-preview__author-img {
+    width: 32px;
+    height: 32px;
+    border-radius: 100%;
+    overflow: hidden;
+    font-size: 0;
+}
+.project__favorite.active {
+    background: url("../img/icons/icon-favorite-active.svg") no-repeat;
+}
