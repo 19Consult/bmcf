@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\InvestorController;
 use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\RegistController;
 use Illuminate\Support\Facades\Route;
@@ -46,6 +47,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 
+    Route::get('/home-investor', [InvestorController::class, 'indexInvestor'])->name('homeInvestor');
+
     Route::get('/profile', [HomeController::class, 'profile'])->name('profile');
     Route::post('/profile/save', [HomeController::class, 'profileSave'])->name('profileSave');
 
@@ -55,6 +58,18 @@ Route::middleware(['auth'])->group(function () {
 
     // ajax cities
     Route::post('/ajax-get-cities', [CountryController::class, 'ajaxGetCities']);
+
+    // project
+    Route::get('/create-project', [OwnerController::class, 'createProject'])->name('createProject');
+    Route::post('/create-project/save', [OwnerController::class, 'saveProject'])->name('saveProject');
+
+    Route::get('/project/{id}', [OwnerController::class, 'viewProject'])->name('viewProject');
+
+//    Route::get('/project-list', [OwnerController::class, 'listProject'])->name('listProject');
+
+    Route::post('/project/counter-projects-views', [InvestorController::class, 'counterProjectsViews'])->name('counterProjectsViews');
+    Route::post('/project/favorite', [InvestorController::class, 'favoriteProject'])->name('favoriteProject');
+
 
     Route::prefix('admin')->middleware(['admin'])->group(function () {
         Route::get('/', [AdminController::class, 'index'])->name('admin.dashboard');
