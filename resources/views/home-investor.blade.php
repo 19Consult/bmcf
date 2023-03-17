@@ -171,7 +171,7 @@
                                     <div class="project__title counter-project-view" data-project-id="{{$val->id}}">{{isset($val->name_project) ? $val->name_project : ''}}</div>
                                     <div class="project__subtitle">Social</div>
                                 </div>
-                                <div class="project__favorite favorite-projid-{{$val->id}}" project-id="{{$val->id}}"></div>
+                                <div class="project__favorite favorite-projid-{{$val->id}} {{in_array($val->id, $data['favorite_project']) ? 'active' : ''}}" project-id="{{$val->id}}"></div>
                             </div>
                             <div class="project__content bottom">
                                 <div class="project__views">
@@ -234,6 +234,10 @@
                                         $(".pr-photo-project").attr("src", "img/project-img-full.webp")
                                     }
 
+                                    if(data.favorite_bool){
+                                        $(".favorite-pop").addClass("active")
+                                        $(".favorite-pop").attr("project-id", project_id)
+                                    }
 
                                 },
                                 error: function(xhr, textStatus, errorThrown) {
@@ -259,10 +263,13 @@
                                 data: data,
                                 success: function(data) {
                                     let favoriteClass = $(`.favorite-projid-${project_id}`);
+                                    let favoriteClassPopUp = $(`.favorite-pop`);
                                     if(data.success){
                                         favoriteClass.addClass("active")
+                                        favoriteClassPopUp.addClass("active")
                                     }else {
                                         favoriteClass.removeClass("active")
+                                        favoriteClassPopUp.removeClass("active")
                                     }
                                 },
                                 error: function(xhr, textStatus, errorThrown) {
@@ -297,7 +304,7 @@
                                 <div class="project-preview__interested-title">Investors Interested</div>
                                 <div class="project-preview__interested-quantity">24</div>
                             </div>
-                            <div class="project-preview__favorite"></div>
+                            <div class="project__favorite favorite-pop" project-id=""></div>
                         </div>
                         <div class="project-preview__description pr-project-story">Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica, sport etc, litot Europa usa li sam vocabular. Li lingues differe solmen in li grammatica, li pronunciation e li plu commun vocabules. Omnicos directe al desirabilite de un nov lingua franca: On refusa continuar payar custosi traductores. At solmen va esser necessi far uniform grammatica, pronunciation e plu sommun paroles.</div>
                         <div class="project-preview__author">
