@@ -65,6 +65,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/project/{id}', [OwnerController::class, 'viewProject'])->name('viewProject');
 
+    Route::get('/project-favorites', [InvestorController::class, 'viewProjectFavorites'])->name('viewProjectFavorites');
+
 //    Route::get('/project-list', [OwnerController::class, 'listProject'])->name('listProject');
 
     Route::post('/project/counter-projects-views', [InvestorController::class, 'counterProjectsViews'])->name('counterProjectsViews');

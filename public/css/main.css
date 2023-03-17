@@ -4385,3 +4385,6 @@ body {
 .project__favorite.active {
     background: url("../img/icons/icon-favorite-active.svg") no-repeat;
 }
+.favorite-link-sidebar{
+    align-self: center;
+}
