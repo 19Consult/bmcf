@@ -18,3 +18,8 @@ function saveBtn(){
     let form = document.querySelector('form');
     form.submit();
 }
+
+let btn_send = document.querySelector(".send.send-form");
+btn_send.addEventListener('click', function() {
+    unsavedChanges = false;
+});
