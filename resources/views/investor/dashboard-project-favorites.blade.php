@@ -34,34 +34,7 @@
                         </div>
                     @endforeach
                 @endif
-
-                <div class="project__item-favorite-wrap">
-                    <div class="project__img"><img src="img/project-img.webp" alt="Project image"></div>
-                    <div class="project__content">
-                        <div class="project__title-wrap">
-                            <div class="project__title">The Athletic Buro</div>
-                            <div class="project__subtitle">Mark Jacob</div>
-                        </div>
-                    </div>
-                    <div class="project__type">
-                        <span>Sport</span>
-                        <span>Social</span>
-                    </div>
-                    <div class="project__icon-favorite"></div>
-                </div>
-                <div class="project__item-favorite-wrap">
-                    <div class="project__img"><img src="img/project-img.webp" alt="Project image"></div>
-                    <div class="project__content">
-                        <div class="project__title-wrap">
-                            <div class="project__title">The Athletic Buro</div>
-                            <div class="project__subtitle">Derec Roze</div>
-                        </div>
-                    </div>
-                    <div class="project__type"><span>Finance</span></div>
-                    <div class="project__icon-favorite"></div>
-                </div>
-
-
+                
             </div>
         </div>
     </div>

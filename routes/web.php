@@ -65,7 +65,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/project/{id}', [OwnerController::class, 'viewProject'])->name('viewProject');
 
-    Route::get('/project-favorites', [InvestorController::class, 'viewProjectFavorites'])->name('viewProjectFavorites');
+    // project-favorites (The page is created, and the functionality is hidden)
+    //Route::get('/project-favorites', [InvestorController::class, 'viewProjectFavorites'])->name('viewProjectFavorites');
 
 //    Route::get('/project-list', [OwnerController::class, 'listProject'])->name('listProject');
 
