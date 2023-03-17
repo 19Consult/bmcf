@@ -129,6 +129,9 @@ class HomeController extends Controller
         } else {
             $data['user_id'] = $user_id;
             UserDetail::create($data);
+            if(User::checkOwner()){
+                return redirect(route("createProject"));
+            }
         }
 
         return redirect()->back()->with('success', 'Changes saved successfully!');

@@ -4,14 +4,7 @@
 
 
 <main class="wrapper projects-search-v2">
-    <nav class="nav">
-        <div class="nav__logo"><img src="img/logo_dashboard.svg" alt="logo"></div>
-        <div class="nav__title">BeMy Cofounder</div>
-        <div class="nav__back"><span>Search Projects</span></div>
-        <div class="nav__right"><a class="nav__search" href="#"></a><a class="nav__notifications" href="#"></a>
-            <div class="nav__profile-img"><img src="img/user-2.webp" alt="User"></div>
-        </div>
-    </nav>
+    @include("layouts.nav-menu-home")
     <div class="dashboard-wrapper">
         @include("layouts.sidebar")
         <div class="projects-wrapper">
@@ -239,6 +232,8 @@
                                         $(".favorite-pop").attr("project-id", project_id)
                                     }
 
+                                    let link = '/project/' + project_id;
+                                    $(".rj-link-redirect").attr('href', link)
                                 },
                                 error: function(xhr, textStatus, errorThrown) {
                                     console.log(xhr.responseText); // replace with your own error callback function
@@ -314,7 +309,7 @@
                                 <div class="project-preview__author-position">Idea Owner</div>
                             </div>
                         </div>
-                        <div class="project-preview__description pr-founder-terms-condition">Hello I’m Mariam Li lingues differe solmen in li grammatica, li pronunciation e li plu commun vocabules. Omnicos directe al desirabilite de un nov lingua franca: On refusa continuar payar custosi traductores. At solmen va esser necessi far uniform grammatica, pronunciation e plu sommun paroles.</div><a class="btn--arrow btn--solid" href="#">Sign NDA and request full project access</a>
+                        <div class="project-preview__description pr-founder-terms-condition">Hello I’m Mariam Li lingues differe solmen in li grammatica, li pronunciation e li plu commun vocabules. Omnicos directe al desirabilite de un nov lingua franca: On refusa continuar payar custosi traductores. At solmen va esser necessi far uniform grammatica, pronunciation e plu sommun paroles.</div><a class="btn--arrow btn--solid rj-link-redirect" href="#">Sign NDA and request full project access</a>
                     </div>
                 </div>
             </div>

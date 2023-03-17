@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\FavoriteProject;
 use App\Models\User;
 use App\Models\UserDetail;
 use App\Models\Projects;
@@ -80,10 +81,6 @@ class OwnerController extends Controller
     }
 
     public function viewProject($id){
-        if (User::checkInvestor()){
-            return redirect(route("homeInvestor"));
-        }
-
         $data['title_page'] = 'Project';
         $user = Auth::user();
         $user_id = $user->id;
@@ -92,6 +89,19 @@ class OwnerController extends Controller
         $data['first_name'] = $user_detail->first_name;
         $data['last_name'] = $user_detail->last_name;
         $data['project'] = Projects::where('id', $id)->first();
+
+        if (User::checkInvestor()){
+            $user_detail = UserDetail::where('user_id', $data['project']->user_id)->first();
+            $data['user_photo'] = $user_detail->photo;
+            $data['first_name'] = $user_detail->first_name;
+            $data['last_name'] = $user_detail->last_name;
+            $data['about_you'] = $user_detail->about_you;
+            $data['favorite_project'] = FavoriteProject::where('user_id', Auth::id())->where('project_id', $data['project']->id)->first();
+            return view("investor.dashboard-project", [
+                'data' => $data,
+                'id_project' => $id,
+            ]);
+        }
 
         return view("owner.dashboard-create-project", [
             'data' => $data,
