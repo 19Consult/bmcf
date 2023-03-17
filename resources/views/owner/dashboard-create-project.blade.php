@@ -117,10 +117,10 @@
 
                                     if(!isEmptyOrSpaces(brief_description_project)){
                                         $(".brief_description_project").html(brief_description_project);
-                                        $(".brief_description_project").addClass("add-description");
+                                        $(".brief_description_project").addClass("add-description add-content");
                                     }else {
                                         $(".brief_description_project").html(start_brief_description_project);
-                                        $(".brief_description_project").removeClass("add-description");
+                                        $(".brief_description_project").removeClass("add-description add-content");
                                     }
 
                                     //close popup
@@ -140,10 +140,10 @@
 
                                     if(!isEmptyOrSpaces(editorValue)){
                                         $(".field_project_story").html(editorValue);
-                                        $(".field_project_story").addClass("add-project-story");
+                                        $(".field_project_story").addClass("add-project-story add-content");
                                     }else {
                                         $(".field_project_story").html(start_project_story);
-                                        $(".field_project_story").removeClass("add-project-story");
+                                        $(".field_project_story").removeClass("add-project-story add-content");
                                     }
 
                                     //close popup
@@ -165,10 +165,10 @@
 
                                     if(!isEmptyOrSpaces(editorValue)){
                                         $(".field-business-plan").html(editorValue);
-                                        $(".field-business-plan").addClass("add-business-plan");
+                                        $(".field-business-plan").addClass("add-business-plan add-content");
                                     }else {
                                         $(".field-business-plan").html(start);
-                                        $(".field-business-plan").removeClass("add-business-plan");
+                                        $(".field-business-plan").removeClass("add-business-plan add-content");
                                     }
 
                                     //close popup
@@ -188,16 +188,21 @@
 
                                     if(!isEmptyOrSpaces(editorValue)){
                                         $(".field-co-founder-terms-condition").html(editorValue);
-                                        $(".field-co-founder-terms-condition").addClass("add-co-founder-terms-condition");
+                                        $(".field-co-founder-terms-condition").addClass("add-co-founder-terms-condition add-content");
                                     }else {
                                         $(".field-co-founder-terms-condition").html(start);
-                                        $(".field-co-founder-terms-condition").removeClass("add-co-founder-terms-condition");
+                                        $(".field-co-founder-terms-condition").removeClass("add-co-founder-terms-condition add-content");
                                     }
 
                                     //close popup
                                     $(".popup.co-founder-terms-condition").removeClass("open");
 
                                 });
+                                
+                                // if field has content
+                                $('.field-add p').parents('.field-add').addClass('add-content')
+                                $('.field-add img').parents('.field-add').addClass('add-content')
+                            
 
 
                                 const projPhotoBtn = document.getElementById('proj-img-uploader');
