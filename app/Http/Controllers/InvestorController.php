@@ -30,6 +30,9 @@ class InvestorController extends Controller
         $data['projects'] = Projects::all();
 //        $data['projects'] = Projects::with('views')->get();
 
+
+        $data['favorite_project'] = FavoriteProject::where('user_id', Auth::id())->pluck('project_id')->toArray();
+
         return view('home-investor', ['data' => $data]);
     }
 
@@ -68,11 +71,14 @@ class InvestorController extends Controller
         $project_detail = Projects::where('id', $project_id)->first();
         $user_deteils = UserDetail::where('user_id', $project_detail->user_id)->first();
 
+        $favorite_project = FavoriteProject::where('user_id', Auth::id())->pluck('project_id')->toArray();
+
         return response()->json([
             'message' => 'Successfully!',
             'data' => $project_view,
             'project_detail' => $project_detail,
             'user_deteils' => $user_deteils,
+            'favorite_bool' => in_array($project_id, $favorite_project),
             ]);
     }
 
@@ -92,19 +98,21 @@ class InvestorController extends Controller
             $favorite_project->delete();
             return response()->json(['success' => false, 'data' => $favorite_project, 'project_id' => $project_id]);
         }
+    }
 
-//        if (!$post) {
-//            return response()->json(['error' => 'Post not found.'], 404);
-//        }
-//
-//        $user = auth()->user();
-//
-//        if (!$user->favorites()->where('post_id', $post->id)->exists()) {
-//            $user->favorites()->attach($post);
-//        }
+    public function viewProjectFavorites(){
+        if (User::checkAdmin()){
+            return redirect(route("admin.dashboard"));
+        }
+        $data['title_page'] = 'Favorite Projects';
 
-//        return response()->json(['success' => true, 'data' => $favorite_project]);
-//        return response()->json(['success' => true,]);
+        $favorite_project = FavoriteProject::where('user_id', Auth::id())->pluck('project_id')->toArray();
+
+        $data['projects'] = Projects::whereIn('id', $favorite_project)->get();
+
+//        var_export($data);
+
+        return view('investor.dashboard-project-favorites', ['data' => $data]);
     }
 
 }
