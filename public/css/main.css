@@ -1567,7 +1567,7 @@ input[type=checkbox] + label::before {
   flex-direction: row;
 }
 .project-preview__description {
-  max-height: 100px;
+  max-height: 150px;
   overflow: auto;
 }
 .project-preview__text {
