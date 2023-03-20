@@ -2,6 +2,145 @@
 
 @section('content')
 
+    <?php
+    $done_registration = true;
+    $done_tell_about_you = false;
+    $done_short_description = false;
+    $done_add_pictures = false;
+    $done_tell_your_story = false;
+    $done_business_plan = false;
+    $done_add_video_teaser = false;
+    $done_co_founder_conditions = false;
+    $done_found_co_founder = false;
+
+    if(!empty($data['about_you'])){
+        $done_tell_about_you = true;
+    }
+    if(!empty($data['project']->brief_description)){
+        $done_short_description = true;
+    }
+    if(!empty($data['project']->photo_project)){
+        $done_add_pictures = true;
+    }
+    if(!empty($data['project']->project_story)){
+        $done_tell_your_story = true;
+    }
+    if(!empty($data['project']->business_plan)){
+        $done_business_plan = true;
+    }
+    if(!empty($data['project']->youtube_link) || !empty($data['project']->vimeo_link)){
+        $done_add_video_teaser = true;
+    }
+    if(!empty($data['project']->co_founder_terms_condition)){
+        $done_co_founder_conditions = true;
+    }
+    if(false){
+        $done_found_co_founder = true;
+    }
+
+    $check_current = true;
+    ?>
+
+    <style>
+        .rj-short-description{
+            left: 27.4%;
+        }
+        .rj-add-pictures{
+            left: 38.4%;
+        }
+        .rj-tell-your-story{
+            left: 49.4%;
+        }
+        .rj-business-plan{
+            left: 60.4%;
+        }
+        .rj-add-video-teaser{
+            left: 71.4%;
+        }
+        .rj-co-founder-conditions{
+            left: 82.9%;
+        }
+        .rj-found-co-founder{
+            left: 93.9%;
+        }
+
+        .rjl-short-description::after{
+            width: 27.3%;
+        }
+        .rjl-add-pictures::after{
+            width: 38.4%;
+        }
+        .rjl-tell-your-story::after{
+            width: 49.5%;
+        }
+        .rjl-business-plan::after{
+            width: 60.6%;
+        }
+        .rjl-add-video-teaser::after{
+            width: 71.6%;
+        }
+        .rjl-co-founder-conditions::after{
+            width: 82.85%;
+        }
+        .rjl-found-co-founder::after{
+            width: 93.93%;
+        }
+    </style>
+
+    <?php
+    $chech_line = true;
+    $number_line = 2;
+    $chech_line_class = '';
+    $middle_line = '';
+    $present_process = 15;
+    if(!$done_short_description && $chech_line){
+        $chech_line_class = 'rj-short-description';
+        $chech_line = false;
+        $number_line = 3;
+        $middle_line = 'rjl-short-description';
+        $present_process = 30;
+    }elseif (!$done_add_pictures && $chech_line){
+        $chech_line_class = 'rj-add-pictures';
+        $chech_line = false;
+        $number_line = 4;
+        $middle_line = 'rjl-add-pictures';
+        $present_process = 45;
+    }elseif (!$done_tell_your_story && $chech_line){
+        $chech_line_class = 'rj-tell-your-story';
+        $chech_line = false;
+        $number_line = 5;
+        $middle_line = 'rjl-tell-your-story';
+        $present_process = 60;
+    }elseif (!$done_business_plan && $chech_line){
+        $chech_line_class = 'rj-business-plan';
+        $chech_line = false;
+        $number_line = 6;
+        $middle_line = 'rjl-business-plan';
+        $present_process = 75;
+    }elseif (!$done_add_video_teaser && $chech_line){
+        $chech_line_class = 'rj-add-video-teaser';
+        $chech_line = false;
+        $number_line = 7;
+        $middle_line = 'rjl-add-video-teaser';
+        $present_process = 90;
+    }elseif (!$done_co_founder_conditions && $chech_line){
+        $chech_line_class = 'rj-co-founder-conditions';
+        $chech_line = false;
+        $number_line = 8;
+        $middle_line = 'rjl-co-founder-conditions';
+        $present_process = 99;
+    }elseif (!$done_found_co_founder && $chech_line){
+        $chech_line_class = 'rj-found-co-founder';
+        $chech_line = false;
+        $number_line = 9;
+        $middle_line = 'rjl-found-co-founder';
+        $present_process = 100;
+    }
+
+    ?>
+
+
+
 <main class="wrapper project-create">
     @include("layouts.nav-menu", ['title_page' => $data['title_page']])
     <div class="dashboard-wrapper">
@@ -22,9 +161,19 @@
                         <div class="project-create__top-descr-top">
                             <div class="project-create__top-descr-top-title name-project-title">
                                 <input type="text" id="name_project" placeholder="Name project" name="name_project" value="{{!empty($data['project']->name_project) ? $data['project']->name_project : ''}}">
-                                <span>15%</span>
+                                <span class="present-process">{{$present_process}}%</span>
+                                <input type="hidden" name="present_process" class="present-process-input" value="{{$present_process}}">
                             </div>
                             <div class="project-create__top-descr-top-type add-keyword">
+                                @if(!empty($data['project']->keyword1))
+                                    <span>{{$data['project']->keyword1}}</span>
+                                @endif
+                                @if(!empty($data['project']->keyword2))
+                                    <span>{{$data['project']->keyword2}}</span>
+                                @endif
+                                @if(!empty($data['project']->keyword3))
+                                    <span>{{$data['project']->keyword3}}</span>
+                                @endif
                             </div>
                         </div>
                         <div class="field-add brief_description_project">
@@ -198,11 +347,11 @@
                                     $(".popup.co-founder-terms-condition").removeClass("open");
 
                                 });
-                                
+
                                 // if field has content
                                 $('.field-add p').parents('.field-add').addClass('add-content')
                                 $('.field-add img').parents('.field-add').addClass('add-content')
-                            
+
 
 
                                 const projPhotoBtn = document.getElementById('proj-img-uploader');
@@ -230,6 +379,33 @@
                             });
 
                         });
+
+
+                        let registration = 0;
+                        let tellAboutYou = 0;
+                        let shortDescription = 0;
+                        let addPictures = 0;
+                        let tellYourStory = 0;
+                        let businessPlan = 0;
+                        let addVideoTeaser = 0;
+                        let coFounderConditions = 0;
+                        let foundCoFounder = 0;
+
+                        const registrationInput = document.getElementById('registration-input');
+                        registrationInput.addEventListener('input', () => {
+                            registration = 1;
+                            updateCompletionPercentage();
+                        });
+
+                        function updateCompletionPercentage() {
+                            const totalSteps = 9;
+                            const completedSteps = registration + tellAboutYou + shortDescription + addPictures + tellYourStory + businessPlan + addVideoTeaser + coFounderConditions + foundCoFounder;
+                            const completionPercentage = Math.round((completedSteps / totalSteps) * 100);
+                            const completionBar = document.getElementById('completion-bar');
+                            completionBar.style.width = completionPercentage + '%';
+                            completionBar.innerText = completionPercentage + '% Complete';
+                        }
+
                     </script>
 
                     <div class="project-create__top-right">
@@ -245,50 +421,52 @@
                                 </div>
                                 <a href="{{route("profile")}}" class="project-preview__author-settings" target="_blank"></a>
                             </div>
-                            <div class="project-create__top-right-send btn--solid btn--arrow btn">Submit</div>
+                            <div class="project-create__top-right-send btn--solid btn--arrow btn" onclick="saveBtn()">Submit</div>
                         </div>
-                        <div class="project-create__top-right-bottom">Project views<span>0</span></div>
+                        <?php $views = $data['project']->views->first();?>
+                        <div class="project-create__top-right-bottom">Project views<span>{{!empty($views->total_views) ? $views->total_views : 0}}</span></div>
                     </div>
                 </div>
-                <div class="project-create__progress-line progress">
-                    <div class="progress__item-bottom">
+
+                <div class="project-create__progress-line progress {{$middle_line}}">
+                    <div class="progress__item-bottom {{$chech_line_class}}">
                         <div class="progress__item-bottom-prev"></div>
-                        <div class="progress__item-bottom-quantity"><span>2</span><span>/</span><span>9</span></div>
+                        <div class="progress__item-bottom-quantity"><span class="rj-number-line">{{$number_line}}</span><span>/</span><span>9</span></div>
                         <div class="progress__item-bottom-next"></div>
                     </div>
                     <div class="progress__item done">
                         <div class="progress__item-top">Registration</div>
                         <div class="progress__item-point"></div>
                     </div>
-                    <div class="progress__item current">
+                    <div class="progress__item {{$done_tell_about_you ? 'done': (($check_current) ? 'current' . ($check_current=false)  : '') }}">
                         <div class="progress__item-top">Tell About You</div>
                         <div class="progress__item-point"></div>
                     </div>
-                    <div class="progress__item">
+                    <div class="progress__item {{$done_short_description ? 'done': (($check_current) ? 'current' . ($check_current=false)  : '') }}">
                         <div class="progress__item-top">Short Description</div>
                         <div class="progress__item-point"></div>
                     </div>
-                    <div class="progress__item">
+                    <div class="progress__item {{$done_add_pictures ? 'done': (($check_current) ? 'current' . ($check_current=false)  : '') }}">
                         <div class="progress__item-top">Add Pictures</div>
                         <div class="progress__item-point"></div>
                     </div>
-                    <div class="progress__item">
+                    <div class="progress__item {{$done_tell_your_story ? 'done': (($check_current) ? 'current' . ($check_current=false)  : '') }}">
                         <div class="progress__item-top">Tell Your Story</div>
                         <div class="progress__item-point"></div>
                     </div>
-                    <div class="progress__item">
+                    <div class="progress__item {{$done_business_plan ? 'done': (($check_current) ? 'current' . ($check_current=false)  : '') }}">
                         <div class="progress__item-top">Business Plan</div>
                         <div class="progress__item-point"></div>
                     </div>
-                    <div class="progress__item">
+                    <div class="progress__item {{$done_add_video_teaser ? 'done': (($check_current) ? 'current' . ($check_current=false)  : '') }}">
                         <div class="progress__item-top">Add Video Teaser</div>
                         <div class="progress__item-point"></div>
                     </div>
-                    <div class="progress__item">
+                    <div class="progress__item {{$done_co_founder_conditions ? 'done': (($check_current) ? 'current' . ($check_current=false)  : '') }}">
                         <div class="progress__item-top">CoFounder Conditions</div>
                         <div class="progress__item-point"></div>
                     </div>
-                    <div class="progress__item">
+                    <div class="progress__item {{$done_found_co_founder ? 'done': (($check_current) ? 'current' . ($check_current=false)  : '') }}">
                         <div class="progress__item-top">Found CoFounder</div>
                         <div class="progress__item-point"></div>
                     </div>
@@ -415,7 +593,7 @@
                             </div>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn--solid btn--arrow send">Submit</button>
+                    <button type="submit" class="btn btn--solid btn--arrow send send-form">Submit</button>
                 </div>
             </form>
         </div>
