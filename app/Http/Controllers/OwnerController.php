@@ -6,6 +6,7 @@ use App\Models\FavoriteProject;
 use App\Models\User;
 use App\Models\UserDetail;
 use App\Models\Projects;
+use App\Models\CategoryName;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -38,6 +39,7 @@ class OwnerController extends Controller
         $data['first_name'] = $user_detail->first_name;
         $data['last_name'] = $user_detail->last_name;
 
+        $data['category'] = CategoryName::all();
 
         return view("owner.dashboard-create-project", [
             'data' => $data,
@@ -104,52 +106,13 @@ class OwnerController extends Controller
             ]);
         }
 
+        $data['category'] = CategoryName::all();
+
         return view("owner.dashboard-create-project", [
             'data' => $data,
             'id_project' => $id,
         ]);
     }
 
-//    public function listProject(){
-//
-//    }
-
-//    public function saveProjectAjaxFirstSection(Request $request){
-//
-////        $return_data = [Auth::user()];
-////        $briefDescription = $request->input('brief_description_project');
-////        $keyword1 = $request->input('key-word-1');
-////        $keyword2 = $request->input('key-word-2');
-////        $keyword3 = $request->input('key-word-3');
-//
-//        $data = [
-//            'brief_description' => $request->input('brief_description_project'),
-//            'keyword1' => $request->input('key-word-1'),
-//            'keyword2' => $request->input('key-word-2'),
-//            'keyword3' => $request->input('key-word-3'),
-//        ];
-//
-////        $type_do = $request->input('type_do');
-//        $id_project = $request->input('id_project');
-//        if($id_project == 0){
-//            //create
-//            $data['user_id'] = Auth::id();
-//            $data['user_role'] = Auth::user()->role;
-//            $project = Projects::create($data);
-//        }else{
-//            $project = Projects::where('id', $id_project)->first();
-//            $project->update($data);
-//        }
-//
-////        $return_data = $project;
-//
-//
-//        // ...выполнение нужных действий...
-//
-//        return response()->json([
-//            'message' => 'Form submitted successfully!',
-//            'data' => $project,
-//            ]);
-//    }
 
 }

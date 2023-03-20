@@ -7,13 +7,14 @@ use App\Models\User;
 use App\Models\UserDetail;
 use App\Models\ProjectsViews;
 use App\Models\FavoriteProject;
+use App\Models\CategoryName;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class InvestorController extends Controller
 {
-    public function indexInvestor()
+    public function indexInvestor( Request $request)
     {
         if (User::checkAdmin()){
             return redirect(route("admin.dashboard"));
@@ -27,13 +28,47 @@ class InvestorController extends Controller
         $user_detail = UserDetail::where('user_id', Auth::id())->first();
         $data['user_photo'] = $user_detail->photo;
 
-        $data['projects'] = Projects::all();
+//        $data['projects'] = Projects::all();
+
+
+        $categories = $request->input('categories');
+        $search_keyword = $request->input('search_keyword');
+        $sort_by = $request->input('sort_by', 'created_at');
+        $sort_order = $request->input('sort_order', 'desc');
+        $items_per_page = $request->input('items_per_page', 10);
+
+        $query = Projects::query();
+
+        if ($categories) {
+//            $query->whereIn('category', $categories);
+
+            $query->where('keyword1', 'LIKE', '%' . $categories . '%')
+                ->orWhere('keyword2', 'LIKE', '%' . $categories . '%')
+                ->orWhere('keyword3', 'LIKE', '%' . $categories . '%');
+        }
+
+        if ($search_keyword) {
+            $query->where(function ($query) use ($search_keyword) {
+                $query->where('name_project', 'LIKE', "%{$search_keyword}%")
+                    ->orWhere('brief_description', 'LIKE', "%{$search_keyword}%")
+                    ->orWhere('project_story', 'LIKE', "%{$search_keyword}%")
+                    ->orWhere('business_plan', 'LIKE', "%{$search_keyword}%")
+                    ->orWhere('co_founder_terms_condition', 'LIKE', "%{$search_keyword}%");
+            });
+        }
+
+        $query->orderBy($sort_by, $sort_order);
+
+        $data['projects'] = $query->paginate($items_per_page);
+
+
 //        $data['projects'] = Projects::with('views')->get();
 
+        $data['category'] = CategoryName::all();
 
         $data['favorite_project'] = FavoriteProject::where('user_id', Auth::id())->pluck('project_id')->toArray();
 
-        return view('home-investor', ['data' => $data]);
+        return view('home-investor', ['data' => $data, 'search_keyword' => $search_keyword, 'categories' => $categories]);
     }
 
     public function counterProjectsViews (Request $request){

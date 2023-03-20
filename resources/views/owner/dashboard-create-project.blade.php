@@ -208,14 +208,47 @@
                                             <div class="col fields">
                                                 <div class="col row-field">
                                                     <div class="form_input_wrap">
-                                                        <input type="text" placeholder="Key Word" name="keyword1" value="{{!empty($data['project']->keyword1) ? $data['project']->keyword1 : ''}}">
+{{--                                                        <input type="text" placeholder="Key Word" name="keyword1" value="{{!empty($data['project']->keyword1) ? $data['project']->keyword1 : ''}}">--}}
+
+                                                        <select name="keyword1">
+                                                            <option></option>
+                                                            <option selected="true" disabled="disabled">All Categories</option>
+                                                            @if(!empty($data['category']))
+                                                                @foreach($data['category'] as $key => $val)
+                                                                    <option value="{{$val->category_name}}" {{ !empty($data['project']->keyword1) && $data['project']->keyword1 == $val->category_name ? 'selected' : '' }}>{{$val->category_name}}</option>
+                                                                @endforeach
+                                                            @endif
+                                                        </select>
+
                                                         <label for="salutation">Key words (up to 3)</label>
                                                     </div>
                                                     <div class="form_input_wrap">
-                                                        <input type="text" placeholder="Key Word" name="keyword2" value="{{!empty($data['project']->keyword2) ? $data['project']->keyword2 : ''}}">
+{{--                                                        <input type="text" placeholder="Key Word" name="keyword2" value="{{!empty($data['project']->keyword2) ? $data['project']->keyword2 : ''}}">--}}
+
+                                                        <select name="keyword2">
+                                                            <option></option>
+                                                            <option selected="true" disabled="disabled">All Categories</option>
+                                                            @if(!empty($data['category']))
+                                                                @foreach($data['category'] as $key => $val)
+                                                                    <option value="{{$val->category_name}}" {{ !empty($data['project']->keyword2) && $data['project']->keyword2 == $val->category_name ? 'selected' : '' }}>{{$val->category_name}}</option>
+                                                                @endforeach
+                                                            @endif
+                                                        </select>
+
                                                     </div>
                                                     <div class="form_input_wrap">
-                                                        <input type="text" placeholder="Key Word" name="keyword3" value="{{!empty($data['project']->keyword3) ? $data['project']->keyword3 : ''}}">
+{{--                                                        <input type="text" placeholder="Key Word" name="keyword3" value="{{!empty($data['project']->keyword3) ? $data['project']->keyword3 : ''}}">--}}
+
+                                                        <select name="keyword3">
+                                                            <option></option>
+                                                            <option selected="true" disabled="disabled">All Categories</option>
+                                                            @if(!empty($data['category']))
+                                                                @foreach($data['category'] as $key => $val)
+                                                                    <option value="{{$val->category_name}}" {{ !empty($data['project']->keyword3) && $data['project']->keyword3 == $val->category_name ? 'selected' : '' }}>{{$val->category_name}}</option>
+                                                                @endforeach
+                                                            @endif
+                                                        </select>
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -246,9 +279,9 @@
                                     event.preventDefault();
 
                                     var brief_description_project = $('textarea[name="brief_description_project"]').val();
-                                    var keyword1 = $('input[name="keyword1"]').val().trim();
-                                    var keyword2 = $('input[name="keyword2"]').val().trim();
-                                    var keyword3 = $('input[name="keyword3"]').val().trim();
+                                    var keyword1 = $('select[name="keyword1"]').val();
+                                    var keyword2 = $('select[name="keyword2"]').val();
+                                    var keyword3 = $('select[name="keyword3"]').val();
 
                                     $(".add-keyword").html('');
 
@@ -357,7 +390,7 @@
                                 if($('.brief_description_project').children().length === 0) {
                                     $('.brief_description_project').addClass('add-description add-content')
                                 }
-                                
+
 
                                 const projPhotoBtn = document.getElementById('proj-img-uploader');
                                 const projReader = new FileReader();
