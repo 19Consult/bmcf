@@ -93,7 +93,9 @@
     $chech_line_class = '';
     $middle_line = '';
     $present_process = 15;
-    if(!$done_short_description && $chech_line){
+    if(!$done_tell_about_you && $chech_line){
+        $chech_line = false;
+    }elseif(!$done_short_description && $chech_line){
         $chech_line_class = 'rj-short-description';
         $chech_line = false;
         $number_line = 3;
@@ -423,7 +425,11 @@
                             </div>
                             <div class="project-create__top-right-send btn--solid btn--arrow btn" onclick="saveBtn()">Submit</div>
                         </div>
-                        <?php $views = $data['project']->views->first();?>
+                        <?php
+                        if(!empty($data['project']->views)){
+                            $views = $data['project']->views->first();
+                        }
+                        ?>
                         <div class="project-create__top-right-bottom">Project views<span>{{!empty($views->total_views) ? $views->total_views : 0}}</span></div>
                     </div>
                 </div>
