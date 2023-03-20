@@ -3,6 +3,10 @@
     <a href="#"><img src="{{asset("img/icons/icon-cupcake.svg")}}" alt="Cupcake" /></a>
     <a href="#"><img src="{{asset("img/icons/icon-chat.svg")}}" alt="Chat" /></a>
     <a href="#"><img src="{{asset("img/icons/icon-file.svg")}}" alt="File" /></a>
+    <a href="{{route("admin.category.list")}}">
+        <img src="{{asset("img/icons/icon-file.svg")}}" alt="File" />
+        <span>Category</span>
+    </a>
     <a href="{{route("admin.usersDelete")}}">
         <img src="{{asset("img/icons/delete-users.svg")}}" alt="Delete users" />
         <span>Delete users</span>

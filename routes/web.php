@@ -84,6 +84,14 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/users/{id}/unblock', [AdminController::class, 'unblock'])->name('admin.users.unblock');
 
         Route::get('/users/export-users', [AdminController::class, 'exportUsers'])->name('admin.users.export');
+
+        Route::get('/category/list', [AdminController::class, 'categoryList'])->name('admin.category.list');
+        Route::get('/category/create', [AdminController::class, 'categoryCreate'])->name('admin.category.create');
+        Route::post('/category/create', [AdminController::class, 'categoryCreate']);
+        Route::get('/category/{id}', [AdminController::class, 'categoryEdit'])->name('admin.category.edit');
+
+        Route::post('/category/{id}/save', [AdminController::class, 'categorySave'])->name('admin.category.save');
+        Route::get('/category/{id}/delete', [AdminController::class, 'categoryDelete'])->name('admin.category.delete');
     });
 
 
