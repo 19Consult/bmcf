@@ -8,7 +8,8 @@
     <div class="dashboard-wrapper">
         @include("layouts.sidebar")
         <div class="projects-wrapper">
-            <div class="project__search-bar">
+            <form class="project__search-bar" method="GET" action="">
+
                 <select>
                     <option selected="true" disabled="disabled">Selected for you</option>
                     <option>Content 1</option>
@@ -17,141 +18,19 @@
                     <option>Content 4</option>
                 </select>
                 <div class="project__search-field">
-                    <input type="text" placeholder="Search by Keyword">
+                    <input name="search_keyword" type="text" placeholder="Search by Keyword" value="{{$search_keyword}}">
                 </div>
-                <select class="categories">
-                    <option selected="true" disabled="disabled">All Categories</option>
-                    <option>Accommodation and Food Services</option>
-                    <option>Food-Service Contractors</option>
-                    <option>Restaurants</option>
-                    <option>Takeaway & Fast-Food Restaurants</option>
-                    <option>Hotels</option>
-                    <option>Nightclubs & Bars</option>
-                    <option>Administrative and Support Services </option>
-                    <option>Call Centres</option>
-                    <option>Employment Services</option>
-                    <option>Office Equipment Rental & Leasing</option>
-                    <option>Temporary-Employment Placement</option>
-                    <option>Agriculture, Forestry and Fishing </option>
-                    <option>Dairy</option>
-                    <option>Flower & Plant Growing</option>
-                    <option>Forestry & Logging</option>
-                    <option>Fruit & Vegetable Growing</option>
-                    <option>Marine Fishing</option>
-                    <option>Poultry</option>
-                    <option>Cattle and Sheep</option>
-                    <option>Vet</option>
-                    <option>Arts, Entertainment and Recreation </option>
-                    <option>Amusement & Theme Parks</option>
-                    <option>Botanical & Zoological Gardens</option>
-                    <option>Gambling & Betting </option>
-                    <option>Gyms & Fitness </option>
-                    <option>Performing Arts</option>
-                    <option>Photography</option>
-                    <option>Cinema</option>
-                    <option>Film and Theatre</option>
-                    <option>Broadcasting</option>
-                    <option>Construction & Building </option>
-                    <option>Engineering & Technology</option>
-                    <option>Construction & Project Management</option>
-                    <option>Architecture</option>
-                    <option>Landscaping Services</option>
-                    <option>Pest Control</option>
-                    <option>Equipment Rental & Leasing</option>
-                    <option>Facilities Management & Security</option>
-                    <option>Building & Industrial Cleaning</option>
-                    <option>Building Materials</option>
-                    <option>Education </option>
-                    <option>General Secondary Education </option>
-                    <option>Pre-Primary Education</option>
-                    <option>Primary Education </option>
-                    <option>Technical & Vocational </option>
-                    <option>Universities </option>
-                    <option>Energy </option>
-                    <option>Electricity Distribution</option>
-                    <option>Electricity Production</option>
-                    <option>Electricity Supply</option>
-                    <option>Electricity Transmission</option>
-                    <option>Gas Distribution</option>
-                    <option>Gas Supply</option>
-                    <option>Energy Saving</option>
-                    <option>Clean Energy</option>
-                    <option>Financial and Insurance </option>
-                    <option>Banking</option>
-                    <option>Credit </option>
-                    <option>Investment</option>
-                    <option>Insurance</option>
-                    <option>Tax</option>
-                    <option>Technology</option>
-                    <option>Human Health and Social Work Activities </option>
-                    <option>Biotechnology </option>
-                    <option>Child Care </option>
-                    <option>Dental Health</option>
-                    <option>Diagnostic & Ambulance Services</option>
-                    <option>General Medical Practices </option>
-                    <option>Hospitals</option>
-                    <option>Learning Disability, Mental Health & Substance Abuse </option>
-                    <option>Retirement and Residential Nursing Care</option>
-                    <option>Social Services </option>
-                    <option>Specialist Medical Technology</option>
-                    <option>Information and Communication </option>
-                    <option>Publishing (online/print)</option>
-                    <option>Software Development</option>
-                    <option>Computer Consultancy</option>
-                    <option>Computer and Communications technology</option>
-                    <option>Data Processing & Hosting Services</option>
-                    <option>Manufacturing </option>
-                    <option>Agricultural & Forestry</option>
-                    <option>Aerospace</option>
-                    <option>Communication Equipment</option>
-                    <option>Computer & Peripheral Equipment</option>
-                    <option>Consumer Electronics Manufacturing</option>
-                    <option>Electrical Appliance</option>
-                    <option>Engine & Turbine</option>
-                    <option>Fertiliser & Nitrogen Compound</option>
-                    <option>Fibre-Optic Cable </option>
-                    <option>Food & Beverage Machinery</option>
-                    <option>Iron & Steel Manufacturing</option>
-                    <option>Kitchen Furniture Manufacturing</option>
-                    <option>Medical & Dental Instrument Manufacturing</option>
-                    <option>Motor Vehicle Manufacturing</option>
-                    <option>Motorcycle Manufacturing</option>
-                    <option>Paper & Paperboard Manufacturing</option>
-                    <option>Pharmaceutical Preparations Manufacturing</option>
-                    <option>Pet Food Manufacturing</option>
-                    <option>Radiator & Boiler Manufacturing</option>
-                    <option>Railway Equipment Manufacturing</option>
-                    <option>Recreational Boat & Yacht Building</option>
-                    <option>Sanitary Product Manufacturing</option>
-                    <option>Mining and Quarrying </option>
-                    <option>Mineral Mining</option>
-                    <option>Natural Resource Extraction</option>
-                    <option>Professional, Scientific and Technical Activities </option>
-                    <option>Accounting & Auditing</option>
-                    <option>Advertising</option>
-                    <option>Legal</option>
-                    <option>Management Consultancy</option>
-                    <option>Market Research</option>
-                    <option>Public Relations</option>
-                    <option>Design</option>
-                    <option>Real Estate Activities Agency</option>
-                    <option>Management</option>
-                    <option>Technology</option>
-                    <option>Transportation and Storage </option>
-                    <option>Services</option>
-                    <option>Technology</option>
-                    <option>Travel & Tourism </option>
-                    <option>Tour Operators</option>
-                    <option>Travel Agencies </option>
-                    <option>Utilities </option>
-                    <option>Services</option>
-                    <option>Technology</option>
-                    <option>Wholesale and Retail Trade </option>
-                    <option>Services</option>
-                    <option>Technology</option>
-                    <option>Other</option>
+                <select name="categories" class="categories" onchange="this.form.submit()">
+                    <option></option>
+                    <option selected="true" value="">All Categories</option>
+                    @if(!empty($data['category']))
+                        @foreach($data['category'] as $key => $val)
+                            <option value="{{$val->category_name}}" {{ $categories == $val->category_name ? 'selected' : '' }}>{{$val->category_name}}</option>
+                        @endforeach
+                    @endif
                 </select>
-            </div>
+
+            </form>
 
             @if(!empty($data['projects']) && isset($data['projects']))
                 @foreach($data['projects'] as $key => $val)
@@ -179,6 +58,11 @@
                         </div>
                     </div>
                 @endforeach
+
+                    <div class="pagination">
+                        {{ $data['projects']->withQueryString()->links() }}
+                    </div>
+
             @endif
 
             <script>
@@ -214,7 +98,7 @@
                                     $(".pr-name").text(project_data.name_project)
                                     $(".pr-total_views").text(data.data.total_views)
                                     $(".pr-total_views-" + project_data.id).text(data.data.total_views)
-                                    $(".pr-project-story").html(project_data.project_story)
+                                    $(".pr-project-story").html(project_data.brief_description)
                                     $(".pr-founder-terms-condition").html(project_data.co_founder_terms_condition)
 
                                     $(".pr-user-photo").attr("src", data.user_deteils.photo)

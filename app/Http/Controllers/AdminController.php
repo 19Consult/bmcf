@@ -7,6 +7,7 @@ use App\Models\FavoriteProject;
 use App\Models\Projects;
 use App\Models\User;
 use App\Models\UserDetail;
+use App\Models\CategoryName;
 use App\Models\accountDeletionConfirmation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -273,6 +274,59 @@ class AdminController extends Controller
         }
 
         return redirect()->back()->with('success', 'User deleted successfully.');
+    }
+
+    public function categoryList(){
+        $data['title_page'] = 'Category list';
+
+        $data['category_list'] = [];
+
+        $category_list = CategoryName::all();
+        if (!empty($category_list)){
+            $data['category_list'] = $category_list;
+        }
+
+        return view("admin.category-list", [
+            'data' => $data,
+        ]);
+    }
+
+    public function categoryCreate(Request $request){
+        $data['title_page'] = 'Create category';
+
+        if($request->get("category_name")){
+            $category_name = CategoryName::create(['category_name' => $request->get("category_name")]);
+            return redirect(route("admin.category.edit", ['id' => $category_name->id]));
+        }
+
+        return view("admin.category-edit", [
+            'data' => $data,
+        ]);
+    }
+
+    public function categoryEdit($id, Request $request){
+        $data['title_page'] = 'Edit category';
+
+        $data['category'] = CategoryName::where('id', $id)->first();
+
+        $data['type'] = 'edit';
+
+        return view("admin.category-edit", [
+            'data' => $data,
+        ]);
+    }
+
+    public function categorySave($id, Request $request){
+
+        $category = CategoryName::where('id', $id)->first();
+        $category->update(['category_name' => $request->get("category_name")]);
+
+        return redirect()->back();
+    }
+
+    public function categoryDelete($id){
+        CategoryName::where('id', $id)->delete();
+        return redirect()->back();
     }
 
 }
