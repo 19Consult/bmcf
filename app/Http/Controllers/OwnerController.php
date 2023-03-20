@@ -88,6 +88,7 @@ class OwnerController extends Controller
         $data['user_photo'] = $user_detail->photo;
         $data['first_name'] = $user_detail->first_name;
         $data['last_name'] = $user_detail->last_name;
+        $data['about_you'] = $user_detail->about_you;
         $data['project'] = Projects::where('id', $id)->first();
 
         if (User::checkInvestor()){

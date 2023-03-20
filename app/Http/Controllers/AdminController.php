@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Mail\AccountDeletionNotification;
+use App\Models\FavoriteProject;
+use App\Models\Projects;
 use App\Models\User;
 use App\Models\UserDetail;
 use App\Models\accountDeletionConfirmation;
@@ -259,6 +261,9 @@ class AdminController extends Controller
         User::find($id)->delete();
         accountDeletionConfirmation::where('user_id', $id)->delete();
         UserDetail::where('user_id', $id)->delete();
+
+        Projects::where('user_id', $id)->delete();
+        FavoriteProject::where('user_id', $id)->delete();
 
         //send email user
         try {
