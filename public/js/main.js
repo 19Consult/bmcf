@@ -79,34 +79,41 @@ jQuery(document).ready(function ($) {
 		$('.create-project--popup').addClass('open');
 	});
 
+	// Create project open popup for description
 	$('.project-create__top-descr .field-add').click(function (e) {
 		// e.preventDefault();
 		$('.project-create__top--popup').addClass('open');
 	});
 
 	// project create story
-	$('.project-field .field-add').click(function (e) {
-		// e.preventDefault();
-		$('.project-field .popup').addClass('open');
-	});
+	// $('.project-field .field-add').click(function (e) {
+	// 	// e.preventDefault();
+	// 	$('.project-field .popup').addClass('open');
+	// });
 
 	// Business Plan
-	$('.project-plan .field-add').click(function (e) {
-		// e.preventDefault();
-		$('.project-plan .popup').addClass('open');
-	});
+	// $('.project-plan .field-add').click(function (e) {
+	// 	// e.preventDefault();
+	// 	$('.project-plan .popup').addClass('open');
+	// });
 
 	// CoFounder Terms & Conditions
-	$('.project-co-founder .field-add').click(function (e) {
-		// e.preventDefault();
-		$('.row.project-co-founder .popup').addClass('open');
-	});
+	// $('.project-co-founder .field-add').click(function (e) {
+	// 	// e.preventDefault();
+	// 	$('.row.project-co-founder .popup').addClass('open');
+	// });
 
 	// CoFounder Terms & Conditions - fill
-	$('.project-story .send').click(function (e) {
-		// e.preventDefault();
-		$('.popup.fill').addClass('open');
-	});
+	// $('.project-story .send').click(function (e) {
+	// 	// e.preventDefault();
+	// 	$('.popup.fill').addClass('open');
+	// });
+
+	// Create project open popup for field
+	$('.project-create .field-add').click(function(e){
+		// $('.popup').addClass('open');
+		$(this).parents('.form_input_wrap').siblings('.popup').addClass('open')
+	})
 
 	// hide popup
 	$('.popup .popup__nav a').click(function(e){
@@ -116,7 +123,10 @@ jQuery(document).ready(function ($) {
 
 	$(document).mouseup(function (e) {
 		let div = $(".popup__content");
+		let cke = $('body').children('.cke_dialog_container');
 		if (!div.is(e.target)
+			&& !cke.is(e.target)
+			&& cke.has(e.target).length === 0
 			&& div.has(e.target).length === 0) {
 			$('.popup').removeClass('open');
 		};

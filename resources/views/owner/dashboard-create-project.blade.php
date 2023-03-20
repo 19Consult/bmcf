@@ -154,7 +154,7 @@
                 <input type="hidden" name="id_project" value="{{!empty($id_project) ? $id_project : 0}}">
                 <div class="project-create__top">
 {{--                    <div class="project-create__top-img"><img src="img/icons/icon-add-photo.svg" alt="Add photo"></div>--}}
-                    <label class="project-create__top-img" id="proj-img">
+                    <label class="project-create__top-img {{!empty($data['project']->photo_project) ? 'show' : ''}} " id="proj-img">
                         <img src="{{!empty($data['project']->photo_project) ? asset($data['project']->photo_project) : asset("img/icons/icon-add-photo.svg")}}" alt="Add photo">
                         <input name="photo_project" type="file" id="proj-img-uploader" style="display:none">
                     </label>
@@ -354,7 +354,10 @@
                                 $('.field-add p').parents('.field-add').addClass('add-content')
                                 $('.field-add img').parents('.field-add').addClass('add-content')
 
-
+                                if($('.brief_description_project').children().length === 0) {
+                                    $('.brief_description_project').addClass('add-description add-content')
+                                }
+                                
 
                                 const projPhotoBtn = document.getElementById('proj-img-uploader');
                                 const projReader = new FileReader();
