@@ -80,7 +80,7 @@ jQuery(document).ready(function ($) {
 	});
 
 	// Create project open popup for description
-	$('.project-create__top-descr .field-add').click(function (e) {
+	$('.project-create__top-descr .field-add, .project-create__top-descr .field-text__edit').click(function (e) {
 		// e.preventDefault();
 		$('.project-create__top--popup').addClass('open');
 	});
@@ -110,7 +110,7 @@ jQuery(document).ready(function ($) {
 	// });
 
 	// Create project open popup for field
-	$('.project-create .field-add').click(function(e){
+	$('.project-create .field-add, .project-create .field-text__edit').click(function(e){
 		// $('.popup').addClass('open');
 		$(this).parents('.form_input_wrap').siblings('.popup').addClass('open')
 	})
@@ -124,9 +124,12 @@ jQuery(document).ready(function ($) {
 	$(document).mouseup(function (e) {
 		let div = $(".popup__content");
 		let cke = $('body').children('.cke_dialog_container');
+		let select2 = $('.select2-container');
 		if (!div.is(e.target)
 			&& !cke.is(e.target)
+			&& !select2.is(e.target)
 			&& cke.has(e.target).length === 0
+			&& select2.has(e.target).length === 0
 			&& div.has(e.target).length === 0) {
 			$('.popup').removeClass('open');
 		};
