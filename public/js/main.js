@@ -18,6 +18,7 @@ jQuery(document).ready(function ($) {
 		minimumResultsForSearch: Infinity,
 		dropdownCssClass: 'select-dropdown',
 	})
+	
 
 	// $('input[type="tel"]').inputmask({ "mask": "+43 699 999999" });
 
@@ -85,55 +86,49 @@ jQuery(document).ready(function ($) {
 		$('.project-create__top--popup').addClass('open');
 	});
 
-	// project create story
-	// $('.project-field .field-add').click(function (e) {
-	// 	// e.preventDefault();
-	// 	$('.project-field .popup').addClass('open');
-	// });
-
-	// Business Plan
-	// $('.project-plan .field-add').click(function (e) {
-	// 	// e.preventDefault();
-	// 	$('.project-plan .popup').addClass('open');
-	// });
-
-	// CoFounder Terms & Conditions
-	// $('.project-co-founder .field-add').click(function (e) {
-	// 	// e.preventDefault();
-	// 	$('.row.project-co-founder .popup').addClass('open');
-	// });
-
-	// CoFounder Terms & Conditions - fill
-	// $('.project-story .send').click(function (e) {
-	// 	// e.preventDefault();
-	// 	$('.popup.fill').addClass('open');
-	// });
-
 	// Create project open popup for field
 	$('.project-create .field-add, .project-create .field-text__edit').click(function(e){
 		// $('.popup').addClass('open');
 		$(this).parents('.form_input_wrap').siblings('.popup').addClass('open')
+		$('html').css('overflow','hidden')
 	})
-
+	
 	// hide popup
 	$('.popup .popup__nav a').click(function(e){
 		e.preventDefault()
 		$('.popup').removeClass('open');
+		$('html').css('overflow','')
 	})
 
-	$(document).mouseup(function (e) {
-		let div = $(".popup__content");
-		let cke = $('body').children('.cke_dialog_container');
-		let select2 = $('.select2-container');
-		if (!div.is(e.target)
-			&& !cke.is(e.target)
-			&& !select2.is(e.target)
-			&& cke.has(e.target).length === 0
-			&& select2.has(e.target).length === 0
-			&& div.has(e.target).length === 0) {
-			$('.popup').removeClass('open');
-		};
-	});
+	// $(document).mouseup(function (e) {
+	// 	// console.log($('body').children('.select2-container').length === 0)
+	// 	let div = $(".popup__content");
+	// 	let cke = $('body').children('.cke_dialog_container');
+	// 	// let select2 = $('body').children('.select2-container').length === 0;
+	// 	let select = $('body > .select2-container').length === 0;
+	// 	let select2 = $('body').children('.select2-container');
+	// 	console.log(!cke.is(e.target))
+	// 	console.log('select: ' +select)
+	// 	console.log('select: ' +!select2.is(e.target))
+	// 	console.log(select2.has(e.target).length !== 1)
+	// 	console.log(cke.has(e.target).length === 0)
+	// 	console.log(div.has(e.target).length === 0)
+	// 	// let result = $('body .select2-container .select2-results__option');
+	// 	if (!div.is(e.target)
+	// 		&& !cke.is(e.target)
+	// 		&& !select2.is(e.target)
+	// 		// && !result.is(e.target)
+	// 		&& cke.has(e.target).length === 0
+	// 		// && select2.has(e.target).length === 0
+	// 		// && result.has(e.target).length === 0
+	// 		&& div.has(e.target).length === 0
+	// 		&& select2.has(e.target).length === 0
+	// 		&& select
+	// 		) {
+	// 		$('.popup').removeClass('open');
+	// 		$('html').css('overflow','')
+	// 	};
+	// });
 
 	$('.scrollbar-inner').scrollbar();
 

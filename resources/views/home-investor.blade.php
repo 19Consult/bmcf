@@ -19,7 +19,7 @@
                 </select>
                 <div class="project__search-field">
                     <input name="search_keyword" type="text" placeholder="Search by Keyword" value="{{$search_keyword}}">
-                    <div class="search-btn"></div>
+                    <button class="search-btn" onchange="this.form.submit()"></button>
                 </div>
                 <select name="categories" class="categories" onchange="this.form.submit()">
                     <option></option>
@@ -104,7 +104,7 @@
 
                                     $(".pr-user-photo").attr("src", data.user_deteils.photo)
                                     $(".pr-user-full-name").text(data.user_deteils.first_name + ' ' + data.user_deteils.last_name)
-
+                                    
                                     let photo_project = project_data.photo_project;
                                     if (photo_project !== null){
                                         $(".pr-photo-project").attr("src", photo_project)
@@ -117,6 +117,9 @@
                                         $(".favorite-pop").attr("project-id", project_id)
                                     }
 
+                                    setTimeout(() => {
+                                        $('.scrollbar-inner').scrollbar();
+                                    }, 400);
                                     let link = '/project/' + project_id;
                                     $(".rj-link-redirect").attr('href', link)
                                 },
@@ -186,7 +189,7 @@
                             </div>
                             <div class="project__favorite favorite-pop" project-id=""></div>
                         </div>
-                        <div class="project-preview__description pr-project-story">Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica, sport etc, litot Europa usa li sam vocabular. Li lingues differe solmen in li grammatica, li pronunciation e li plu commun vocabules. Omnicos directe al desirabilite de un nov lingua franca: On refusa continuar payar custosi traductores. At solmen va esser necessi far uniform grammatica, pronunciation e plu sommun paroles.</div>
+                        <div class="project-preview__description pr-project-story scrollbar-inner">Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica, sport etc, litot Europa usa li sam vocabular. Li lingues differe solmen in li grammatica, li pronunciation e li plu commun vocabules. Omnicos directe al desirabilite de un nov lingua franca: On refusa continuar payar custosi traductores. At solmen va esser necessi far uniform grammatica, pronunciation e plu sommun paroles.</div>
                         <div class="project-preview__author">
                             <div class="project-preview__author-img"><img class="pr-user-photo" src="img/user-2.webp" alt="User"></div>
                             <div class="project-preview__author-title">
@@ -194,7 +197,7 @@
                                 <div class="project-preview__author-position">Idea Owner</div>
                             </div>
                         </div>
-                        <div class="project-preview__description pr-founder-terms-condition">Hello I’m Mariam Li lingues differe solmen in li grammatica, li pronunciation e li plu commun vocabules. Omnicos directe al desirabilite de un nov lingua franca: On refusa continuar payar custosi traductores. At solmen va esser necessi far uniform grammatica, pronunciation e plu sommun paroles.</div><a class="btn--arrow btn--solid rj-link-redirect" href="#">Sign NDA and request full project access</a>
+                        <div class="project-preview__description pr-founder-terms-condition scrollbar-inner">Hello I’m Mariam Li lingues differe solmen in li grammatica, li pronunciation e li plu commun vocabules. Omnicos directe al desirabilite de un nov lingua franca: On refusa continuar payar custosi traductores. At solmen va esser necessi far uniform grammatica, pronunciation e plu sommun paroles.</div><a class="btn--arrow btn--solid rj-link-redirect" href="#">Sign NDA and request full project access</a>
                     </div>
                 </div>
             </div>
