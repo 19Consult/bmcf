@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'COFOUNDER') }}</title>
+    <title>Admin</title>
     <link rel="icon" href="{{asset("img/favicon.svg")}}" type="image/svg+xml" />
     <link rel="stylesheet" href="{{asset("css/main.css")}}" />
     <link rel="stylesheet" href="{{asset("css/admin-css.css")}}" />
