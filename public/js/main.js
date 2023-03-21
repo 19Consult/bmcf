@@ -100,6 +100,7 @@ jQuery(document).ready(function ($) {
 		$('html').css('overflow','')
 	})
 
+	$('.scrollbar-inner').scrollbar()
 	// $(document).mouseup(function (e) {
 	// 	// console.log($('body').children('.select2-container').length === 0)
 	// 	let div = $(".popup__content");
@@ -130,7 +131,7 @@ jQuery(document).ready(function ($) {
 	// 	};
 	// });
 
-	$('.scrollbar-inner').scrollbar();
+	
 
 
 	$('input[type=file][name="file"]').on('change', function () {
