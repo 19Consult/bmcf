@@ -185,8 +185,8 @@
                                 <div class="field-add-btn"></div>
                                 <div class="field-add-text">Add Brief Project Desription</div>
                             @endif
-
                         </div>
+                        <div class="field-text__edit">Edit</div>
                         <div class="project-create__top--popup popup">
                             <div class="popup__wrap">
                                 <div class="popup__content">
@@ -208,7 +208,7 @@
                                             <div class="col fields">
                                                 <div class="col row-field">
                                                     <div class="form_input_wrap">
-{{--                                                        <input type="text" placeholder="Key Word" name="keyword1" value="{{!empty($data['project']->keyword1) ? $data['project']->keyword1 : ''}}">--}}
+                                                        {{--<input type="text" placeholder="Key Word" name="keyword1" value="{{!empty($data['project']->keyword1) ? $data['project']->keyword1 : ''}}">--}}
 
                                                         <select name="keyword1">
                                                             <option></option>
@@ -223,7 +223,7 @@
                                                         <label for="salutation">Key words (up to 3)</label>
                                                     </div>
                                                     <div class="form_input_wrap">
-{{--                                                        <input type="text" placeholder="Key Word" name="keyword2" value="{{!empty($data['project']->keyword2) ? $data['project']->keyword2 : ''}}">--}}
+                                                        {{--<input type="text" placeholder="Key Word" name="keyword2" value="{{!empty($data['project']->keyword2) ? $data['project']->keyword2 : ''}}">--}}
 
                                                         <select name="keyword2">
                                                             <option></option>
@@ -237,7 +237,7 @@
 
                                                     </div>
                                                     <div class="form_input_wrap">
-{{--                                                        <input type="text" placeholder="Key Word" name="keyword3" value="{{!empty($data['project']->keyword3) ? $data['project']->keyword3 : ''}}">--}}
+                                                        {{--<input type="text" placeholder="Key Word" name="keyword3" value="{{!empty($data['project']->keyword3) ? $data['project']->keyword3 : ''}}">--}}
 
                                                         <select name="keyword3">
                                                             <option></option>
@@ -302,9 +302,11 @@
                                     if(!isEmptyOrSpaces(brief_description_project)){
                                         $(".brief_description_project").html(brief_description_project);
                                         $(".brief_description_project").addClass("add-description add-content");
+                                        $(".brief_description_project.add-content").next(".field-text__edit").show()
                                     }else {
                                         $(".brief_description_project").html(start_brief_description_project);
                                         $(".brief_description_project").removeClass("add-description add-content");
+                                        $(".brief_description_project").next(".field-text__edit").hide()
                                     }
 
                                     //close popup
@@ -325,9 +327,11 @@
                                     if(!isEmptyOrSpaces(editorValue)){
                                         $(".field_project_story").html(editorValue);
                                         $(".field_project_story").addClass("add-project-story add-content");
+                                        $(".field_project_story.add-content").next(".field-text__edit").show()
                                     }else {
                                         $(".field_project_story").html(start_project_story);
                                         $(".field_project_story").removeClass("add-project-story add-content");
+                                        $(".field_project_story").next(".field-text__edit").hide()
                                     }
 
                                     //close popup
@@ -350,9 +354,11 @@
                                     if(!isEmptyOrSpaces(editorValue)){
                                         $(".field-business-plan").html(editorValue);
                                         $(".field-business-plan").addClass("add-business-plan add-content");
+                                        $(".field-business-plan.add-content").next(".field-text__edit").show()
                                     }else {
                                         $(".field-business-plan").html(start);
                                         $(".field-business-plan").removeClass("add-business-plan add-content");
+                                        $(".field-business-plan").next(".field-text__edit").hide()
                                     }
 
                                     //close popup
@@ -373,9 +379,11 @@
                                     if(!isEmptyOrSpaces(editorValue)){
                                         $(".field-co-founder-terms-condition").html(editorValue);
                                         $(".field-co-founder-terms-condition").addClass("add-co-founder-terms-condition add-content");
+                                        $(".field-co-founder-terms-condition.add-content").next(".field-text__edit").show()
                                     }else {
                                         $(".field-co-founder-terms-condition").html(start);
                                         $(".field-co-founder-terms-condition").removeClass("add-co-founder-terms-condition add-content");
+                                        $(".field-co-founder-terms-condition").next(".field-text__edit").hide()
                                     }
 
                                     //close popup
@@ -527,8 +535,8 @@
                                             <div class="field-add-btn"></div>
                                             <div class="field-add-text">Tell Your Story</div>
                                         @endif
-
                                     </div>
+                                    <div class="field-text__edit">Edit</div>
                                 </div>
                                 <div class="popup project-story">
                                     <div class="popup__wrap">
@@ -584,8 +592,8 @@
                                             <div class="field-add-btn"></div>
                                             <div class="field-add-text">Describe Your Business Plan</div>
                                         @endif
-
                                     </div>
+                                    <div class="field-text__edit">Edit</div>
                                 </div>
                                 <div class="popup business-plan">
                                     <div class="popup__wrap">
@@ -616,8 +624,8 @@
                                             <div class="field-add-btn"></div>
                                             <div class="field-add-text">Describe Your Business Plan</div>
                                         @endif
-
                                     </div>
+                                    <div class="field-text__edit">Edit</div>
                                 </div>
                                 <div class="popup co-founder-terms-condition">
                                     <div class="popup__wrap">
