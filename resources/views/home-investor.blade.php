@@ -33,7 +33,7 @@
 
             </form>
 
-            @if(!empty($data['projects']) && isset($data['projects']))
+            @if(!empty($data['projects']) && isset($data['projects']) && $data['projects']->toArray()['total'] > 0)
                 @foreach($data['projects'] as $key => $val)
                     <?php $views = $val->views->first();?>
                     <div class="project__item">
@@ -64,6 +64,8 @@
                         {{ $data['projects']->withQueryString()->links() }}
                     </div>
 
+            @else
+                <div class="error-search-project">Sorry, nothing found</div>
             @endif
 
             <script>
@@ -104,7 +106,7 @@
 
                                     $(".pr-user-photo").attr("src", data.user_deteils.photo)
                                     $(".pr-user-full-name").text(data.user_deteils.first_name + ' ' + data.user_deteils.last_name)
-                                    
+
                                     let photo_project = project_data.photo_project;
                                     if (photo_project !== null){
                                         $(".pr-photo-project").attr("src", photo_project)
