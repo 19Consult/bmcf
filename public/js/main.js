@@ -100,6 +100,12 @@ jQuery(document).ready(function ($) {
 		$('html').css('overflow','')
 	})
 
+	$('.popup .btn').click(function(){
+		if(!$('.popup').hasClass('.open')) {
+			$('html').css('overflow','')
+		}
+	})
+
 	$('.scrollbar-inner').scrollbar()
 	// $(document).mouseup(function (e) {
 	// 	// console.log($('body').children('.select2-container').length === 0)
