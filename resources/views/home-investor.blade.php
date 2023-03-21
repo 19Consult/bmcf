@@ -85,6 +85,8 @@
 
                             console.log(project_id)
 
+                            
+
                             let data = {
                                 project_id: project_id,
                             };
@@ -94,6 +96,7 @@
                                 type: 'POST',
                                 data: data,
                                 success: function(data) {
+                                    $('.project-preview__wrap--page').find('.scroll-wrapper').removeClass('scroll-wrapper')
                                     console.log(data); // replace with your own success callback function
                                     let project_data = data.project_detail;
                                     $(".pr-name").text(project_data.name_project)
@@ -116,10 +119,11 @@
                                         $(".favorite-pop").addClass("active")
                                         $(".favorite-pop").attr("project-id", project_id)
                                     }
-
-                                    setTimeout(() => {
+                                    
+                                    if ($('.project-preview__wrap--page.open')) {
                                         $('.scrollbar-inner').scrollbar();
-                                    }, 400);
+                                    }
+
                                     let link = '/project/' + project_id;
                                     $(".rj-link-redirect").attr('href', link)
                                 },
