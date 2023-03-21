@@ -19,6 +19,7 @@
                 </select>
                 <div class="project__search-field">
                     <input name="search_keyword" type="text" placeholder="Search by Keyword" value="{{$search_keyword}}">
+                    <div class="search-btn"></div>
                 </div>
                 <select name="categories" class="categories" onchange="this.form.submit()">
                     <option></option>
