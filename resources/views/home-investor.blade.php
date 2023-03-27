@@ -146,7 +146,7 @@
                         $('.rj-link-redirect').click(function() {
                             $('.nda-agreement.nda-agreement--popup').addClass('open');
                         })
-
+ 
                         $('.nav__back a').click(function() {
                             $('.nda-agreement.nda-agreement--popup').removeClass('open');
                         })
