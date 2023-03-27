@@ -65,6 +65,12 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/project/{id}', [OwnerController::class, 'viewProject'])->name('viewProject');
 
+    Route::post('/project/pda-project-save', [InvestorController::class, 'saveNdaProject'])->name('saveNdaProject');
+
+
+    Route::get('/nda-list', [OwnerController::class, 'ndaList'])->name('ndaList');
+    Route::get('/nda-list-investor', [InvestorController::class, 'ndaListInvestor'])->name('ndaListInvestor');
+
     // project-favorites (The page is created, and the functionality is hidden)
     //Route::get('/project-favorites', [InvestorController::class, 'viewProjectFavorites'])->name('viewProjectFavorites');
 
