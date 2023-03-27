@@ -9,14 +9,7 @@
         @include("layouts.sidebar")
         <div class="projects-wrapper">
             <form class="project__search-bar" method="GET" action="">
-
-                <select>
-                    <option selected="true" disabled="disabled">Selected for you</option>
-                    <option>Content 1</option>
-                    <option>Content 2</option>
-                    <option>Content 3</option>
-                    <option>Content 4</option>
-                </select>
+                <div style="color: var(--color-first);">Selected for you</div>
                 <div class="project__search-field">
                     <input name="search_keyword" type="text" placeholder="Search by Keyword" value="{{$search_keyword}}">
                     <button class="search-btn" onchange="this.form.submit()"></button>
@@ -87,7 +80,7 @@
 
                             console.log(project_id)
 
-                            
+
 
                             let data = {
                                 project_id: project_id,
@@ -121,13 +114,17 @@
                                         $(".favorite-pop").addClass("active")
                                         $(".favorite-pop").attr("project-id", project_id)
                                     }
-                                    
+
+                                    $(".nda-id-project").val(project_id);
+
                                     if ($('.project-preview__wrap--page.open')) {
                                         $('.scrollbar-inner').scrollbar();
                                     }
 
-                                    let link = '/project/' + project_id;
-                                    $(".rj-link-redirect").attr('href', link)
+                                    $(".image-podpis").val('');
+
+                                    // let link = '/project/' + project_id;
+                                    // $(".rj-link-redirect").attr('href', link)
                                 },
                                 error: function(xhr, textStatus, errorThrown) {
                                     console.log(xhr.responseText); // replace with your own error callback function
@@ -136,6 +133,23 @@
 
                         });
 
+                        $('.nda-info__btn-confirm').click(function () {
+                            var signature = document.getElementById("signature");
+                            var signatureData = signature.toDataURL();
+
+                            $(".image-podpis").val(signatureData);
+                        })
+                        $('.remove-signature').click(function () {
+                            $(".image-podpis").val('');
+                        })
+
+                        $('.rj-link-redirect').click(function() {
+                            $('.nda-agreement.nda-agreement--popup').addClass('open');
+                        })
+ 
+                        $('.nav__back a').click(function() {
+                            $('.nda-agreement.nda-agreement--popup').removeClass('open');
+                        })
 
 
                         $('.project__favorite').click(function() {
@@ -208,6 +222,65 @@
                 </div>
             </div>
         </div>
+
+        <div class="nda-agreement nda-agreement--popup ">
+            <div class="nda-agreement-wrap">
+                <div class="nda-agreement--popup-content">
+                    <nav class="nav">
+                        <div class="nav__back"><a href="#">Go Back To Projects </a><span>The Athletic Buro Sign NDA</span></div>
+                    </nav>
+                    <form class="nda-agreement__text" action="{{route("saveNdaProject")}}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <input type="hidden" class="nda-id-project" name="id_project" value="0">
+                        <input type="hidden" class="image-podpis" name="signature" value="" required>
+                        <div class="title">NON-DISCLOSURE AGREEMENT (NDA)</div>
+                        <p>
+                            This Nondisclosure Agreement or ("Agreement") has been entered into on the date of
+
+                            <input class="input-date" type="text" name="date" required>
+                            and is by and between:
+                        </p>
+                        <p>
+                            Party Disclosing Information:
+
+                            <input class="input-disclosing" type="text" name="disclosing" required>
+                            with a mailing address <br> of
+
+                            <input class="input-disclosing-mail" type="text" name="disclosing_mail" required>
+                            (“Disclosing Party”).
+                        </p>
+                        <p>
+                            Party Receiving Information:
+
+                            <input class="input-receiving" type="text" name="receiving" required>
+                            with a mailing address <br> of
+
+                            <input class="input-receiving-mail" type="text" name="receiving_mail" required>
+                            (“Receiving Party”).
+                        </p>
+                        <div class="nda-agreement__text-descr">
+                            <p>For the purpose of preventing the unauthorized disclosure of Confidential Information as definedbelow. The parties agree to enter into a confidential relationship concerning the disclosure ofcertain proprietary and confidential information ("Confidential Information").</p>
+                            <p>1. Definition of Confidential Information. For purposes of this Agreement, "ConfidentialInformation" shall include all information or material that has or could have commercial value orother utility in the business in which Disclosing Party is engaged. If Confidential Information is inwritten form, the Disclosing Party shall label or stamp the materials with the word "Confidential"or some similar warning. If Confidential Information is transmitted orally, the Disclosing Partyshall promptly provide writing indicating that such oral communication constituted ConfidentialInformation.</p>
+                            <p>2. Exclusions from Confidential Information. Receiving Party's obligations under thisAgreement do not extend to information that is: (a) publicly known at the time of disclosure orsubsequently becomes publicly known through no fault of the Receiving Party; (b) discovered orcreated by the Receiving Party before disclosure by Disclosing Party; (c) learned by theReceiving Party through legitimate means other than from the Disclosing Party or DisclosingParty's representatives; or (d) is disclosed by Receiving Party with Disclosing Party's priorwritten approval.</p>
+                            <p>3. Obligations of Receiving Party. Receiving Party shall hold and maintain the ConfidentialInformation in strictest confidence for the sole and exclusive benefit of the Disclosing Party.Receiving Party shall carefully restrict access to Confidential Information to employees,contractors and third parties as is reasonably required and shall require those persons to signnondisclosure restrictions at least as protective as those in this Agreement. Receiving Partyshall not, without the prior written approval of Disclosing Party, use for Receiving Party's benefit,publish, copy, or otherwise disclose to others, or permit the use by others for their benefit or tothe detriment of Disclosing Party, any Confidential Information. Receiving Party shall return toDisclosing Party any and all records, notes, and other written, printed, or tangible materials in itspossession pertaining to Confidential Information immediately if Disclosing Party requests it inwriting.</p>
+                            <p>4. Time Periods. The nondisclosure provisions of this Agreement shall survive the terminationof this Agreement and Receiving Party's duty to hold Confidential Information in confidenceshall remain in effect until the Confidential Information no longer qualifies as a trade secret oruntil Disclosing Party sends Receiving Party written notice releasing Receiving Party from thisAgreement, whichever occurs first.</p>
+                            <div class="nda-agreement__text-bottom">
+                                <div class="nda-info__bottom">
+                                    <div class="nda-info__signature">
+                                        <label>Your Signature</label>
+                                        <canvas class="nda-info__signature-field" id="signature" width="300" height="69"></canvas>
+                                        <div class="remove-signature">Remove signature</div>
+                                    </div>
+                                    <button type="submit" class="nda-info__btn-confirm btn btn--solid btn--arrow">Confirm and Sign</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
     </div>
 </main>
 
