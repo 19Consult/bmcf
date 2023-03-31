@@ -159,31 +159,31 @@
                         </div>
                         <div class="col row-field">
                             <div class="form_input_wrap">
-                                <input type="text" id="basic-interests" name="basic_interests" value="">
+                                <input type="text" id="basic-interests" name="basic_interests_investor" value="{{isset($data['userDetail']->basic_interests_investor) ? $data['userDetail']->basic_interests_investor : ''}}">
                                 <label for="basic-interests">Basic Interests</label>
                             </div>
                         </div>
                         <div class="row row-field">
                             <div class="form_input_wrap">
-                                <select name="country" class="click-select-country">
+                                <select name="categorty1_investor" class="click-select-country select-list">
                                     <option></option>
-                                    <option selected="true" disabled="disabled">All Categories</option>
+                                    <option selected="true" value="">All Categories</option>
                                     @if(!empty($data['category']))
                                         @foreach($data['category'] as $key => $val)
-                                            <option value="{{$val->category_name}}" {{ !empty($data['userDetail']->keyword1) && $data['userDetail']->keyword1 == $val->category_name ? 'selected' : '' }}>{{$val->category_name}}</option>
+                                            <option value="{{$val->category_name}}" {{ !empty($data['userDetail']->categorty1_investor) && $data['userDetail']->categorty1_investor == $val->category_name ? 'selected' : '' }}>{{$val->category_name}}</option>
                                         @endforeach
                                     @endif
                                 </select>
                                 <label for="country">Categorty 1</label>
                             </div>
                             <div class="form_input_wrap">
-                                <select name="city" class="click-select-cities">
+                                <select name="categorty2_investor" class="click-select-cities select-list">
 
                                     <option></option>
-                                    <option selected="true" disabled="disabled">All Categories</option>
+                                    <option selected="true" value="">All Categories</option>
                                     @if(!empty($data['category']))
                                         @foreach($data['category'] as $key => $val)
-                                            <option value="{{$val->category_name}}" {{ !empty($data['userDetail']->keyword1) && $data['userDetail']->keyword1 == $val->category_name ? 'selected' : '' }}>{{$val->category_name}}</option>
+                                            <option value="{{$val->category_name}}" {{ !empty($data['userDetail']->categorty2_investor) && $data['userDetail']->categorty2_investor == $val->category_name ? 'selected' : '' }}>{{$val->category_name}}</option>
                                         @endforeach
                                     @endif
 
@@ -193,12 +193,12 @@
                         </div>
                         <div class="row row-field">
                             <div class="form_input_wrap">
-                                <select name="country" class="click-select-country">
+                                <select name="categorty3_investor" class="click-select-country select-list">
                                     <option></option>
-                                    <option selected="true" disabled="disabled">All Categories</option>
+                                    <option selected="true" value="">All Categories</option>
                                     @if(!empty($data['category']))
                                         @foreach($data['category'] as $key => $val)
-                                            <option value="{{$val->category_name}}" {{ !empty($data['userDetail']->keyword1) && $data['userDetail']->keyword1 == $val->category_name ? 'selected' : '' }}>{{$val->category_name}}</option>
+                                            <option value="{{$val->category_name}}" {{ !empty($data['userDetail']->categorty3_investor) && $data['userDetail']->categorty3_investor == $val->category_name ? 'selected' : '' }}>{{$val->category_name}}</option>
                                         @endforeach
                                     @endif
                                 </select>
