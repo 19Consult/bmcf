@@ -18,7 +18,7 @@ jQuery(document).ready(function ($) {
 		minimumResultsForSearch: Infinity,
 		dropdownCssClass: 'select-dropdown',
 	})
-	
+
 
 	// $('input[type="tel"]').inputmask({ "mask": "+43 699 999999" });
 
@@ -92,7 +92,7 @@ jQuery(document).ready(function ($) {
 		$(this).parents('.form_input_wrap').siblings('.popup').addClass('open')
 		$('html').css('overflow','hidden')
 	})
-	
+
 	// hide popup
 	$('.popup .popup__nav a').click(function(e){
 		e.preventDefault()
@@ -137,7 +137,7 @@ jQuery(document).ready(function ($) {
 	// 	};
 	// });
 
-	
+
 
 
 	$('input[type=file][name="file"]').on('change', function () {
@@ -174,9 +174,9 @@ jQuery(document).ready(function ($) {
 	} else {
 		$('html').css('overflow', '');
 	}
-	$('.nda-info__btn-confirm').click(function () {
-		$('.nda-agreement--popup').removeClass('open');
-	})
+	// $('.nda-info__btn-confirm').click(function () {
+	// 	$('.nda-agreement--popup').removeClass('open');
+	// })
 
 
     $(".click-select-country").change(function(e){

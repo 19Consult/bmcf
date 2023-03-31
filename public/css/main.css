@@ -4397,6 +4397,33 @@ body {
     justify-content: center;
     color: var(--color-6);
 }
+form.rejected-nda-btn {
+    display: flex;
+    justify-content: flex-end;
+}
+form.rejected-nda-btn .btn--solid {
+    width: 38%;
+}
+.nav__back.already-request a::before{
+    content: unset;
+}
+.nav__back.already-request .btn--arrow::after {
+    content: unset;
+}
+.nav__back.already-request .btn--arrow {
+    justify-content: center;
+}
+.project__title_link{
+    font-weight: 300;
+    font-size: 24px;
+    line-height: 28px;
+    color: var(--color-6);
+    cursor: pointer;
+}
+.disabled-button {
+    pointer-events: none;
+    opacity: 0.5;
+}
 
 @media screen and (max-width: 1280px) {
   .home-page__middle .col.right {

@@ -8,9 +8,17 @@ use App\Models\UserDetail;
 use App\Models\ProjectsViews;
 use App\Models\FavoriteProject;
 use App\Models\CategoryName;
+use App\Models\NdaProjects;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+//use PDF;
+
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\NdaSendMailRequest;
+
+//use Barryvdh\DomPDF\PDF;
 
 class InvestorController extends Controller
 {
@@ -108,12 +116,20 @@ class InvestorController extends Controller
 
         $favorite_project = FavoriteProject::where('user_id', Auth::id())->pluck('project_id')->toArray();
 
+        $check_asses_status = null;
+        $check_asses = NdaProjects::where('user_id', Auth::id())->where("id_project", $project_id)->first();
+        if (!empty($check_asses) && isset($check_asses)){
+            $check_asses_status = $check_asses->status;
+        }
+
+
         return response()->json([
             'message' => 'Successfully!',
             'data' => $project_view,
             'project_detail' => $project_detail,
             'user_deteils' => $user_deteils,
             'favorite_bool' => in_array($project_id, $favorite_project),
+            'check_asses_status' => $check_asses_status,
             ]);
     }
 
@@ -148,6 +164,125 @@ class InvestorController extends Controller
 //        var_export($data);
 
         return view('investor.dashboard-project-favorites', ['data' => $data]);
+    }
+
+    public function saveNdaProject(Request $request){
+
+        $request->validate([
+            'signature' => [
+                'required',
+                'string',
+            ],
+        ]);
+
+        $ndaProjects = NdaProjects::create([
+            'user_id' => Auth::id(),
+            'id_project' => $request->input('id_project'),
+            'signature' => $request->input('signature'),
+            'date' => $request->input('date'),
+            'disclosing' => $request->input('disclosing'),
+            'disclosing_mail' => $request->input('disclosing_mail'),
+            'receiving' => $request->input('receiving'),
+            'receiving_mail' => $request->input('receiving_mail'),
+            'status' => 'pending',
+        ]);
+
+        try {
+
+            $project_detail = Projects::where('id', $ndaProjects->id_project)->first();
+            $user_info = User::where('id', $project_detail->user_id)->first();
+            $user_detail = UserDetail::where('user_id', $project_detail->user_id)->first();
+            $email = $user_info->email;
+            $data = ['name' => $user_detail->first_name];
+
+            Mail::to($email)->send(new NdaSendMailRequest($data));
+        } catch (\Exception $e) {
+            $e->getMessage();
+        }
+
+        if ($ndaProjects){
+            return redirect(route("viewProject", ['id' => $ndaProjects->id_project]));
+        }else{
+            return redirect()->back();
+        }
+    }
+
+    public function ndaListInvestor(){
+        $data['title_page'] = 'NDA List';
+
+        $data['nda_list'] = [];
+        $data['user_detail'] = UserDetail::where('user_id', Auth::id())->first();
+
+        $r = NdaProjects::where("user_id", Auth::id())->get();
+        foreach ($r as $val){
+            $data['nda_list'][] = [
+              'nda' => $val,
+              'project' => Projects::where('id', $val->id_project)->first(),
+              'owner' => UserDetail::where('user_id', $val->user_id)->first(),
+            ];
+        }
+
+        return view('investor.nda-list-investor', ['data' => $data]);
+    }
+
+    public function downloadNda($nda_id){
+
+        $nda = NdaProjects::where('id', $nda_id)->first();
+
+        $project = Projects::where('id', $nda->id_project)->first();
+
+        $investor = UserDetail::where('user_id', $nda->user_id)->first();
+
+        $owner = UserDetail::where('user_id', $project->user_id)->first();
+
+        $name_company_owner = '';
+        if(!empty($owner) && isset($owner->company_name)){
+            $name_company_owner = '(' . $owner->company_name . ')';
+        }
+
+        $address_investor = '';
+
+        if(!empty($investor->street) && !empty($investor->house) && !empty($investor->city) && !empty($investor->country)){
+            $address_investor .= '(';
+
+            $address_investor .= (new CountryController)->getNameCountry($investor->country);
+            $address_investor .= ', ' . $investor->city;
+            $address_investor .= ', ' . $investor->street;
+            $address_investor .= ', ' . $investor->house;
+
+            if(!empty($investor->postal_code)){
+                $address_investor .= ', ' . $investor->postal_code;
+            }
+
+            $address_investor .= ')';
+        }else{
+            $address_investor .= '(';
+            $user = User::where('id', $investor->user_id)->first();
+            $address_investor .= $user->email;
+            $address_investor .= ')';
+        }
+
+
+        $date_ins = date_create_from_format('Y-m-d H:i:s', $nda->data_signature_owner);
+        $insert_data = $date_ins->format('F j, Y');
+
+        $pdf = Pdf::loadView('pdf.nda_pdf_template', [
+            'date' => $nda->date,
+            'disclosing' => $nda->disclosing,
+            'disclosing_mail' => $nda->disclosing_mail,
+            'receiving' => $nda->receiving,
+            'receiving_mail' => $nda->receiving_mail,
+            'signature' => $nda->signature,
+            'signature_owner' => $nda->signature_owner,
+            'insert_number' => '3',
+            'country' => 'England',
+            'name_of_the_project' => $project->name_project,
+            'name_of_the_investor' => $investor->first_name . ' ' . $investor->last_name . ' ' . $address_investor,
+            'name_of_project_owner_and_company_if_included' => $owner->first_name . ' ' . $owner->last_name . ' ' . $name_company_owner,
+            'insert_data' => $insert_data,
+        ]);
+        return $pdf->download('nda_' . $nda->id . '.pdf');
+
     }
 
 }

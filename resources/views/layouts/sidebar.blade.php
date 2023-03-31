@@ -10,8 +10,14 @@
         </a>
     @endif
 
-    <a href="#"><img src="{{asset("img/icons/icon-chat.svg")}}" alt="Chat" /></a>
-    <a href="#"><img src="{{asset("img/icons/icon-file.svg")}}" alt="File" /></a>
+    <a href="/chat"><img src="{{asset("img/icons/icon-chat.svg")}}" alt="Chat" /></a>
+
+    @if(App\Models\User::checkInvestor())
+        <a href="{{route("ndaListInvestor")}}"><img src="{{asset("img/icons/icon-file.svg")}}" alt="File" /></a>
+    @else
+        <a href="{{route("ndaList")}}"><img src="{{asset("img/icons/icon-file.svg")}}" alt="File" /></a>
+    @endif
+
     <a href="{{route("profile")}}"><img src="{{asset("img/icons/icon-user.svg")}}" alt="User" /></a>
     <a href="{{route("logout")}}"><img src="{{asset("img/icons/Logout.svg")}}" alt="Logout" /></a>
 

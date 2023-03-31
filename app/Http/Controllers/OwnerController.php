@@ -7,8 +7,10 @@ use App\Models\User;
 use App\Models\UserDetail;
 use App\Models\Projects;
 use App\Models\CategoryName;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\NdaProjects;
 
 class OwnerController extends Controller
 {
@@ -83,6 +85,16 @@ class OwnerController extends Controller
     }
 
     public function viewProject($id){
+
+        $check_asses = NdaProjects::where('user_id', Auth::id())->where("id_project", $id)->first();
+
+        if (User::checkInvestor()){
+            if (empty($check_asses) || $check_asses->status != 'signed'){
+                return redirect()->back();
+            }
+        }
+
+
         $data['title_page'] = 'Project';
         $user = Auth::user();
         $user_id = $user->id;
@@ -114,5 +126,89 @@ class OwnerController extends Controller
         ]);
     }
 
+    public function ndaList(){
+        $data['title_page'] = 'NDA List';
+
+        $data['user_detail'] = UserDetail::where('user_id', Auth::id())->first();
+
+        $data['nda_list'] = [];
+
+        $projectIds = Projects::where('user_id', Auth::id())->pluck('id');
+        if (!empty($projectIds)){
+            $projectIds = $projectIds->toArray();
+
+            $projects = NdaProjects::whereIn('id_project', $projectIds)->get();
+
+            foreach ($projects as $val){
+                $data['nda_list'][] = [
+                    'nda' => $val,
+                    'project' => Projects::where('id', $val->id_project)->first(),
+                    'investor' => UserDetail::where('user_id', $val->user_id)->first(),
+                ];
+            }
+
+//            dd($data['nda_list']);
+        }
+
+
+//        $data['nda_list'] = [];
+//        $data['user_detail'] = UserDetail::where('user_id', Auth::id())->first();
+//
+//        $r = NdaProjects::where("user_id", Auth::id())->get();
+//        foreach ($r as $val){
+//            $data['nda_list'][] = [
+//                'nda' => $val,
+//                'project' => Projects::where('id', $val->id_project)->first(),
+//                'owner' => UserDetail::where('user_id', $val->user_id)->first(),
+//            ];
+//        }
+
+        return view('owner.nda-list', ['data' => $data]);
+    }
+
+
+    public function ajaxProjectDetails (Request $request){
+
+        // Получаем id попапа из клика пользователя
+        $project_id = $request->get('project_id');
+        $project_detail = Projects::where('id', $project_id)->first();
+        $user_deteils = UserDetail::where('user_id', $project_detail->user_id)->first();
+
+        return response()->json([
+            'message' => 'Successfully!',
+            'project_detail' => $project_detail,
+            'user_deteils' => $user_deteils,
+        ]);
+    }
+
+    public function confirmNdaProject(Request $request){
+        $project_id = $request->get('project_id');
+
+        $ndaProjects = NdaProjects::where('id_project', $project_id)->first();
+
+        $ndaProjects->update([
+            'status' => 'signed',
+            'signature_owner' => $request->get('signature_owner'),
+            'data_signature_owner' => date("Y-m-d H:i:s"),
+        ]);
+
+        return redirect()->back();
+
+    }
+
+    public function rejectedNdaProject(Request $request){
+        $project_id = $request->get('project_id');
+
+        $ndaProjects = NdaProjects::where('id_project', $project_id)->first();
+
+        $ndaProjects->update([
+            'status' => 'rejected',
+            'signature_owner' => '',
+            'data_signature_owner' => null,
+        ]);
+
+        return redirect()->back();
+
+    }
 
 }
