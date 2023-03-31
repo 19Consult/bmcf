@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\UserDetail;
+use App\Models\CategoryName;
 use App\Models\accountDeletionConfirmation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -60,6 +61,8 @@ class HomeController extends Controller
         if ($user_detail){
             $data['userDetail'] = $user_detail;
         }
+
+        $data['category'] = CategoryName::all();
 
         $data['allCountry'] = (new CountryController)->allCountries();
         unset($data['allCountry']['EU']);
@@ -121,7 +124,7 @@ class HomeController extends Controller
         }
 
         $user->email = $request->get('email');
-        $user->name = $request->get('first_name');
+        $user->name = $request->get('first_name') . ' ' . $request->get('last_name');
         $user->save();
 
         if ($user_detail) {
@@ -165,6 +168,8 @@ class HomeController extends Controller
         return redirect(route("profile"))->with('success', 'Account deletion request sent!');
     }
 
-
+//    public function chatView(){
+//        return view('chat-view');
+//    }
 
 }

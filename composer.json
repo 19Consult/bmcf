@@ -6,6 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
+        "barryvdh/laravel-dompdf": "^2.0",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.75",
@@ -13,8 +14,10 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.4",
         "league/csv": "^9.8",
+        "munafio/chatify": "^1.6",
         "pragmarx/countries": "^0.8.2",
-        "pragmarx/countries-laravel": "^0.7.0"
+        "pragmarx/countries-laravel": "^0.7.0",
+        "pusher/pusher-php-server": "^7.2"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.7",

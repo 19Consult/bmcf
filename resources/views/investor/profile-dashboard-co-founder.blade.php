@@ -98,7 +98,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row company">
                     <div class="col title">Business Address</div>
                     <div class="col fields">
                         <div class="row row-field">
@@ -147,6 +147,69 @@
                         </div>
                     </div>
                 </div>
+
+
+
+                <div class="row ">
+                    <div class="col title">Your Basic Interests</div>
+                    <div class="col fields">
+                        <div class="col row-field">
+                            <div class="form_input_wrap">
+                            </div>
+                        </div>
+                        <div class="col row-field">
+                            <div class="form_input_wrap">
+                                <input type="text" id="basic-interests" name="basic_interests" value="">
+                                <label for="basic-interests">Basic Interests</label>
+                            </div>
+                        </div>
+                        <div class="row row-field">
+                            <div class="form_input_wrap">
+                                <select name="country" class="click-select-country">
+                                    <option></option>
+                                    <option selected="true" disabled="disabled">All Categories</option>
+                                    @if(!empty($data['category']))
+                                        @foreach($data['category'] as $key => $val)
+                                            <option value="{{$val->category_name}}" {{ !empty($data['userDetail']->keyword1) && $data['userDetail']->keyword1 == $val->category_name ? 'selected' : '' }}>{{$val->category_name}}</option>
+                                        @endforeach
+                                    @endif
+                                </select>
+                                <label for="country">Categorty 1</label>
+                            </div>
+                            <div class="form_input_wrap">
+                                <select name="city" class="click-select-cities">
+
+                                    <option></option>
+                                    <option selected="true" disabled="disabled">All Categories</option>
+                                    @if(!empty($data['category']))
+                                        @foreach($data['category'] as $key => $val)
+                                            <option value="{{$val->category_name}}" {{ !empty($data['userDetail']->keyword1) && $data['userDetail']->keyword1 == $val->category_name ? 'selected' : '' }}>{{$val->category_name}}</option>
+                                        @endforeach
+                                    @endif
+
+                                </select>
+                                <label for="city">Categorty 2</label>
+                            </div>
+                        </div>
+                        <div class="row row-field">
+                            <div class="form_input_wrap">
+                                <select name="country" class="click-select-country">
+                                    <option></option>
+                                    <option selected="true" disabled="disabled">All Categories</option>
+                                    @if(!empty($data['category']))
+                                        @foreach($data['category'] as $key => $val)
+                                            <option value="{{$val->category_name}}" {{ !empty($data['userDetail']->keyword1) && $data['userDetail']->keyword1 == $val->category_name ? 'selected' : '' }}>{{$val->category_name}}</option>
+                                        @endforeach
+                                    @endif
+                                </select>
+                                <label for="country">Categorty 3</label>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
                 <div class="row notifications">
                     <div class="col title">Email Notifications</div>
                     <div class="col fields">

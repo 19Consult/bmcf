@@ -49,6 +49,15 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/home-investor', [InvestorController::class, 'indexInvestor'])->name('homeInvestor');
 
+//    Chatify::routes();
+
+//    Route::get('/chatify-page', function () {
+//        return view('chatify-page');
+//    });
+
+
+//    Route::get('/chat', [HomeController::class, 'chatView'])->name('chatView');
+
     Route::get('/profile', [HomeController::class, 'profile'])->name('profile');
     Route::post('/profile/save', [HomeController::class, 'profileSave'])->name('profileSave');
 
@@ -71,6 +80,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/nda-list', [OwnerController::class, 'ndaList'])->name('ndaList');
     Route::get('/nda-list-investor', [InvestorController::class, 'ndaListInvestor'])->name('ndaListInvestor');
 
+    Route::get('/nda-download/{nda_id}', [InvestorController::class, 'downloadNda'])->name('downloadNda');
+
     // project-favorites (The page is created, and the functionality is hidden)
     //Route::get('/project-favorites', [InvestorController::class, 'viewProjectFavorites'])->name('viewProjectFavorites');
 
@@ -78,6 +89,11 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('/project/counter-projects-views', [InvestorController::class, 'counterProjectsViews'])->name('counterProjectsViews');
     Route::post('/project/favorite', [InvestorController::class, 'favoriteProject'])->name('favoriteProject');
+
+    Route::post('/project/ajax-project-details', [OwnerController::class, 'ajaxProjectDetails'])->name('ajaxProjectDetails');
+
+    Route::post('/project/confirm-nda-project', [OwnerController::class, 'confirmNdaProject'])->name('confirmNdaProject');
+    Route::post('/project/rejected-nda-project', [OwnerController::class, 'rejectedNdaProject'])->name('rejectedNdaProject');
 
 
     Route::prefix('admin')->middleware(['admin'])->group(function () {
