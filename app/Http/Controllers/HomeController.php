@@ -117,11 +117,16 @@ class HomeController extends Controller
             $data['photo'] = 'profile-photos/' . $filename;
         }
 
-        if($request->get('new_project_email')){
-            $data['new_project_email'] = empty($request->input('new_project_email')) ? false : true;
-            $data['notification_email'] = empty($request->input('notification_email')) ? false : true;
-            $data['nda_approved_email'] = empty($request->input('nda_approved_email')) ? false : true;
-        }
+
+        $data['new_project_email'] = empty($request->input('new_project_email')) ? false : true;
+        $data['notification_email'] = empty($request->input('notification_email')) ? false : true;
+        $data['nda_approved_email'] = empty($request->input('nda_approved_email')) ? false : true;
+
+        $data['basic_interests_investor'] = $request->get('basic_interests_investor');
+        $data['categorty1_investor'] = $request->get('categorty1_investor');
+        $data['categorty2_investor'] = $request->get('categorty2_investor');
+        $data['categorty3_investor'] = $request->get('categorty3_investor');
+
 
         $user->email = $request->get('email');
         $user->name = $request->get('first_name') . ' ' . $request->get('last_name');

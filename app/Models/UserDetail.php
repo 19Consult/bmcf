@@ -35,6 +35,10 @@ class UserDetail extends Model
         'new_project_email',
         'notification_email',
         'nda_approved_email',
+        'basic_interests_investor',
+        'categorty1_investor',
+        'categorty2_investor',
+        'categorty3_investor',
     ];
 
 }

@@ -23,3 +23,10 @@ let btn_send = document.querySelector(".send.send-form");
 btn_send.addEventListener('click', function() {
     unsavedChanges = false;
 });
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    $(document).ready(function () {
+        $('.select-list').select2();
+    });
+})
