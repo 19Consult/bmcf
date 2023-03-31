@@ -7,7 +7,8 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    @if(\App\Models\User::checkAdmin())
+
+@if(\App\Models\User::checkAdmin())
         <title>{{ config('app.name', 'COFOUNDER') }}</title>
     @else
         <title>{{\App\Models\User::getTitle()}}</title>
@@ -18,10 +19,14 @@
     <link rel="stylesheet" href="{{asset("css/main.css")}}" />
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
+{{--    <link href="{{ asset('vendor/munafio/chatify/css/chatify.css') }}" rel="stylesheet">--}}
+    <link href="{{ asset('css/chatify/style.css') }}" rel="stylesheet">
+{{--    <link href="../vendor/munafio/chatify/css/chatify.css" rel="stylesheet">--}}
+
 </head>
 <body>
 
-    @yield('content')
+@yield('content')
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
@@ -33,8 +38,15 @@
 <script src="{{asset("js/libs/intlTelInput.min.js")}}"> </script>
 <script src="{{asset("js/main.js")}}"> </script>
 
-    <script src="{{asset("js/libs/ckeditor/ckeditor.js")}}"> </script>
+<script src="{{asset("js/libs/ckeditor/ckeditor.js")}}"> </script>
 {{--    <script src="//cdn.ckeditor.com/4.20.2/standard/ckeditor.js"></script>--}}
+
+<script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+<script src="{{ asset('js/chatify/code.js') }}"></script>
+<script src="{{ asset('js/chatify/autosize.js') }}"></script>
+<script src="{{ asset('js/chatify/utils.js') }}"></script>
+<script src="{{ asset('js/chatify/font.awesome.min.js') }}"></script>
+{{--<script src="{{ asset('js/chatify/js/chatify.js') }}"></script>--}}
 
 </body>
 </html>

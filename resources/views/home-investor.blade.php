@@ -14,7 +14,7 @@
                     <input name="search_keyword" type="text" placeholder="Search by Keyword" value="{{$search_keyword}}">
                     <button class="search-btn" onchange="this.form.submit()"></button>
                 </div>
-                <select name="categories" class="categories" onchange="this.form.submit()">
+                <select name="categories" class="categories select-list" onchange="this.form.submit()">
                     <option></option>
                     <option selected="true" value="">All Categories</option>
                     @if(!empty($data['category']))
@@ -34,7 +34,11 @@
                             <div class="project__img"><img src="{{isset($val->photo_project) ? asset($val->photo_project) : 'img/project-img.webp'}}" alt="Project image"></div>
                             <div class="project__content top">
                                 <div class="project__title-wrap">
-                                    <div class="project__title counter-project-view" data-project-id="{{$val->id}}">{{isset($val->name_project) ? $val->name_project : ''}}</div>
+                                    @if( App\Models\NdaProjects::checkSignedNda(Auth::id(), $val->id) )
+                                        <a class="project__title_link" href="{{route("viewProject", ['id' => $val->id])}}">{{isset($val->name_project) ? $val->name_project : ''}}</a>
+                                    @else
+                                        <div class="project__title counter-project-view" data-project-id="{{$val->id}}">{{isset($val->name_project) ? $val->name_project : ''}}</div>
+                                    @endif
                                     <div class="project__subtitle">Social</div>
                                 </div>
                                 <div class="project__favorite favorite-projid-{{$val->id}} {{in_array($val->id, $data['favorite_project']) ? 'active' : ''}}" project-id="{{$val->id}}"></div>
@@ -65,6 +69,8 @@
                 document.addEventListener('DOMContentLoaded', function () {
 
                     $(document).ready(function () {
+
+                        $('.select-list').select2();
 
                         $.ajaxSetup({
                             headers: {
@@ -123,6 +129,14 @@
 
                                     $(".image-podpis").val('');
 
+                                    if(data.check_asses_status == "pending"){
+                                        $(".rj-link-redirect").css("display", "none")
+                                        $(".nav__back.already-request").css("display", "flex")
+                                    }else {
+                                        $(".nav__back.already-request").css("display", "none")
+                                        $(".rj-link-redirect").css("display", "flex")
+                                    }
+
                                     // let link = '/project/' + project_id;
                                     // $(".rj-link-redirect").attr('href', link)
                                 },
@@ -146,7 +160,7 @@
                         $('.rj-link-redirect').click(function() {
                             $('.nda-agreement.nda-agreement--popup').addClass('open');
                         })
- 
+
                         $('.nav__back a').click(function() {
                             $('.nda-agreement.nda-agreement--popup').removeClass('open');
                         })
@@ -217,7 +231,12 @@
                                 <div class="project-preview__author-position">Idea Owner</div>
                             </div>
                         </div>
-                        <div class="project-preview__description pr-founder-terms-condition scrollbar-inner">Hello I’m Mariam Li lingues differe solmen in li grammatica, li pronunciation e li plu commun vocabules. Omnicos directe al desirabilite de un nov lingua franca: On refusa continuar payar custosi traductores. At solmen va esser necessi far uniform grammatica, pronunciation e plu sommun paroles.</div><a class="btn--arrow btn--solid rj-link-redirect" href="#">Sign NDA and request full project access</a>
+                        <div class="project-preview__description pr-founder-terms-condition scrollbar-inner">Hello I’m Mariam Li lingues differe solmen in li grammatica, li pronunciation e li plu commun vocabules. Omnicos directe al desirabilite de un nov lingua franca: On refusa continuar payar custosi traductores. At solmen va esser necessi far uniform grammatica, pronunciation e plu sommun paroles.</div>
+                        <a class="btn--arrow btn--solid rj-link-redirect" href="#">Sign NDA and request full project access</a>
+                        <div class="nav__back already-request" style="display: none">
+                            <a class=" btn--arrow btn--solid" href="#">ALREADY REQUESTED</a>
+                        </div>
+
                     </div>
                 </div>
             </div>

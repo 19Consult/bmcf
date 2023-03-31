@@ -139,6 +139,32 @@
         $present_process = 100;
     }
 
+
+    if(!$done_tell_about_you ){
+        $chech_line = false;
+    }
+    if($done_short_description ){
+        $middle_line = 'rjl-short-description';
+    }
+    if ($done_add_pictures){
+        $middle_line = 'rjl-add-pictures';
+    }
+    if ($done_tell_your_story){
+        $middle_line = 'rjl-tell-your-story';
+    }
+    if ($done_business_plan){
+        $middle_line = 'rjl-business-plan';
+    }
+    if ($done_add_video_teaser){
+        $middle_line = 'rjl-add-video-teaser';
+    }
+    if ($done_co_founder_conditions){
+        $middle_line = 'rjl-co-founder-conditions';
+    }
+    if ($done_found_co_founder){
+        $middle_line = 'rjl-found-co-founder';
+    }
+
     ?>
 
 
@@ -208,9 +234,10 @@
                                             <div class="col fields">
                                                 <div class="col row-field">
                                                     <div class="form_input_wrap">
+
                                                         {{--<input type="text" placeholder="Key Word" name="keyword1" value="{{!empty($data['project']->keyword1) ? $data['project']->keyword1 : ''}}">--}}
 
-                                                        <select name="keyword1">
+                                                        <select class="keyword-list" name="keyword1">
                                                             <option></option>
                                                             <option selected="true" disabled="disabled">All Categories</option>
                                                             @if(!empty($data['category']))
@@ -225,7 +252,7 @@
                                                     <div class="form_input_wrap">
                                                         {{--<input type="text" placeholder="Key Word" name="keyword2" value="{{!empty($data['project']->keyword2) ? $data['project']->keyword2 : ''}}">--}}
 
-                                                        <select name="keyword2">
+                                                        <select class="keyword-list" name="keyword2">
                                                             <option></option>
                                                             <option selected="true" disabled="disabled">All Categories</option>
                                                             @if(!empty($data['category']))
@@ -239,7 +266,7 @@
                                                     <div class="form_input_wrap">
                                                         {{--<input type="text" placeholder="Key Word" name="keyword3" value="{{!empty($data['project']->keyword3) ? $data['project']->keyword3 : ''}}">--}}
 
-                                                        <select name="keyword3">
+                                                        <select class="keyword-list" name="keyword3">
                                                             <option></option>
                                                             <option selected="true" disabled="disabled">All Categories</option>
                                                             @if(!empty($data['category']))
@@ -259,10 +286,15 @@
                         </div>
                     </div>
 
+
+
+
                     <script>
                         document.addEventListener('DOMContentLoaded', function () {
 
                             $(document).ready(function() {
+                                //keyword-list
+                                $('.keyword-list').select2();
 
                                 function isEmptyOrSpaces(str){
                                     return str === null || str.match(/^ *$/) !== null;
@@ -427,30 +459,30 @@
                         });
 
 
-                        let registration = 0;
-                        let tellAboutYou = 0;
-                        let shortDescription = 0;
-                        let addPictures = 0;
-                        let tellYourStory = 0;
-                        let businessPlan = 0;
-                        let addVideoTeaser = 0;
-                        let coFounderConditions = 0;
-                        let foundCoFounder = 0;
-
-                        const registrationInput = document.getElementById('registration-input');
-                        registrationInput.addEventListener('input', () => {
-                            registration = 1;
-                            updateCompletionPercentage();
-                        });
-
-                        function updateCompletionPercentage() {
-                            const totalSteps = 9;
-                            const completedSteps = registration + tellAboutYou + shortDescription + addPictures + tellYourStory + businessPlan + addVideoTeaser + coFounderConditions + foundCoFounder;
-                            const completionPercentage = Math.round((completedSteps / totalSteps) * 100);
-                            const completionBar = document.getElementById('completion-bar');
-                            completionBar.style.width = completionPercentage + '%';
-                            completionBar.innerText = completionPercentage + '% Complete';
-                        }
+                        // let registration = 0;
+                        // let tellAboutYou = 0;
+                        // let shortDescription = 0;
+                        // let addPictures = 0;
+                        // let tellYourStory = 0;
+                        // let businessPlan = 0;
+                        // let addVideoTeaser = 0;
+                        // let coFounderConditions = 0;
+                        // let foundCoFounder = 0;
+                        //
+                        // const registrationInput = document.getElementById('registration-input');
+                        // registrationInput.addEventListener('input', () => {
+                        //     registration = 1;
+                        //     updateCompletionPercentage();
+                        // });
+                        //
+                        // function updateCompletionPercentage() {
+                        //     const totalSteps = 9;
+                        //     const completedSteps = registration + tellAboutYou + shortDescription + addPictures + tellYourStory + businessPlan + addVideoTeaser + coFounderConditions + foundCoFounder;
+                        //     const completionPercentage = Math.round((completedSteps / totalSteps) * 100);
+                        //     const completionBar = document.getElementById('completion-bar');
+                        //     completionBar.style.width = completionPercentage + '%';
+                        //     completionBar.innerText = completionPercentage + '% Complete';
+                        // }
 
                     </script>
 
