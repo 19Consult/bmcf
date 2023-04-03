@@ -1096,7 +1096,7 @@ input[type=checkbox] + label::before {
   display: -ms-flexbox;
   display: flex;
   overflow: hidden;
-  min-height: 100vh;
+  min-height: calc(100vh - 82px);
 }
 .dashboard-wrapper .profile__wrapper {
   width: 100%;
@@ -1796,6 +1796,9 @@ input[type=checkbox] + label::before {
   margin-bottom: 40px;
   font-size: 14px;
   line-height: 16px;
+}
+.project-preview__description p:last-child{
+  margin-bottom: unset;
 }
 .project-preview__description img {
   max-width: 100%;
@@ -2636,6 +2639,20 @@ input[type=checkbox] + label::before {
   left: 0%;
   opacity: 1;
 }
+.nda-more-wrap .nda-info__user-img {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 100%;
+}
+.nda-more-wrap .nda-info__user-img img {
+  width: auto;
+  height: 100%;
+}
+
 .nda-info {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -2663,6 +2680,9 @@ input[type=checkbox] + label::before {
 .nda-info .left {
   width: 100%;
   max-width: 330px;
+}
+.nda-info .col:not(.left) {
+  flex: 1;
 }
 .nda-info__bottom {
   display: -webkit-box;
@@ -2710,7 +2730,10 @@ input[type=checkbox] + label::before {
 }
 .nda-info__content {
   margin-top: 10px;
-  max-width: 640px;
+  /* max-width: 640px; */
+}
+.nda-info .btn{
+  max-width: 265px;
 }
 .nda-info__content p {
   font-size: 14px;
@@ -2739,7 +2762,7 @@ input[type=checkbox] + label::before {
   width: -webkit-max-content;
   width: -moz-max-content;
   width: max-content;
-  margin-bottom: 24px;
+  /* margin-bottom: 24px; */
 }
 .nda-info__signature label {
   position: absolute;
@@ -2890,7 +2913,7 @@ input[type=checkbox] + label::before {
   margin-bottom: 15px;
 }
 .nda-agreement.open {
-  z-index: 1;
+  z-index: 10;
   opacity: 1;
   visibility: visible;
 }
@@ -4360,6 +4383,11 @@ body {
     border-radius: 100%;
     overflow: hidden;
     font-size: 0;
+    display: flex;
+    justify-content: center;
+}
+.project-preview__author-img .pr-user-photo {
+  width: auto;
 }
 .project__favorite.active {
     background: url("../img/icons/icon-favorite-active.svg") no-repeat;

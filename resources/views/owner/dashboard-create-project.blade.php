@@ -204,7 +204,7 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="field-add brief_description_project scrollbar-inner">
+                        <div class="field-add brief_description_project scrollbar-inner scrollbar-init">
                             @if(!empty($data['project']->brief_description))
                                 {{$data['project']->brief_description}}
                             @else

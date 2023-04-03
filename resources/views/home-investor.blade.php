@@ -78,6 +78,9 @@
                             }
                         });
 
+                        $('.project-preview__popup .nav__back').click(function(){
+                            $('.scrollbar-inner-ajax').scrollbar('destroy')
+                        })
 
                         $('.counter-project-view').on('click', function(event) {
                             event.preventDefault();
@@ -85,8 +88,6 @@
                             let project_id = $(this).attr("data-project-id");
 
                             console.log(project_id)
-
-
 
                             let data = {
                                 project_id: project_id,
@@ -97,7 +98,6 @@
                                 type: 'POST',
                                 data: data,
                                 success: function(data) {
-                                    $('.project-preview__wrap--page').find('.scroll-wrapper').removeClass('scroll-wrapper')
                                     console.log(data); // replace with your own success callback function
                                     let project_data = data.project_detail;
                                     $(".pr-name").text(project_data.name_project)
@@ -124,7 +124,14 @@
                                     $(".nda-id-project").val(project_id);
 
                                     if ($('.project-preview__wrap--page.open')) {
-                                        $('.scrollbar-inner').scrollbar();
+                                        setTimeout(() => {
+                                            $('.scrollbar-inner-ajax').scrollbar({
+                                                'onInit': function(){
+                                                    console.log('test');
+                                                }
+                                            });
+                                            
+                                        }, 400);
                                     }
 
                                     $(".image-podpis").val('');
@@ -223,7 +230,7 @@
                             </div>
                             <div class="project__favorite favorite-pop" project-id=""></div>
                         </div>
-                        <div class="project-preview__description pr-project-story scrollbar-inner">Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica, sport etc, litot Europa usa li sam vocabular. Li lingues differe solmen in li grammatica, li pronunciation e li plu commun vocabules. Omnicos directe al desirabilite de un nov lingua franca: On refusa continuar payar custosi traductores. At solmen va esser necessi far uniform grammatica, pronunciation e plu sommun paroles.</div>
+                        <div class="project-preview__description pr-project-story scrollbar-inner-ajax scrollbar-inner">Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica, sport etc, litot Europa usa li sam vocabular. Li lingues differe solmen in li grammatica, li pronunciation e li plu commun vocabules. Omnicos directe al desirabilite de un nov lingua franca: On refusa continuar payar custosi traductores. At solmen va esser necessi far uniform grammatica, pronunciation e plu sommun paroles.</div>
                         <div class="project-preview__author">
                             <div class="project-preview__author-img"><img class="pr-user-photo" src="img/user-2.webp" alt="User"></div>
                             <div class="project-preview__author-title">
@@ -231,7 +238,7 @@
                                 <div class="project-preview__author-position">Idea Owner</div>
                             </div>
                         </div>
-                        <div class="project-preview__description pr-founder-terms-condition scrollbar-inner">Hello I’m Mariam Li lingues differe solmen in li grammatica, li pronunciation e li plu commun vocabules. Omnicos directe al desirabilite de un nov lingua franca: On refusa continuar payar custosi traductores. At solmen va esser necessi far uniform grammatica, pronunciation e plu sommun paroles.</div>
+                        <div class="project-preview__description pr-founder-terms-condition scrollbar-inner-ajax scrollbar-inner">Hello I’m Mariam Li lingues differe solmen in li grammatica, li pronunciation e li plu commun vocabules. Omnicos directe al desirabilite de un nov lingua franca: On refusa continuar payar custosi traductores. At solmen va esser necessi far uniform grammatica, pronunciation e plu sommun paroles.</div>
                         <a class="btn--arrow btn--solid rj-link-redirect" href="#">Sign NDA and request full project access</a>
                         <div class="nav__back already-request" style="display: none">
                             <a class=" btn--arrow btn--solid" href="#">ALREADY REQUESTED</a>
