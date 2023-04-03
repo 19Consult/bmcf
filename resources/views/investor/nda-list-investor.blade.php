@@ -15,7 +15,7 @@
                     <div class="nda__item">Idea Owner</div>
                     <div class="nda__item nda__item--sort-active nda__item--sort nda__item--sort-up">Contract Date</div>
                 </div>
-                <div class="nda__content scrollbar-inner">
+                <div class="nda__content scrollbar-inner scrollbar-init">
 
                     @if(!empty($data['nda_list']) && isset($data['nda_list']))
                         @foreach($data['nda_list'] as $val)

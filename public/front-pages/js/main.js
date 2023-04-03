@@ -113,7 +113,7 @@ jQuery(document).ready(function ($) {
 		};
 	});
 
-	$('.scrollbar-inner').scrollbar();
+	$('.scrollbar-init').scrollbar();
 
 	$('input[type=file]').on('change', function () {
 		let $files_list = $(this).parents('.add-file-field').siblings('.add-file-input-text');

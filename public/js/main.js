@@ -105,8 +105,7 @@ jQuery(document).ready(function ($) {
 			$('html').css('overflow','')
 		}
 	})
-
-	$('.scrollbar-inner').scrollbar()
+	$('.scrollbar-init').scrollbar()
 	// $(document).mouseup(function (e) {
 	// 	// console.log($('body').children('.select2-container').length === 0)
 	// 	let div = $(".popup__content");
