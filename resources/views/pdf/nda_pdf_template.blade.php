@@ -72,6 +72,7 @@
                     proprietary, confidential, or trade secret information, whether in written, oral, electronic,
                     or any other form, that is disclosed by the Disclosing Party to the Receiving Party.
                 </li>
+                </br>
                 <li>
                     2.	Obligations of Receiving Party The Receiving Party agrees to:
                 </li>
@@ -124,11 +125,13 @@
                     Party upon written notice to the Receiving Party. The obligations of confidentiality and non-use contained in this
                     Agreement shall survive any termination of this Agreement.
                 </li>
+                </br>
                 <li>
                     5.	Governing Law and Jurisdiction This Agreement shall be governed by and construed in accordance with the laws of
                     <b>insert governing law and jurisdiction</b>, and any dispute arising under this Agreement
                     shall be resolved exclusively by the courts of <b>{{$country}}</b>.
                 </li>
+                </br>
                 <li>
                     6.	Entire Agreement This Agreement constitutes the entire understanding between the Parties with respect to the subject
                     matter hereof and supersedes all prior discussions, negotiations, and agreements between the Parties, whether
