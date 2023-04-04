@@ -16,3 +16,12 @@ use Illuminate\Support\Facades\Broadcast;
 Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
 });
+
+Broadcast::channel('private-chatify', function ($user, $roomId) {
+    return $user->id === $roomId;
+});
+
+Broadcast::channel('private-chatify.{userId}', function ($user, $userId) {
+    return (int) $user->id === (int) $userId;
+});
+

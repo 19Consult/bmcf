@@ -12,6 +12,12 @@ var messenger,
   dark_mode,
   messages_page = 1;
 
+// Echo.channel('channel-name')
+//     .listen('EventName', (data) => {
+//         console.log(data);
+//     });
+
+
 const messagesContainer = $(".messenger-messagingView .m-body"),
   messengerTitleDefault = $(".messenger-headTitle").text(),
   messageInputContainer = $(".messenger-sendCard"),

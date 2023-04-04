@@ -12,6 +12,12 @@
         pusherAuthEndpoint: '{{route("pusher.auth")}}'
     };
     window.chatify.allAllowedExtensions = chatify.allowedImages.concat(chatify.allowedFiles);
+
+    Echo.channel('channel-name')
+        .listen('EventName', (data) => {
+            console.log(data);
+        });
+
 </script>
 <script src="{{ asset('js/chatify/utils.js') }}"></script>
 <script src="{{ asset('js/chatify/code.js') }}"></script>
