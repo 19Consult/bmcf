@@ -6,10 +6,10 @@
 <body>
 <div class="container">
     Hi {{ $data['name'] }},
-    You have documents to review. Please <a href="{{route("ndaList")}}">click</a> here (link to nda list)
-
-    Thank you,
-    Membership team
+    You have documents to review. Please <a href="{{route("ndaList")}}">click</a> here (link to nda list)</br>
+    </br>
+    Thank you,</br>
+    Membership team</br>
     <a href="{{route("welcome")}}">BeMyCoFounders.com</a>
 </div>
 </body>

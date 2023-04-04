@@ -30,6 +30,6 @@ class NdaSendMailRequest extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.nda-send-mail-request')->with(['data' => $this->data]);
+        return $this->subject('NDA Sent')->view('emails.nda-send-mail-request')->with(['data' => $this->data]);
     }
 }
