@@ -9,6 +9,15 @@ use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\RegistController;
 use Illuminate\Support\Facades\Route;
 
+//use Chatify;
+use Chatify\ChatifyServiceProvider;
+use Chatify\ChatifyMessenger;
+
+//use App\Providers\BroadcastServiceProvider;
+//use Exception;
+
+use Illuminate\Support\Facades\Broadcast;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -50,9 +59,18 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/home-investor', [InvestorController::class, 'indexInvestor'])->name('homeInvestor');
 
 //    Chatify::routes();
+//    ChatifyServiceProvider::routes();
+
+//    Broadcast::routes();
+
 
 //    Route::get('/chatify-page', function () {
 //        return view('chatify-page');
+//    });
+
+
+//    Route::post('/pusher/auth', function() {
+//        return Pusher\Pusher::socket_auth(request());
 //    });
 
 
