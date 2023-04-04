@@ -153,16 +153,7 @@
                 <div class="row ">
                     <div class="col title">Your Basic Interests</div>
                     <div class="col fields">
-                        <div class="col row-field">
-                            <div class="form_input_wrap">
-                            </div>
-                        </div>
-                        <div class="col row-field">
-                            <div class="form_input_wrap">
-                                <input type="text" id="basic-interests" name="basic_interests_investor" value="{{isset($data['userDetail']->basic_interests_investor) ? $data['userDetail']->basic_interests_investor : ''}}">
-                                <label for="basic-interests">Basic Interests</label>
-                            </div>
-                        </div>
+
                         <div class="row row-field">
                             <div class="form_input_wrap">
                                 <select name="categorty1_investor" class="click-select-country select-list">
@@ -176,6 +167,9 @@
                                 </select>
                                 <label for="country">Categorty 1</label>
                             </div>
+                        </div>
+
+                        <div class="row row-field">
                             <div class="form_input_wrap">
                                 <select name="categorty2_investor" class="click-select-cities select-list">
 
@@ -191,6 +185,7 @@
                                 <label for="city">Categorty 2</label>
                             </div>
                         </div>
+
                         <div class="row row-field">
                             <div class="form_input_wrap">
                                 <select name="categorty3_investor" class="click-select-country select-list">
