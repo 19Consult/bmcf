@@ -214,6 +214,10 @@ jQuery(document).ready(function ($) {
 		}, 7000);
 	}
 
+	$('body').on('click','.nav__notifications.has-notific', function(){
+		$(this).siblings('.nav__notifications-popup').toggleClass('show')
+	})
+
 
 });
 

@@ -819,6 +819,39 @@ form.type-1 .btn {
   background: url("../img/icons/icon-notifications.svg") no-repeat;
   background-position: center;
   background-size: contain;
+  display: block;
+  pointer-events: none;
+}
+.nav__notifications.has-notific {
+  background: url("../img/icons/icon-has-notifications.svg") no-repeat;
+  pointer-events: auto;
+}
+.nav__notifications-wrap {
+  position: relative;
+}
+.nav__notifications-popup {
+  opacity: 0;
+  visibility: hidden;
+  background: #fff;
+  position: absolute;
+  right: 30px;
+  top: 120%;
+  border: 1px solid #e5eaf5;
+  border-radius: 5px;
+  min-width: 180px;
+  padding: 10px;
+  color: var(--color-3);
+  font-size: 14px;
+  transition: var(--anim2);
+}
+.nav__notifications-popup.show {
+  opacity: 1;
+  visibility: visible;
+}
+.nav__notifications-popup li:not(:last-child) {
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e5eaf5;
 }
 .nav__profile-img {
   width: 32px;
@@ -902,7 +935,8 @@ span.select2-container--default .select2-selection--single {
 }
 span.select2-container--default .select2-selection--single .select2-selection__rendered {
   padding: unset;
-  line-height: 1;
+  /* line-height: 1; */
+  line-height: 18px;
   color: var(--color-6);
 }
 span.select2-container--below .select2-selection__rendered {
@@ -2812,7 +2846,7 @@ input[type=checkbox] + label::before {
           align-items: center;
 }
 .nda__download {
-  margin-left: 21%;
+  margin-left: auto;
   width: 11px;
   height: 12px;
   background: url("../img/icons/icon-download.svg") no-repeat;
@@ -2828,6 +2862,7 @@ input[type=checkbox] + label::before {
   background-position: center;
   background-size: contain;
   cursor: pointer;
+  margin-right: 30px;
 }
 .nda-agreement {
   position: fixed;
@@ -4385,6 +4420,10 @@ body {
     font-size: 0;
     display: flex;
     justify-content: center;
+}
+.project-preview__author-img img {
+  width: auto;
+  height: 100%;
 }
 .project-preview__author-img .pr-user-photo {
   width: auto;
