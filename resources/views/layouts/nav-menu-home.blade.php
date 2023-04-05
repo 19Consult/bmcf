@@ -7,7 +7,13 @@
         @if(app('checkNameRoute_app') == 'homeInvestor')
             <a class="nav__search" href="#"></a>
         @endif
-        <a class="nav__notifications" href="#"></a>
+        <div class="nav__notifications-wrap">
+            <a class="nav__notifications" href="#"></a>
+            <ul class="nav__notifications-popup">
+                <li><a href="#">New message</a></li>
+                <li><a href="#">New NDA</a></li>
+            </ul>
+        </div>
         @if(!empty(Auth::user()->detail->photo))
             <div class="nav__profile-img"><img src="{{asset(Auth::user()->detail->photo)}}" alt="User"></div>
         @endif
