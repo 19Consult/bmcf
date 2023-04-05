@@ -100,9 +100,9 @@ body {
   margin: 0rem 0.7rem;
 }
 .messenger {
-  display: inline-flex;
+  display: flex;
   width: 100%;
-  height: 100%;
+  height: auto;
   font-family: sans-serif;
 }
 .messenger-listView {
@@ -131,6 +131,7 @@ body {
   gap: 5px;
   overflow: hidden;
   width: 100%;
+  height: 100% !important;
 }
 .messenger-messagingView .m-header {
   padding: var(--headers-padding);
@@ -206,7 +207,8 @@ body {
 }
 .messenger-tab {
   overflow: auto;
-  height: calc(100vh - var(--listView-header-height) - 2px);
+  /* height: calc(100vh - var(--listView-header-height) - 2px); */
+  height: calc(100vh - 82px - var(--listView-header-height) - 2px);
   display: none;
   position: relative;
 }
@@ -274,9 +276,11 @@ body {
   float: right;
   color: #fff;
   background: var(--primary-color);
-  padding: 0px 4px;
+  /* padding: 0px 4px; */
+  padding: 4px;
   border-radius: 20px;
   font-size: 13px;
+  line-height: 9px;
   width: auto;
   height: auto;
   text-align: center;
@@ -1181,4 +1185,29 @@ div.loadingPlaceholder-date {
 .emoji-picker__emojis::-webkit-scrollbar-thumb {
   border-radius: 4px;
   background: transparent;
+}
+
+.messenger-list-item tr,
+.messenger-list-item td,
+.listOfContacts tr,
+.listOfContacts td {
+  display: flex;
+  align-items: center;
+}
+.messenger-list-item td,
+.listOfContacts td {
+  width: 100%;
+}
+.messenger-list-item td p,
+.listOfContacts td p {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.messenger-list-item td p ~ b {
+  margin-left: 5px;
+}
+.messenger-list-item td p + span,
+.listOfContacts td p + span {
+  margin-left: auto;
 }
