@@ -131,12 +131,7 @@
 
                                     if ($('.project-preview__wrap--page.open')) {
                                         setTimeout(() => {
-                                            $('.scrollbar-inner-ajax').scrollbar({
-                                                'onInit': function(){
-                                                    console.log('test');
-                                                }
-                                            });
-
+                                            $('.scrollbar-inner-ajax').scrollbar();
                                         }, 400);
                                     }
 

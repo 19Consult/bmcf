@@ -443,6 +443,7 @@ b {
   position: relative !important;
   top: 0;
   width: auto !important;
+  padding-right: 15px;
 }
 
 .scroll-wrapper > .scroll-content::-webkit-scrollbar {
@@ -843,6 +844,7 @@ form.type-1 .btn {
   color: var(--color-3);
   font-size: 14px;
   transition: var(--anim2);
+  z-index: 10;
 }
 .nav__notifications-popup.show {
   opacity: 1;
@@ -1553,6 +1555,15 @@ input[type=checkbox] + label::before {
 }
 .project__nda-title {
   margin-bottom: 7px;
+}
+.project__nda-user {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.project__nda-user img {
+  width: auto;
+  height: 100%;
 }
 .project__nda-quantity, .project__nda-user {
   overflow: hidden;
@@ -2863,6 +2874,34 @@ input[type=checkbox] + label::before {
   background-size: contain;
   cursor: pointer;
   margin-right: 30px;
+  position: relative;
+}
+.nda__more .nda__more-popup {
+  opacity: 0;
+  visibility: hidden;
+  background: #fff;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  right: 0;
+  top: 100%;
+  border: 1px solid #e5eaf5;
+  border-radius: 5px;
+  min-width: max-content;
+  padding: 10px;
+  color: var(--color-3);
+  font-size: 14px;
+  transition: var(--anim2);
+  z-index: 10;
+}
+.nda__more .nda__more-popup *:not(:last-child) {
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e5eaf5;
+}
+.nda__more.open .nda__more-popup {
+  opacity: 1;
+  visibility: visible;
 }
 .nda-agreement {
   position: fixed;
