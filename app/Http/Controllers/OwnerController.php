@@ -56,8 +56,6 @@ class OwnerController extends Controller
 
     public function saveProject(Request $request){
         $data = [
-            'user_id' => Auth::id(),
-            'user_role' => Auth::user()->role,
             'name_project' => $request->get("name_project"),
             'brief_description' => $request->get("brief_description_project"),
             'keyword1' => $request->get("keyword1"),
@@ -81,7 +79,13 @@ class OwnerController extends Controller
         }
 
         if($request->input("id_project") == 0){
-            $project = Projects::create($data);
+
+            $project = new Projects();
+            $project->user_id = Auth::id();
+            $project->user_role = Auth::user()->role;
+            $project->save();
+
+            $project->update($data);
         }else{
             $project = Projects::where('id', $request->input("id_project"))->first();
             $project->update($data);
