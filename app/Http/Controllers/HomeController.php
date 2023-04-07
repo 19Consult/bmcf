@@ -115,6 +115,16 @@ class HomeController extends Controller
             $path = public_path('profile-photos/');
             $photo->move($path, $filename);
             $data['photo'] = 'profile-photos/' . $filename;
+
+
+//            $user_module = User::where('id', $user_id)->first();
+//            // сохраняем в storage-директории
+//            $path_storage = storage_path('app/public/users-avatar/');
+//            $photo->move($path_storage, $filename);
+//            $user_module->avatar = $filename;
+//            $user_module->save();
+
+
         }
 
 
