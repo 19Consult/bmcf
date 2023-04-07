@@ -247,6 +247,9 @@ $(function () {
     //     tel_start.val('+380');
     // }
 
+        let code_tel = $('.iti__selected-dial-code').text();
+        $('.class-code-phone').val(code_tel)
+
 	$('input[type=tel]').on("focus click countrychange", function(e, countryData) {
 
 	    let code_tel = $('.iti__selected-dial-code').text();

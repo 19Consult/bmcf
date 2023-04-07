@@ -1,4 +1,9 @@
-<title>{{ config('chatify.name') }}</title>
+
+@if(\App\Models\User::checkAdmin())
+    <title>{{ config('app.name', 'COFOUNDER') }}</title>
+@else
+    <title>{{\App\Models\User::getTitle()}}</title>
+@endif
 
 {{-- Meta tags --}}
 <meta name="viewport" content="width=device-width, initial-scale=1">

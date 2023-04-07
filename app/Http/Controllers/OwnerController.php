@@ -12,6 +12,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\NdaProjects;
 use App\Models\ProjectsViews;
+use Illuminate\Support\Facades\Mail;
+
+use App\Mail\MailSendInvestorDeleteProject;
+use App\Mail\NdaSendMailInvestor;
 
 class OwnerController extends Controller
 {
@@ -240,6 +244,19 @@ class OwnerController extends Controller
             'data_signature_owner' => date("Y-m-d H:i:s"),
         ]);
 
+        try {
+
+            $user_investor_id = $ndaProjects->user_id;
+            $user_investor_info = User::where('id', $user_investor_id)->first();
+            $user_investor_email = $user_investor_info->email;
+
+            $data = ['project_id' => $project_id, 'user_name' => $user_investor_info->name];
+
+            Mail::to($user_investor_email)->send(new NdaSendMailInvestor($data));
+        } catch (\Exception $e) {
+            $e->getMessage();
+        }
+
         return redirect()->back();
 
     }
@@ -272,6 +289,23 @@ class OwnerController extends Controller
         $project_id = $request->get('id_project');
         $project = Projects::where('id', $project_id)->where('user_id', Auth::id())->first();
         if(!empty($project)){
+
+            $nda = NdaProjects::where('id_project', $project_id)->get();
+            foreach ($nda as $val){
+                $user_id = $val->user_id;
+                $user = User::where('id', $user_id)->first();
+                $user_email = $user->email;
+
+                $data_mail = ['project_name' => $project->name_project];
+
+                try {
+                    Mail::to($user_email)->send(new MailSendInvestorDeleteProject($data_mail));
+                } catch (\Exception $e) {
+                    $e->getMessage();
+                }
+
+            }
+
             /**
              * project_views+
              * nda_project+
