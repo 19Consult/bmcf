@@ -97,7 +97,7 @@ class HomeController extends Controller
             'first_name' => $request->get('first_name'),
             'last_name' => $request->get('last_name'),
             'date_of_birth' => $request->get('date_of_birth'),
-            'phone' => $request->get('phone'),
+            'phone' => $request->get('code_phone') . ' ' . $request->get('phone'),
             'about_you' => $request->get('about_you'),
             'company_name' => $request->get('company_name'),
             'occupation' => $request->get('occupation'),

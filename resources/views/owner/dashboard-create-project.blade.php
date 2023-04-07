@@ -92,77 +92,88 @@
     $number_line = 2;
     $chech_line_class = '';
     $middle_line = '';
-    $present_process = 15;
+    $present_process = 0;
     if(!$done_tell_about_you && $chech_line){
         $chech_line = false;
+
     }elseif(!$done_short_description && $chech_line){
         $chech_line_class = 'rj-short-description';
         $chech_line = false;
         $number_line = 3;
         $middle_line = 'rjl-short-description';
-        $present_process = 30;
+        //$present_process += 15;
     }elseif (!$done_add_pictures && $chech_line){
         $chech_line_class = 'rj-add-pictures';
         $chech_line = false;
         $number_line = 4;
         $middle_line = 'rjl-add-pictures';
-        $present_process = 45;
+        //$present_process += 15;
     }elseif (!$done_tell_your_story && $chech_line){
         $chech_line_class = 'rj-tell-your-story';
         $chech_line = false;
         $number_line = 5;
         $middle_line = 'rjl-tell-your-story';
-        $present_process = 60;
+        //$present_process += 15;
     }elseif (!$done_business_plan && $chech_line){
         $chech_line_class = 'rj-business-plan';
         $chech_line = false;
         $number_line = 6;
         $middle_line = 'rjl-business-plan';
-        $present_process = 75;
+        //$present_process += 15;
     }elseif (!$done_add_video_teaser && $chech_line){
         $chech_line_class = 'rj-add-video-teaser';
         $chech_line = false;
         $number_line = 7;
         $middle_line = 'rjl-add-video-teaser';
-        $present_process = 90;
+        //$present_process += 15;
     }elseif (!$done_co_founder_conditions && $chech_line){
         $chech_line_class = 'rj-co-founder-conditions';
         $chech_line = false;
         $number_line = 8;
         $middle_line = 'rjl-co-founder-conditions';
-        $present_process = 99;
+        //$present_process += 9;
     }elseif (!$done_found_co_founder && $chech_line){
         $chech_line_class = 'rj-found-co-founder';
         $chech_line = false;
         $number_line = 9;
         $middle_line = 'rjl-found-co-founder';
-        $present_process = 100;
+        //$present_process += 1;
     }
 
 
     if(!$done_tell_about_you ){
         $chech_line = false;
     }
+    if($done_tell_about_you ){
+        $present_process += 15;
+    }
     if($done_short_description ){
         $middle_line = 'rjl-short-description';
+        $present_process += 15;
     }
     if ($done_add_pictures){
         $middle_line = 'rjl-add-pictures';
+        $present_process += 15;
     }
     if ($done_tell_your_story){
         $middle_line = 'rjl-tell-your-story';
+        $present_process += 15;
     }
     if ($done_business_plan){
         $middle_line = 'rjl-business-plan';
+        $present_process += 15;
     }
     if ($done_add_video_teaser){
         $middle_line = 'rjl-add-video-teaser';
+        $present_process += 15;
     }
     if ($done_co_founder_conditions){
         $middle_line = 'rjl-co-founder-conditions';
+        $present_process += 9;
     }
     if ($done_found_co_founder){
         $middle_line = 'rjl-found-co-founder';
+        $present_process += 1;
     }
 
     ?>
@@ -675,7 +686,14 @@
                             </div>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn--solid btn--arrow send send-form">Submit</button>
+
+                    <div class="btn-owner-edit-project">
+                        @if(!empty($id_project))
+                            <a href="{{route("deleteProjectPreview", ['id_project' => $id_project])}}" class="btn btn--solid btn--arrow delete-account send">Delete project</a>
+                        @endif
+                        <button type="submit" class="btn btn--solid btn--arrow send send-form">Submit</button>
+                    </div>
+
                 </div>
             </form>
         </div>

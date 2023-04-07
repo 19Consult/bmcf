@@ -76,7 +76,30 @@ class InvestorController extends Controller
 
         $data['favorite_project'] = FavoriteProject::where('user_id', Auth::id())->pluck('project_id')->toArray();
 
-        return view('home-investor', ['data' => $data, 'search_keyword' => $search_keyword, 'categories' => $categories]);
+        $investor = UserDetail::where('user_id', Auth::id())->first();
+        $address_investor = '';
+        if(!empty($investor->street) && !empty($investor->house) && !empty($investor->city) && !empty($investor->country)){
+            $address_investor .= '(';
+
+            $address_investor .= (new CountryController)->getNameCountry($investor->country);
+            $address_investor .= ', ' . $investor->city;
+            $address_investor .= ', ' . $investor->street;
+            $address_investor .= ', ' . $investor->house;
+
+            if(!empty($investor->postal_code)){
+                $address_investor .= ', ' . $investor->postal_code;
+            }
+
+            $address_investor .= ')';
+        }else{
+            $address_investor .= '(';
+            $user = User::where('id', $investor->user_id)->first();
+            $address_investor .= $user->email;
+            $address_investor .= ')';
+        }
+        $nda_address_investor = $investor->first_name . ' ' . $investor->last_name . ' ' . $address_investor;
+
+        return view('home-investor', ['data' => $data, 'search_keyword' => $search_keyword, 'categories' => $categories, 'nda_address_investor' => $nda_address_investor]);
     }
 
     public function counterProjectsViews (Request $request){
@@ -214,11 +237,14 @@ class InvestorController extends Controller
         $data['user_detail'] = UserDetail::where('user_id', Auth::id())->first();
 
         $r = NdaProjects::where("user_id", Auth::id())->get();
+
+
         foreach ($r as $val){
+            $project = Projects::where('id', $val->id_project)->first();
             $data['nda_list'][] = [
               'nda' => $val,
-              'project' => Projects::where('id', $val->id_project)->first(),
-              'owner' => UserDetail::where('user_id', $val->user_id)->first(),
+              'project' => $project,
+              'owner' => UserDetail::where('user_id', $project->user_id)->first(),
             ];
         }
 
