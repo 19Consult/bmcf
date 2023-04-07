@@ -54,8 +54,18 @@
                                     <a href="{{route("downloadNda", ['nda_id' => $val['nda']->id])}}" class="nda__download {{(empty($val['nda']->signature) || empty($val['nda']->signature_owner)) ? 'disabled-button' : ''}}"></a>
                                     <div class="nda__more">
                                         <div class="nda__more-popup">
-                                            <a href="#">get access</a>
-                                            <a href="#">get access</a>
+                                            @if($val['nda']->status != 'signed')
+                                                <div class="approve-click" data-nda-id="{{$val['nda']->id}}">Approve</div>
+                                            @endif
+
+                                            @if($val['nda']->status != 'rejected')
+                                                <form action="{{route("rejectedNdaProject")}}" method="POST" class="list-reject-rt" >
+                                                    @csrf
+                                                    <input type="hidden" class="project-id-form" name="project_id" value="{{$val['project']->id}}">
+                                                    <input type="hidden" class="project-id-nda" name="nda_id" value="{{$val['nda']->id}}">
+                                                    <button type="submit" class="">Reject</button>
+                                                </form>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -86,7 +96,7 @@
                             <p style="display: none">Hello I’m Mariam Li lingues differe solmen in li grammatica, li pronunciation e li plu commun vocabules. Omnicos directe al desirabilite de un nov lingua franca: On refusa continuar payar custosi traductores. At solmen va esser necessi far uniform grammatica, pronunciation e plu sommun paroles.</p>
                             <form action="{{route("confirmNdaProject")}}" method="POST" class="nda-info__bottom">
                                 @csrf
-                                <input type="hidden" class="image-podpis" name="signature_owner" value="" required>
+                                <input type="hidden" class="image-podpis signature-owner-owner" name="signature_owner" value="" required>
                                 <input type="hidden" class="project-id-form" name="project_id" value="">
                                 <input type="hidden" class="project-id-nda" name="nda_id" value="">
                                 <div class="nda-info__signature">
@@ -222,16 +232,46 @@
     </div>
 </main>
 
+<style>
+    .list-reject-rt button{
+        cursor: pointer;
+        background: unset;
+        color: var(--color-3);
+    }
+</style>
+
     <script>
         document.addEventListener('DOMContentLoaded', function () {
 
             $(document).ready(function () {
 
+                function isCanvasEmpty(canvas) {
+                    const pixelBuffer = new Uint32Array(
+                        canvas.getContext('2d').getImageData(0, 0, canvas.width, canvas.height).data.buffer
+                    );
+                    return !pixelBuffer.some(color => color !== 0);
+                }
+
+
+                let otherElement = $('.approve-click');
+                otherElement.on('click', function() {
+                    let id = $(this).attr("data-nda-id");
+                    let targetElement = $('.project-detail-rb[data-nda-id="' + id + '"]');
+                    targetElement.trigger('click');
+                });
+
+
                 $('.nda-info__btn-confirm').click(function () {
                     var signature = document.getElementById("signature");
                     var signatureData = signature.toDataURL();
 
-                    $(".image-podpis").val(signatureData);
+                    if (isCanvasEmpty(signature)) {
+                        alert('Signature required');
+                    } else {
+                        $(".image-podpis").val(signatureData);
+                    }
+
+
                 })
                 $('.remove-signature').click(function () {
                     $(".image-podpis").val('');
@@ -243,7 +283,7 @@
                     let project_id = $(this).attr("data-project-id");
                     let data_nda_id = $(this).attr("data-nda-id");
 
-                    console.log(project_id)
+                    //console.log(project_id)
 
                     $.ajaxSetup({
                         headers: {

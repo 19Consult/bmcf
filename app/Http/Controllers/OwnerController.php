@@ -233,6 +233,16 @@ class OwnerController extends Controller
     }
 
     public function confirmNdaProject(Request $request){
+
+        $request->validate([
+            'signature_owner' => [
+                'required',
+                'string',
+                'min:10',
+            ],
+        ]);
+
+
         $project_id = $request->get('project_id');
         $data_nda_id = $request->get('nda_id');
 
