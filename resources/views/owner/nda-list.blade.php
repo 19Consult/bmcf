@@ -52,7 +52,12 @@
                                 <div class="nda__item nda__last">
                                     <div class="nda__date">{{date('d/m/Y', strtotime($val['nda']->created_at))}}</div>
                                     <a href="{{route("downloadNda", ['nda_id' => $val['nda']->id])}}" class="nda__download {{(empty($val['nda']->signature) || empty($val['nda']->signature_owner)) ? 'disabled-button' : ''}}"></a>
-                                    <div class="nda__more"></div>
+                                    <div class="nda__more">
+                                        <div class="nda__more-popup">
+                                            <a href="#">get access</a>
+                                            <a href="#">get access</a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         @endforeach
