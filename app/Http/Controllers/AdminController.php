@@ -12,6 +12,7 @@ use App\Models\accountDeletionConfirmation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use League\Csv\Writer;
+use App\Models\SettingsTable;
 
 class AdminController extends Controller
 {
@@ -327,6 +328,30 @@ class AdminController extends Controller
     public function categoryDelete($id){
         CategoryName::where('id', $id)->delete();
         return redirect()->back();
+    }
+
+    public function settingsPage(){
+        $data['title_page'] = 'Settings';
+
+        $data['setting'] = [];
+        $setting = SettingsTable::all();
+        foreach ($setting as $key => $value){
+            $data['setting'][$value->name] = $value->value;
+        }
+
+        return view("admin.settings-page", [
+            'data' => $data,
+        ]);
+    }
+
+    public function settingsPageSave(Request $request){
+
+        $r = SettingsTable::where('name', 'count_posts')->first();
+        $r->update([
+           'value' => $request->get("count_posts"),
+        ]);
+
+        return redirect()->back()->with('success', 'Settings have been saved.');
     }
 
 }

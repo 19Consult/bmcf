@@ -22,9 +22,14 @@
                             <?php
                             $status_class = '';
                             $status_name = '';
+
+                            $name_investor = $val['investor']->first_name . ' ' . substr($val['investor']->last_name, 0, 1);
+                            $name_owner = $data['user_detail']->first_name . ' ' . substr($data['user_detail']->last_name, 0, 1);
                             if($val['nda']->status == 'signed'){
                                 $status_class = 'nda__item--status-signed';
                                 $status_name = 'Signed';
+                                $name_investor = $val['investor']->first_name . ' ' . $val['investor']->last_name;
+                                $name_owner = $data['user_detail']->first_name . ' ' . $data['user_detail']->last_name;
                             }elseif ($val['nda']->status == 'rejected'){
                                 $status_class = 'nda__item--status-rejected';
                                 $status_name = 'Rejected';
@@ -35,10 +40,15 @@
 
                             ?>
                             <div class="nda__row">
-                                <div class="nda__item nda__item--title project-detail-rb" data-project-id="{{$val['project']->id}}" project-id="{{$val['project']->id}}">{{$val['project']->name_project}}</div>
+                                @if($val['nda']->status == 'signed')
+                                    <a class="project__title_link_nda_list" target="_blank" href="{{route("viewProject", ['id' => $val['project']->id])}}">{{$val['project']->name_project}}</a>
+                                @else
+                                    <div class="nda__item nda__item--title project-detail-rb" data-nda-id="{{$val['nda']->id}}" data-project-id="{{$val['project']->id}}" project-id="{{$val['project']->id}}">{{$val['project']->name_project}}</div>
+                                @endif
+
                                 <div class="nda__item {{$status_class}}">{{$status_name}}</div>
-                                <div class="nda__item nda__item--investor">{{$val['investor']->first_name}} {{$val['investor']->last_name}}</div>
-                                <div class="nda__item">{{$data['user_detail']->first_name}} {{$data['user_detail']->last_name}}</div>
+                                <div class="nda__item nda__item--investor">{{$name_investor}}</div>
+                                <div class="nda__item">{{$name_owner}}</div>
                                 <div class="nda__item nda__last">
                                     <div class="nda__date">{{date('d/m/Y', strtotime($val['nda']->created_at))}}</div>
                                     <a href="{{route("downloadNda", ['nda_id' => $val['nda']->id])}}" class="nda__download {{(empty($val['nda']->signature) || empty($val['nda']->signature_owner)) ? 'disabled-button' : ''}}"></a>
@@ -68,11 +78,12 @@
                     <div class="col">
                         <div class="nda-info__content">
                             <p class="pr-about-you">Hello I’m Mariam Li lingues differe solmen in li grammatica, li pronunciation e li plu commun vocabules. Omnicos directe al desirabilite de un nov lingua franca: On refusa continuar payar custosi traductores. At solmen va esser necessi far uniform grammatica, pronunciation e plu sommun paroles.</p>
-                            <p>Hello I’m Mariam Li lingues differe solmen in li grammatica, li pronunciation e li plu commun vocabules. Omnicos directe al desirabilite de un nov lingua franca: On refusa continuar payar custosi traductores. At solmen va esser necessi far uniform grammatica, pronunciation e plu sommun paroles.</p>
+                            <p style="display: none">Hello I’m Mariam Li lingues differe solmen in li grammatica, li pronunciation e li plu commun vocabules. Omnicos directe al desirabilite de un nov lingua franca: On refusa continuar payar custosi traductores. At solmen va esser necessi far uniform grammatica, pronunciation e plu sommun paroles.</p>
                             <form action="{{route("confirmNdaProject")}}" method="POST" class="nda-info__bottom">
                                 @csrf
                                 <input type="hidden" class="image-podpis" name="signature_owner" value="" required>
                                 <input type="hidden" class="project-id-form" name="project_id" value="">
+                                <input type="hidden" class="project-id-nda" name="nda_id" value="">
                                 <div class="nda-info__signature">
                                     <label>Your Signature</label>
                                     <canvas class="nda-info__signature-field" id="signature" width="300" height="69"></canvas>
@@ -85,6 +96,7 @@
                         <form action="{{route("rejectedNdaProject")}}" method="POST" class="rejected-nda-btn" >
                             @csrf
                             <input type="hidden" class="project-id-form" name="project_id" value="">
+                            <input type="hidden" class="project-id-nda" name="nda_id" value="">
                             <button type="submit" class="btn btn--solid delete-account send">Reject</button>
                         </form>
                     </div>
@@ -92,6 +104,116 @@
                 </div>
             </div>
         </div>
+
+        <div class="nda-agreement nda-agreement--popup ">
+            <div class="nda-agreement-wrap">
+                <div class="nda-agreement--popup-content">
+                    <nav class="nav">
+                        <div class="nav__back"><a href="#" class="close-nda">Go Back </a><span>The Athletic Buro Sign NDA</span></div>
+                    </nav>
+                    <form class="nda-agreement__text" >
+                        <input type="hidden" class="nda-id-project" name="id_project" value="0">
+                        <input type="hidden" class="image-podpis" name="signature" value="" required>
+                        <div class="title">NON-DISCLOSURE AGREEMENT (NDA)</div>
+                        <p>
+                            This Non-Disclosure Agreement (the "Agreement") is made and entered into on
+                            <input class="input-date" type="text" name="date" readonly>
+                            between
+                            <b class="nda-owner-name">{{$nda_owner_name}}</b>
+                            ("Disclosing Party")
+                            and
+                            <b class="nda_address_investor"></b>
+                            ("Receiving Party") (collectively, the "Parties").
+                        </p>
+                        <ol>
+                            <li>
+                                1.	Definition of Confidential Information Confidential Information means any and all non-public,
+                                proprietary, confidential, or trade secret information, whether in written, oral, electronic,
+                                or any other form, that is disclosed by the Disclosing Party to the Receiving Party.
+                            </li>
+                            </br>
+                            <li>
+                                2.	Obligations of Receiving Party The Receiving Party agrees to:
+                            </li>
+                            <ol>
+                                <li>
+                                    a. Protect Confidential Information: use its best efforts to maintain the confidentiality
+                                    of the Disclosing Party's Confidential Information and to prevent any unauthorized use
+                                    or disclosure of the Confidential Information;
+                                </li>
+                                <li>
+                                    b. Limited Use: use the Confidential Information solely for the purpose of
+                                    <b class="pr-name"></b>;
+                                </li>
+                                <li>
+                                    c. Limited Disclosure: disclose the Confidential Information only to those of its employees,
+                                    agents, or representatives who need to know the Confidential Information for the purpose
+                                    set forth in Section 2(b) above and who have signed a copy of this Agreement or are
+                                    otherwise bound by a similar obligation of confidentiality;
+                                </li>
+                                <li>
+                                    d. Return or Destroy: promptly return or destroy all copies of the Confidential
+                                    Information upon request of the Disclosing Party.
+                                </li>
+                            </ol>
+                            </br>
+                            <li>
+                                3.	Exclusions The Receiving Party's obligations under this Agreement do not apply to information that:
+                                <ol>
+                                    <li>
+                                        a. was rightfully in its possession or known to it prior to receipt from the Disclosing Party;
+                                    </li>
+                                    <li>
+                                        b. is or becomes publicly available through no fault of the Receiving Party;
+                                    </li>
+                                    <li>
+                                        c. is rightfully obtained by the Receiving Party from a third party without restriction as to use or disclosure;
+                                    </li>
+                                    <li>
+                                        d. is independently developed by the Receiving Party without reference to the Disclosing Party's Confidential Information;
+                                    </li>
+                                    <li>
+                                        e. is required to be disclosed by law or by a governmental authority, provided that the Receiving Party shall promptly
+                                        notify the Disclosing Party of such requirement and cooperate with the Disclosing Party in seeking a protective order
+                                        or other appropriate remedy.
+                                    </li>
+                                </ol>
+                            </li>
+                            </br>
+                            <li>
+                                4.	Term and Termination This Agreement shall remain in effect for a period of <b>3</b>
+                                years from the date of this Agreement, unless terminated earlier by mutual agreement of the Parties or by the Disclosing
+                                Party upon written notice to the Receiving Party. The obligations of confidentiality and non-use contained in this
+                                Agreement shall survive any termination of this Agreement.
+                            </li>
+                            </br>
+                            <li>
+                                5.	Governing Law and Jurisdiction This Agreement shall be governed by and construed in accordance with the laws of
+                                <b>insert governing law and jurisdiction</b>, and any dispute arising under this Agreement
+                                shall be resolved exclusively by the courts of <b>England</b>.
+                            </li>
+                            </br>
+                            <li>
+                                6.	Entire Agreement This Agreement constitutes the entire understanding between the Parties with respect to the subject
+                                matter hereof and supersedes all prior discussions, negotiations, and agreements between the Parties, whether
+                                written or oral.
+                            </li>
+                        </ol>
+                        <div class="nda-agreement__text-descr">
+                            <div class="nda-agreement__text-bottom">
+                                <div class="nda-info__bottom">
+                                    <div class="nda-info__signature">
+                                        <img class="nda-info__signature-field signature_owner" style="width: 300px; height: 69px;" width="300" height="69" src="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
     </div>
 </main>
 
@@ -114,6 +236,7 @@
                     event.preventDefault();
 
                     let project_id = $(this).attr("data-project-id");
+                    let data_nda_id = $(this).attr("data-nda-id");
 
                     console.log(project_id)
 
@@ -126,6 +249,7 @@
 
                     let data = {
                         project_id: project_id,
+                        data_nda_id: data_nda_id,
                     };
 
                     $.ajax({
@@ -134,15 +258,22 @@
                         data: data,
                         success: function(data) {
 
-                            // console.log(data);
+                            console.log(data);
                             let project_data = data.project_detail;
                             $(".pr-name").text(project_data.name_project)
 
-                            $(".pr-about-you").text(data.user_deteils.about_you)
-                            $(".pr-user-photo").attr("src", data.user_deteils.photo)
-                            $(".pr-user-full-name").text(data.user_deteils.first_name + ' ' + data.user_deteils.last_name)
+                            $(".pr-about-you").text(data.user_investor.about_you)
+                            $(".pr-user-photo").attr("src", data.user_investor.photo)
+                            $(".pr-user-full-name").text(data.user_investor.first_name + ' ' + data.user_investor.last_name.charAt(0))
 
                             $(".project-id-form").val(project_id);
+
+                            $(".project-id-nda").val(data_nda_id);
+
+                            //nda_address_investor
+                            $(".nda_address_investor").text(data.nda_investor_name);
+                            $(".signature_owner").attr("src", data.nda_projects.signature);
+
 
                         },
                         error: function(xhr, textStatus, errorThrown) {

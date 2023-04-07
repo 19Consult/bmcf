@@ -113,6 +113,9 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/project/confirm-nda-project', [OwnerController::class, 'confirmNdaProject'])->name('confirmNdaProject');
     Route::post('/project/rejected-nda-project', [OwnerController::class, 'rejectedNdaProject'])->name('rejectedNdaProject');
 
+    Route::get('/project/delete-project/{id_project}', [OwnerController::class, 'deleteProjectPreview'])->name('deleteProjectPreview');
+    Route::post('/project/delete-project', [OwnerController::class, 'deleteProject'])->name('deleteProject');
+
 
     Route::prefix('admin')->middleware(['admin'])->group(function () {
         Route::get('/', [AdminController::class, 'index'])->name('admin.dashboard');
@@ -132,6 +135,10 @@ Route::middleware(['auth'])->group(function () {
 
         Route::post('/category/{id}/save', [AdminController::class, 'categorySave'])->name('admin.category.save');
         Route::get('/category/{id}/delete', [AdminController::class, 'categoryDelete'])->name('admin.category.delete');
+
+
+        Route::get('/settings', [AdminController::class, 'settingsPage'])->name('admin.settingsPage');
+        Route::post('/settings/save', [AdminController::class, 'settingsPageSave'])->name('admin.settingsPageSave');
     });
 
 

@@ -45,6 +45,7 @@
                     <div class="col fields">
                         <div class="col row-field">
                             <div class="form_input_wrap">
+                                <input class="class-code-phone" type="hidden" name="code_phone" value="">
                                 <input type="tel" id="phone" name="phone" required value="{{isset($data['userDetail']->phone) ? $data['userDetail']->phone : ''}}">
                                 <label for="phone">Phone</label>
                             </div>
