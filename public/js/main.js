@@ -107,7 +107,22 @@ jQuery(document).ready(function ($) {
 			$('html').css('overflow','')
 		}
 	})
-	$('.scrollbar-init').scrollbar()
+	$('.scrollbar-init:not(.brief_description_project)').scrollbar()
+	
+	$('.project-create__top-descr .field-text__edit').click(function(){
+		setTimeout(() => {
+			$('.project-create__top-descr .scrollbar-init').scrollbar('destroy')
+		}, 400);
+	})
+	setTimeout(() => {
+		$('.brief_description_project.scrollbar-init.add-description').scrollbar()
+	}, 100);
+
+	$('.project-create__top--popup .btn-ajax-first-section').click(function(){
+		setTimeout(() => {
+			$('.brief_description_project.scrollbar-inner.scrollbar-init').scrollbar()
+		}, 100);
+	})
 
 	$('input[type=file][name="file"]').on('change', function () {
 		let $files_list = $(this).parents('.add-file-field').siblings('.add-file-input-text');

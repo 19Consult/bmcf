@@ -443,6 +443,7 @@ b {
   position: relative !important;
   top: 0;
   width: auto !important;
+  padding-right: 15px;
 }
 
 .scroll-wrapper > .scroll-content::-webkit-scrollbar {
@@ -1554,6 +1555,15 @@ input[type=checkbox] + label::before {
 }
 .project__nda-title {
   margin-bottom: 7px;
+}
+.project__nda-user {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.project__nda-user img {
+  width: auto;
+  height: 100%;
 }
 .project__nda-quantity, .project__nda-user {
   overflow: hidden;
