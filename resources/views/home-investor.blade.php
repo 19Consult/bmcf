@@ -282,6 +282,7 @@
                                 proprietary, confidential, or trade secret information, whether in written, oral, electronic,
                                 or any other form, that is disclosed by the Disclosing Party to the Receiving Party.
                             </li>
+                            </br>
                             <li>
                                 2.	Obligations of Receiving Party The Receiving Party agrees to:
                             </li>
@@ -306,6 +307,7 @@
                                     Information upon request of the Disclosing Party.
                                 </li>
                             </ol>
+                            </br>
                             <li>
                                 3.	Exclusions The Receiving Party's obligations under this Agreement do not apply to information that:
                                 <ol>
@@ -328,17 +330,20 @@
                                     </li>
                                 </ol>
                             </li>
+                            </br>
                             <li>
                                 4.	Term and Termination This Agreement shall remain in effect for a period of <b>3</b>
                                 years from the date of this Agreement, unless terminated earlier by mutual agreement of the Parties or by the Disclosing
                                 Party upon written notice to the Receiving Party. The obligations of confidentiality and non-use contained in this
                                 Agreement shall survive any termination of this Agreement.
                             </li>
+                            </br>
                             <li>
                                 5.	Governing Law and Jurisdiction This Agreement shall be governed by and construed in accordance with the laws of
                                 <b>insert governing law and jurisdiction</b>, and any dispute arising under this Agreement
                                 shall be resolved exclusively by the courts of <b>England</b>.
                             </li>
+                            </br>
                             <li>
                                 6.	Entire Agreement This Agreement constitutes the entire understanding between the Parties with respect to the subject
                                 matter hereof and supersedes all prior discussions, negotiations, and agreements between the Parties, whether
