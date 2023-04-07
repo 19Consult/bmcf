@@ -107,7 +107,13 @@
                                     $(".pr-founder-terms-condition").html(project_data.co_founder_terms_condition)
 
                                     $(".pr-user-photo").attr("src", data.user_deteils.photo)
-                                    $(".pr-user-full-name").text(data.user_deteils.first_name + ' ' + data.user_deteils.last_name)
+                                    $(".pr-user-full-name").text(data.user_deteils.first_name + ' ' + data.user_deteils.last_name.charAt(0))
+
+                                    let company_name_owner = '';
+                                    if(data.user_deteils.company_name !== null){
+                                        company_name_owner = '(' + data.user_deteils.company_name + ')';
+                                    }
+                                    $('.nda-owner-name').text(data.user_deteils.first_name + ' ' + data.user_deteils.last_name + company_name_owner);
 
                                     let photo_project = project_data.photo_project;
                                     if (photo_project !== null){
@@ -130,7 +136,7 @@
                                                     console.log('test');
                                                 }
                                             });
-                                            
+
                                         }, 400);
                                     }
 
@@ -261,35 +267,85 @@
                         <input type="hidden" class="image-podpis" name="signature" value="" required>
                         <div class="title">NON-DISCLOSURE AGREEMENT (NDA)</div>
                         <p>
-                            This Nondisclosure Agreement or ("Agreement") has been entered into on the date of
-
-                            <input class="input-date" type="text" name="date" required>
-                            and is by and between:
+                            This Non-Disclosure Agreement (the "Agreement") is made and entered into on
+                            <input class="input-date" type="text" name="date" readonly>
+                            between
+                            <b class="nda-owner-name"></b>
+                            ("Disclosing Party")
+                            and
+                            <b>{{$nda_address_investor}}</b>
+                            ("Receiving Party") (collectively, the "Parties").
                         </p>
-                        <p>
-                            Party Disclosing Information:
-
-                            <input class="input-disclosing" type="text" name="disclosing" required>
-                            with a mailing address <br> of
-
-                            <input class="input-disclosing-mail" type="text" name="disclosing_mail" required>
-                            (“Disclosing Party”).
-                        </p>
-                        <p>
-                            Party Receiving Information:
-
-                            <input class="input-receiving" type="text" name="receiving" required>
-                            with a mailing address <br> of
-
-                            <input class="input-receiving-mail" type="text" name="receiving_mail" required>
-                            (“Receiving Party”).
-                        </p>
+                        <ol>
+                            <li>
+                                1.	Definition of Confidential Information Confidential Information means any and all non-public,
+                                proprietary, confidential, or trade secret information, whether in written, oral, electronic,
+                                or any other form, that is disclosed by the Disclosing Party to the Receiving Party.
+                            </li>
+                            <li>
+                                2.	Obligations of Receiving Party The Receiving Party agrees to:
+                            </li>
+                            <ol>
+                                <li>
+                                    a. Protect Confidential Information: use its best efforts to maintain the confidentiality
+                                    of the Disclosing Party's Confidential Information and to prevent any unauthorized use
+                                    or disclosure of the Confidential Information;
+                                </li>
+                                <li>
+                                    b. Limited Use: use the Confidential Information solely for the purpose of
+                                    <b class="pr-name"></b>;
+                                </li>
+                                <li>
+                                    c. Limited Disclosure: disclose the Confidential Information only to those of its employees,
+                                    agents, or representatives who need to know the Confidential Information for the purpose
+                                    set forth in Section 2(b) above and who have signed a copy of this Agreement or are
+                                    otherwise bound by a similar obligation of confidentiality;
+                                </li>
+                                <li>
+                                    d. Return or Destroy: promptly return or destroy all copies of the Confidential
+                                    Information upon request of the Disclosing Party.
+                                </li>
+                            </ol>
+                            <li>
+                                3.	Exclusions The Receiving Party's obligations under this Agreement do not apply to information that:
+                                <ol>
+                                    <li>
+                                        a. was rightfully in its possession or known to it prior to receipt from the Disclosing Party;
+                                    </li>
+                                    <li>
+                                        b. is or becomes publicly available through no fault of the Receiving Party;
+                                    </li>
+                                    <li>
+                                        c. is rightfully obtained by the Receiving Party from a third party without restriction as to use or disclosure;
+                                    </li>
+                                    <li>
+                                        d. is independently developed by the Receiving Party without reference to the Disclosing Party's Confidential Information;
+                                    </li>
+                                    <li>
+                                        e. is required to be disclosed by law or by a governmental authority, provided that the Receiving Party shall promptly
+                                        notify the Disclosing Party of such requirement and cooperate with the Disclosing Party in seeking a protective order
+                                        or other appropriate remedy.
+                                    </li>
+                                </ol>
+                            </li>
+                            <li>
+                                4.	Term and Termination This Agreement shall remain in effect for a period of <b>3</b>
+                                years from the date of this Agreement, unless terminated earlier by mutual agreement of the Parties or by the Disclosing
+                                Party upon written notice to the Receiving Party. The obligations of confidentiality and non-use contained in this
+                                Agreement shall survive any termination of this Agreement.
+                            </li>
+                            <li>
+                                5.	Governing Law and Jurisdiction This Agreement shall be governed by and construed in accordance with the laws of
+                                <b>insert governing law and jurisdiction</b>, and any dispute arising under this Agreement
+                                shall be resolved exclusively by the courts of <b>England</b>.
+                            </li>
+                            <li>
+                                6.	Entire Agreement This Agreement constitutes the entire understanding between the Parties with respect to the subject
+                                matter hereof and supersedes all prior discussions, negotiations, and agreements between the Parties, whether
+                                written or oral.
+                            </li>
+                        </ol>
                         <div class="nda-agreement__text-descr">
-                            <p>For the purpose of preventing the unauthorized disclosure of Confidential Information as definedbelow. The parties agree to enter into a confidential relationship concerning the disclosure ofcertain proprietary and confidential information ("Confidential Information").</p>
-                            <p>1. Definition of Confidential Information. For purposes of this Agreement, "ConfidentialInformation" shall include all information or material that has or could have commercial value orother utility in the business in which Disclosing Party is engaged. If Confidential Information is inwritten form, the Disclosing Party shall label or stamp the materials with the word "Confidential"or some similar warning. If Confidential Information is transmitted orally, the Disclosing Partyshall promptly provide writing indicating that such oral communication constituted ConfidentialInformation.</p>
-                            <p>2. Exclusions from Confidential Information. Receiving Party's obligations under thisAgreement do not extend to information that is: (a) publicly known at the time of disclosure orsubsequently becomes publicly known through no fault of the Receiving Party; (b) discovered orcreated by the Receiving Party before disclosure by Disclosing Party; (c) learned by theReceiving Party through legitimate means other than from the Disclosing Party or DisclosingParty's representatives; or (d) is disclosed by Receiving Party with Disclosing Party's priorwritten approval.</p>
-                            <p>3. Obligations of Receiving Party. Receiving Party shall hold and maintain the ConfidentialInformation in strictest confidence for the sole and exclusive benefit of the Disclosing Party.Receiving Party shall carefully restrict access to Confidential Information to employees,contractors and third parties as is reasonably required and shall require those persons to signnondisclosure restrictions at least as protective as those in this Agreement. Receiving Partyshall not, without the prior written approval of Disclosing Party, use for Receiving Party's benefit,publish, copy, or otherwise disclose to others, or permit the use by others for their benefit or tothe detriment of Disclosing Party, any Confidential Information. Receiving Party shall return toDisclosing Party any and all records, notes, and other written, printed, or tangible materials in itspossession pertaining to Confidential Information immediately if Disclosing Party requests it inwriting.</p>
-                            <p>4. Time Periods. The nondisclosure provisions of this Agreement shall survive the terminationof this Agreement and Receiving Party's duty to hold Confidential Information in confidenceshall remain in effect until the Confidential Information no longer qualifies as a trade secret oruntil Disclosing Party sends Receiving Party written notice releasing Receiving Party from thisAgreement, whichever occurs first.</p>
                             <div class="nda-agreement__text-bottom">
                                 <div class="nda-info__bottom">
                                     <div class="nda-info__signature">

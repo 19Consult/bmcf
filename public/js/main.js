@@ -45,11 +45,13 @@ jQuery(document).ready(function ($) {
 	}
 
 	if ($('.project__nda-user-wrap')) {
-		if ($('.project__nda-user-wrap .project__nda-user').length > 5) {
-			$('.project__nda-user-wrap').addClass('many');
-			const quantity = $('.project__nda-user-wrap .project__nda-user').length
-			$('.project__nda-quantity').text(`+${quantity - 4}`);
-		}
+        $('.project__nda-user-wrap').each(function(){
+            if ($(this).find('.project__nda-user').length > 5) {
+                $(this).addClass('many');
+                const quantity = $(this).find('.project__nda-user').length
+                $(this).find('.project__nda-quantity').text(`+${quantity - 4}`);
+            }
+        })
 	}
 
 	$('.projects-search-v1 .project__title').click(function(){
@@ -157,7 +159,13 @@ jQuery(document).ready(function ($) {
 	$('.nda-info__read-more').click(function () {
 		$(this).toggleClass('active');
 		$('.nda-info__content').toggleClass('show');
+        $('.nda-agreement.nda-agreement--popup').addClass('open');
 	})
+
+    $('.nav__back .close-nda').click(function() {
+        $('.nda-agreement.nda-agreement--popup').removeClass('open');
+    })
+
 
 	$('#signature').on('mousedown', function () {
 		$(this).parents('.nda-info__signature').addClass('active');
@@ -247,7 +255,16 @@ $(function () {
 			utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/16.0.0/js/utils.js"
 	});
 
+    // let tel_start = $('input[type=tel]');
+    // console.log(tel_start)
+    // if(tel_start.val() == ''){
+    //     tel_start.val('+380');
+    // }
+
 	$('input[type=tel]').on("focus click countrychange", function(e, countryData) {
+
+	    let code_tel = $('.iti__selected-dial-code').text();
+	    $('.class-code-phone').val(code_tel)
 
 		var pl = $(this).attr('placeholder') + '';
 		var res = pl.replace( /X/g ,'9');

@@ -22,9 +22,17 @@
                             <?php
                                 $status_class = '';
                                 $status_name = '';
+
+                                $name_investor = $data['user_detail']->first_name . ' ' . substr($data['user_detail']->last_name, 0, 1);
+                                $name_owner = $val['owner']->first_name . ' ' . substr($val['owner']->last_name, 0, 1);
+
                                 if($val['nda']->status == 'signed'){
                                     $status_class = 'nda__item--status-signed';
                                     $status_name = 'Signed';
+
+                                    $name_investor = $data['user_detail']->first_name . ' ' . $data['user_detail']->last_name;
+                                    $name_owner = $val['owner']->first_name . ' ' . $val['owner']->last_name;
+
                                 }elseif ($val['nda']->status == 'rejected'){
                                     $status_class = 'nda__item--status-rejected';
                                     $status_name = 'Rejected';
@@ -35,10 +43,15 @@
 
                             ?>
                             <div class="nda__row">
-                                <div class="nda__item">{{$val['project']->name_project}}</div>
+                                @if($val['nda']->status == 'signed')
+                                    <a class="project__title_link_nda_list" target="_blank" href="{{route("viewProject", ['id' => $val['project']->id])}}">{{$val['project']->name_project}}</a>
+                                @else
+                                    <div class="nda__item">{{$val['project']->name_project}}</div>
+                                @endif
+
                                 <div class="nda__item {{$status_class}}">{{$status_name}}</div>
-                                <div class="nda__item nda__item--investor">{{$data['user_detail']->first_name}} {{$data['user_detail']->last_name}}</div>
-                                <div class="nda__item">{{$val['owner']->first_name}} {{$val['owner']->last_name}}</div>
+                                <div class="nda__item nda__item--investor">{{$name_investor}}</div>
+                                <div class="nda__item">{{$name_owner}}</div>
                                 <div class="nda__item nda__last">
                                     <div class="nda__date">{{date('d/m/Y', strtotime($val['nda']->created_at))}}</div>
                                     <a href="{{route("downloadNda", ['nda_id' => $val['nda']->id])}}" class="nda__download {{(empty($val['nda']->signature) || empty($val['nda']->signature_owner)) ? 'disabled-button' : ''}}"></a>

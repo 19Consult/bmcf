@@ -4492,6 +4492,53 @@ form.rejected-nda-btn .btn--solid {
     opacity: 0.5;
 }
 
+.project__title_link_nda_list{
+    -webkit-box-flex: 1;
+    -ms-flex: 1 0 22%;
+    flex: 1 0 22%;
+}
+
+.nda-disclosure:not(.nda-agreement--popup-content) {
+    max-width: 892px;
+    padding: 0 15px;
+    margin: auto;
+}
+.nda-disclosure ol ol {
+    padding-left: 20px;
+    padding-bottom: 20px;
+}
+.nda-disclosure ol {
+    padding-bottom: 20px;
+}
+.nda-disclosure p,
+.nda-disclosure li {
+    font-size: 14px;
+    line-height: 16px;
+}
+.nda-disclosure p:not(:last-child),
+.nda-disclosure li:not(:last-child) {
+    margin-bottom: 20px;
+}
+.nda-disclosure .title {
+    margin-bottom: 50px;
+    font-weight: 300;
+    font-size: 24px;
+    line-height: 28px;
+    text-align: center;
+}
+.nda-disclosure .title-second {
+    margin: 20px 0;
+    font-size: 18px;
+    font-weight: 300;
+
+}
+.nda-disclosure form input {
+    width: max-content;
+    min-width: 270px;
+}
+.btn-owner-edit-project{
+    display: flex;
+}
 @media screen and (max-width: 1280px) {
   .home-page__middle .col.right {
     padding-left: unset;

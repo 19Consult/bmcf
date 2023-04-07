@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\NdaProjects;
+use App\Models\ProjectsViews;
 
 class OwnerController extends Controller
 {
@@ -30,6 +31,11 @@ class OwnerController extends Controller
         if (User::checkInvestor()){
             return redirect(route("homeInvestor"));
         }
+
+        if ( Projects::countProjects() > Projects::getCountAssetProjects() ){
+            return redirect()->back();
+        }
+
 
         $data['title_page'] = 'Create a project';
 
@@ -163,7 +169,14 @@ class OwnerController extends Controller
 //            ];
 //        }
 
-        return view('owner.nda-list', ['data' => $data]);
+
+        $name_company_owner = '';
+        if(!empty($data['user_detail']) && isset($data['user_detail']->company_name)){
+            $name_company_owner = '(' . $data['user_detail']->company_name . ')';
+        }
+        $nda_owner_name = $data['user_detail']->first_name . ' ' . $data['user_detail']->last_name . ' ' . $name_company_owner;
+
+        return view('owner.nda-list', ['data' => $data, 'nda_owner_name' => $nda_owner_name]);
     }
 
 
@@ -171,20 +184,51 @@ class OwnerController extends Controller
 
         // Получаем id попапа из клика пользователя
         $project_id = $request->get('project_id');
+
+        $data_nda_id = $request->get('data_nda_id');
+        $ndaProjects = NdaProjects::where('id', $data_nda_id)->first();
+        $user_investor = UserDetail::where('user_id', $ndaProjects->user_id)->first();
+
         $project_detail = Projects::where('id', $project_id)->first();
         $user_deteils = UserDetail::where('user_id', $project_detail->user_id)->first();
+
+
+        $address_investor = '';
+        $investor = $user_investor;
+        if(!empty($investor->street) && !empty($investor->house) && !empty($investor->city) && !empty($investor->country)){
+            $address_investor .= '(';
+            $address_investor .= (new CountryController)->getNameCountry($investor->country);
+            $address_investor .= ', ' . $investor->city;
+            $address_investor .= ', ' . $investor->street;
+            $address_investor .= ', ' . $investor->house;
+            if(!empty($investor->postal_code)){
+                $address_investor .= ', ' . $investor->postal_code;
+            }
+            $address_investor .= ')';
+        }else{
+            $address_investor .= '(';
+            $user = User::where('id', $investor->user_id)->first();
+            $address_investor .= $user->email;
+            $address_investor .= ')';
+        }
+        $nda_investor_name = $investor->first_name . ' ' . $investor->last_name . ' ' . $address_investor;
+
 
         return response()->json([
             'message' => 'Successfully!',
             'project_detail' => $project_detail,
             'user_deteils' => $user_deteils,
+            'nda_projects' => $ndaProjects,
+            'user_investor' => $user_investor,
+            'nda_investor_name' => $nda_investor_name,
         ]);
     }
 
     public function confirmNdaProject(Request $request){
         $project_id = $request->get('project_id');
+        $data_nda_id = $request->get('nda_id');
 
-        $ndaProjects = NdaProjects::where('id_project', $project_id)->first();
+        $ndaProjects = NdaProjects::where('id', $data_nda_id)->first();
 
         $ndaProjects->update([
             'status' => 'signed',
@@ -198,8 +242,9 @@ class OwnerController extends Controller
 
     public function rejectedNdaProject(Request $request){
         $project_id = $request->get('project_id');
+        $data_nda_id = $request->get('nda_id');
 
-        $ndaProjects = NdaProjects::where('id_project', $project_id)->first();
+        $ndaProjects = NdaProjects::where('id', $data_nda_id)->first();
 
         $ndaProjects->update([
             'status' => 'rejected',
@@ -209,6 +254,30 @@ class OwnerController extends Controller
 
         return redirect()->back();
 
+    }
+
+    public function deleteProjectPreview($id_project){
+        $t = Projects::where('id', $id_project)->where('user_id', Auth::id())->first();
+        if(!empty($t)){
+            return view('owner.delete-project-preview', ['id_project' => $id_project]);
+        }
+        return redirect()->back();
+    }
+
+    public function deleteProject(Request $request){
+        $project_id = $request->get('id_project');
+        $project = Projects::where('id', $project_id)->where('user_id', Auth::id())->first();
+        if(!empty($project)){
+            /**
+             * project_views+
+             * nda_project+
+             * projects+
+             */
+            ProjectsViews::where('project_id', $project_id)->delete();
+            NdaProjects::where('id_project', $project_id)->delete();
+            $project->delete();
+        }
+        return redirect(route('home'));
     }
 
 }
