@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InvestorController;
 use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\RegistController;
+use App\Http\Controllers\CustomMessagesController;
 use Illuminate\Support\Facades\Route;
 
 //use Chatify;
@@ -49,6 +50,10 @@ Route::middleware('guest')->group(function () {
 
 });
 
+    Route::group(['prefix' => 'chat', 'middleware' => 'web'], function () {
+        Route::get('/search', [CustomMessagesController::class, 'search'])->name('search');
+    });
+
 /**
  * here are routes that are available only to authorized users
  */
@@ -57,6 +62,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 
     Route::get('/home-investor', [InvestorController::class, 'indexInvestor'])->name('homeInvestor');
+
+
+
 
 //    Chatify::routes();
 //    ChatifyServiceProvider::routes();
@@ -109,6 +117,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/project/favorite', [InvestorController::class, 'favoriteProject'])->name('favoriteProject');
 
     Route::post('/project/ajax-project-details', [OwnerController::class, 'ajaxProjectDetails'])->name('ajaxProjectDetails');
+
+    Route::post('/project/seen-nda-project', [OwnerController::class, 'seenNdaProject'])->name('seenNdaProject');
 
     Route::post('/project/confirm-nda-project', [OwnerController::class, 'confirmNdaProject'])->name('confirmNdaProject');
     Route::post('/project/rejected-nda-project', [OwnerController::class, 'rejectedNdaProject'])->name('rejectedNdaProject');

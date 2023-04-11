@@ -198,6 +198,8 @@ class InvestorController extends Controller
             ],
         ]);
 
+        $project_detail = Projects::where('id', $request->input('id_project'))->first();
+
         $ndaProjects = NdaProjects::create([
             'user_id' => Auth::id(),
             'id_project' => $request->input('id_project'),
@@ -208,11 +210,12 @@ class InvestorController extends Controller
             'receiving' => $request->input('receiving'),
             'receiving_mail' => $request->input('receiving_mail'),
             'status' => 'pending',
+            'owner_pr_id' => $project_detail->user_id,
         ]);
 
         try {
 
-            $project_detail = Projects::where('id', $ndaProjects->id_project)->first();
+            //$project_detail = Projects::where('id', $ndaProjects->id_project)->first();
             $user_info = User::where('id', $project_detail->user_id)->first();
             $user_detail = UserDetail::where('user_id', $project_detail->user_id)->first();
             $email = $user_info->email;

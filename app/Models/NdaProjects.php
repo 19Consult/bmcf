@@ -29,6 +29,8 @@ class NdaProjects extends Model
         'status',
         'signature_owner',
         'data_signature_owner',
+        'owner_pr_id',
+        'seen',
     ];
 
     public $status_type = [

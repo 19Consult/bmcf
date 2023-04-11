@@ -1037,7 +1037,7 @@ function messengerSearch(input) {
     if (searchPage < 2) {
       $(".search-records").html("");
     }
-    setSearchLoading(true);
+    setSearchLoading(true); 
     $.ajax({
       url: url + "/search",
       method: "GET",
