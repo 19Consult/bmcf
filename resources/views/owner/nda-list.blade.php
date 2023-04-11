@@ -52,14 +52,14 @@
                                 <div class="nda__item nda__last">
                                     <div class="nda__date">{{date('d/m/Y', strtotime($val['nda']->created_at))}}</div>
                                     <a href="{{route("downloadNda", ['nda_id' => $val['nda']->id])}}" class="nda__download {{(empty($val['nda']->signature) || empty($val['nda']->signature_owner)) ? 'disabled-button' : ''}}"></a>
-                                    <div class="nda__more">
+                                    <div class="nda__more" >
                                         <div class="nda__more-popup">
                                             @if($val['nda']->status != 'signed')
                                                 <div class="approve-click" data-nda-id="{{$val['nda']->id}}">Approve</div>
                                             @endif
 
                                             @if($val['nda']->status != 'rejected')
-                                                <form action="{{route("rejectedNdaProject")}}" method="POST" class="list-reject-rt" >
+                                                <form action="{{route("rejectedNdaProject")}}" method="POST" class="list-reject-rt" style="display: none">
                                                     @csrf
                                                     <input type="hidden" class="project-id-form" name="project_id" value="{{$val['project']->id}}">
                                                     <input type="hidden" class="project-id-nda" name="nda_id" value="{{$val['nda']->id}}">
@@ -303,7 +303,7 @@
                         data: data,
                         success: function(data) {
 
-                            console.log(data);
+                            //console.log(data);
                             let project_data = data.project_detail;
                             $(".pr-name").text(project_data.name_project)
 
@@ -320,6 +320,18 @@
                             $(".signature_owner").attr("src", data.nda_projects.signature);
 
 
+                        },
+                        error: function(xhr, textStatus, errorThrown) {
+                            console.log(xhr.responseText); // replace with your own error callback function
+                        }
+                    });
+
+                    $.ajax({
+                        url: '/project/seen-nda-project',
+                        type: 'POST',
+                        data: data,
+                        success: function(data) {
+                            console.log(data);
                         },
                         error: function(xhr, textStatus, errorThrown) {
                             console.log(xhr.responseText); // replace with your own error callback function

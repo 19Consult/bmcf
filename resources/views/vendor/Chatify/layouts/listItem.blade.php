@@ -22,6 +22,12 @@
 <?php
 $lastMessageBody = mb_convert_encoding($lastMessage->body, 'UTF-8', 'UTF-8');
 $lastMessageBody = strlen($lastMessageBody) > 30 ? mb_substr($lastMessageBody, 0, 30, 'UTF-8').'..' : $lastMessageBody;
+$user_photo = null;
+$check_photo = App\Models\UserDetail::where('user_id', $user->id)->first();
+if(isset($check_photo->photo) && !empty($check_photo->photo)){
+    $user_photo = $check_photo->photo;
+}
+
 ?>
 <table class="messenger-list-item" data-contact="{{ $user->id }}">
     <tr data-action="0">
@@ -30,9 +36,20 @@ $lastMessageBody = strlen($lastMessageBody) > 30 ? mb_substr($lastMessageBody, 0
             @if($user->active_status)
                 <span class="activeStatus"></span>
             @endif
-        <div class="avatar av-m"
-        style="background-image: url('{{ $user->avatar }}');">
-        </div>
+
+                @if(!empty($user_photo))
+                    <div class="avatar av-m"
+                         style="background-image: url('{{ asset($user_photo) }}');">
+                    </div>
+                @else
+                    <div class="avatar av-m"
+                         style="background-image: url('{{ $user->avatar }}');">
+                    </div>
+                @endif
+
+{{--        <div class="avatar av-m"--}}
+{{--        style="background-image: url('{{ $user->avatar }}');">--}}
+{{--        </div>--}}
         </td>
         {{-- center side --}}
         <td>
@@ -68,9 +85,15 @@ $lastMessageBody = strlen($lastMessageBody) > 30 ? mb_substr($lastMessageBody, 0
     <tr data-action="0">
         {{-- Avatar side --}}
         <td>
-        <div class="avatar av-m"
-        style="background-image: url('{{ $user->avatar }}');">
-        </div>
+            @if(!empty($user->detail->photo))
+                <div class="avatar av-m"
+                     style="background-image: url('{{ asset($user->detail->photo) }}');">
+                </div>
+            @else
+                <div class="avatar av-m"
+                style="background-image: url('{{ $user->avatar }}');">
+                </div>
+            @endif
         </td>
         {{-- center side --}}
         <td>
