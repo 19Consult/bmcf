@@ -328,4 +328,17 @@ class OwnerController extends Controller
         return redirect(route('home'));
     }
 
+    public function seenNdaProject(Request $request){
+        $data_nda_id = $request->get('data_nda_id');
+        $ndaProjects = NdaProjects::where('id', $data_nda_id)->first();
+
+        $ndaProjects->update([
+            'seen' => true,
+        ]);
+
+        return response()->json([
+            'message' => 'Successfully! Notification',
+        ]);
+    }
+
 }

@@ -1,3 +1,17 @@
+@php
+    use App\Http\Controllers\CustomMessagesController;
+    use App\Models\NdaProjects;
+    use App\Models\User;
+
+    $notifications = CustomMessagesController::getNotSeeMessage();
+
+    $nda_notifications = null;
+    if(User::checkOwner()){
+        $nda_notifications = NdaProjects::where('owner_pr_id', auth()->id())->where('seen', false)->where('status', 'pending')->get();
+    }
+
+@endphp
+
 @include('layouts.message-alert',['classes'=>'pt-0 pb-4 px-2'])
 <nav class="nav">
     <div class="nav__logo"><a href="{{route("home")}}"><img src="{{asset("img/logo_dashboard.svg")}}" alt="logo"></a></div>
@@ -8,10 +22,19 @@
             <a class="nav__search" href="#"></a>
         @endif
         <div class="nav__notifications-wrap">
-            <a class="nav__notifications" href="#"></a>
+            <a class="nav__notifications {{ ($notifications['unread_count'] > 0 || (!empty($nda_notifications) && count($nda_notifications->toArray()) > 0)) ? 'has-notific' : '' }}" href="#"></a>
             <ul class="nav__notifications-popup">
-                <li><a href="#">New message</a></li>
-                <li><a href="#">New NDA</a></li>
+                @if($notifications['unread_count'] > 0)
+                    @foreach($notifications['unseen_senders'] as $key => $val)
+                        <li><a href="{{route("chat")}}" data-user-id="{{$val['id']}}">New message from {{$val['name']}}</a></li>
+                    @endforeach
+                @endif
+                @if(!empty($nda_notifications) && isset($nda_notifications))
+                        @foreach($nda_notifications as $key => $val)
+                            <li><a href="{{route("ndaList")}}">New request NDA</a></li>
+                        @endforeach
+                @endif
+
             </ul>
         </div>
         @if(!empty(Auth::user()->detail->photo))
