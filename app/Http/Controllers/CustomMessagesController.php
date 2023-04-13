@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 //use Chatify\Facades\ChatifyMessenger as Chatify;
+use App\Models\ChFavorite as Favorite;
 use Chatify\Facades\ChatifyMessenger as Chatify;
 //use Illuminate\Foundation\Auth\User;
 use App\Models\User;
@@ -83,6 +84,43 @@ class CustomMessagesController extends ChatifyMessagesController
             'unseen_senders' => $unseen_senders,
         ];
 
+    }
+
+    public function idFetchData(Request $request)
+    {
+        $favorite = Chatify::inFavorite($request['id']);
+        $fetch = User::where('id', $request['id'])->with('detail')->first();
+
+        if(!empty($fetch->detail->photo) && isset($fetch->detail->photo)){
+            $userAvatar = asset($fetch->detail->photo);
+        }else{
+            $userAvatar = Chatify::getUserWithAvatar($fetch)->avatar;
+        }
+        return Response::json([
+            'favorite' => $favorite,
+            'fetch' => $fetch ?? null,
+            'user_avatar' => $userAvatar ?? null,
+        ]);
+    }
+
+    public function getFavorites(Request $request)
+    {
+        $favoritesList = null;
+        $favorites = Favorite::where('user_id', Auth::user()->id);
+        foreach ($favorites->get() as $favorite) {
+            // get user data
+            $user = User::where('id', $favorite->favorite_id)->with('detail')->first();
+            $favoritesList .= view('Chatify::layouts.favorite', [
+                'user' => $user,
+            ]);
+        }
+        // send the response
+        return Response::json([
+            'count' => $favorites->count(),
+            'favorites' => $favorites->count() > 0
+                ? $favoritesList
+                : 0,
+        ], 200);
     }
 
 }
