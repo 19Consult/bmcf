@@ -5,6 +5,8 @@
     <title>{{\App\Models\User::getTitle()}}</title>
 @endif
 
+<link rel="icon" href="{{asset("img/favicon.svg")}}" type="image/svg+xml" />
+
 {{-- Meta tags --}}
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="id" content="{{ $id }}">

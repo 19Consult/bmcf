@@ -972,6 +972,7 @@ function getFavoritesList() {
     data: { _token: csrfToken },
     dataType: "JSON",
     success: (data) => {
+        console.log(data)
       if (data.count > 0) {
         $(".favorites-section").show();
         $(".messenger-favorites").html(data.favorites);
@@ -1037,7 +1038,7 @@ function messengerSearch(input) {
     if (searchPage < 2) {
       $(".search-records").html("");
     }
-    setSearchLoading(true); 
+    setSearchLoading(true);
     $.ajax({
       url: url + "/search",
       method: "GET",
