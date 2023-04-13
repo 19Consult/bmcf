@@ -52,6 +52,8 @@ Route::middleware('guest')->group(function () {
 
     Route::group(['prefix' => 'chat', 'middleware' => 'web'], function () {
         Route::get('/search', [CustomMessagesController::class, 'search'])->name('search');
+        Route::post('/idInfo', [CustomMessagesController::class, 'idFetchData']);
+        Route::post('/favorites', [CustomMessagesController::class, 'getFavorites']);
     });
 
 /**
