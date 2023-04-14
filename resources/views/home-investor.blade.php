@@ -28,7 +28,10 @@
 
             @if(!empty($data['projects']) && isset($data['projects']) && $data['projects']->toArray()['total'] > 0)
                 @foreach($data['projects'] as $key => $val)
-                    <?php $views = $val->views->first();?>
+                    <?php
+                    $views = $val->views->first();
+                    $ndaList = App\Models\NdaProjects::where('id_project', $val->id)->where('status', 'signed')->pluck('user_id')->toArray();
+                    ?>
                     <div class="project__item">
                         <div class="project__item-wrap">
                             <div class="project__img"><img src="{{isset($val->photo_project) ? asset($val->photo_project) : 'img/project-img.webp'}}" alt="Project image"></div>
@@ -50,7 +53,7 @@
                                 </div>
                                 <div class="project__interested">
                                     <div class="project__interested-title">Investor Interested</div>
-                                    <div class="project__interested-quantity">5</div>
+                                    <div class="project__interested-quantity">{{count($ndaList)}}</div>
                                 </div>
                             </div>
                         </div>

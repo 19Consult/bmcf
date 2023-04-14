@@ -41,7 +41,7 @@
                                 </div>
                                 <div class="project-preview__author-favorite project__favorite favorite-projid-{{$data['project']->id}} {{!empty($data['favorite_project']) ? 'active' : ''}}" project-id="{{$data['project']->id}}"></div>
                             </div>
-                            <div class="project-create__top-right-send btn--solid btn--arrow btn--contact btn">Contact Owner</div>
+                            <a href="{{route('user', ['id' => $data['project']->user_id])}}" class="project-create__top-right-send btn--solid btn--arrow btn--contact btn">Contact Owner</a>
                         </div>
                         <div class="project-create__top-right-bottom full">
                             <?php $views = $data['project']->views->first();?>
@@ -157,7 +157,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div><span class="btn btn--solid btn--arrow btn--contact send">Contact Owner</span>
+                    </div><a href="{{route('user', ['id' => $data['project']->user_id])}}" class="btn btn--solid btn--arrow btn--contact send">Contact Owner</a>
                 </form>
             </div>
         </div>
