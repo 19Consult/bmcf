@@ -1154,6 +1154,9 @@ input[type=checkbox] + label::before {
   width: 25px;
   height: 22px;
 }
+.dashboard-wrapper .sidebar.investor{
+    background: var(--color-second);
+}
 
 .projects-wrapper {
   display: -webkit-box;
@@ -4658,4 +4661,43 @@ form.rejected-nda-btn .btn--solid {
     padding: 40px 20px;
   }
 }
+
+.btn--arrow.btn--solid.search-reset{
+    max-width: 110px;
+    justify-content: center;
+    background: var(--color-7);
+    color: var(--color-first);
+}
+.btn--arrow.btn--solid.search-reset::after{
+    content: unset;
+}
+
+.dashboard__wrapper .dashboard-begin{
+    display: flex;
+    flex-direction: row;
+}
+.dashboard__wrapper .dashboard-s1 {
+    display: flex;
+    flex-direction: column;
+}
+.dashboard__wrapper .project__item{
+    width: auto;
+    margin-bottom: 20px;
+}
+
+.dashboard__wrapper .dashboard-s2 .project__content.top::after {
+    content: unset;
+}
+.dashboard__wrapper .dashboard-s2 .project__content.top{
+    flex-direction: column;
+}
+
+.dashboard__wrapper .dashboard-s2 .project__item-wrap{
+    display: flex;
+}
+.dashboard__wrapper .dashboard-s2, .dashboard__wrapper .dashboard-s1.margin{
+    margin-left: 20px;
+}
+
+
 

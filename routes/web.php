@@ -65,26 +65,10 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/home-investor', [InvestorController::class, 'indexInvestor'])->name('homeInvestor');
 
+    //Dashboard
+    Route::get('/dashboard', [OwnerController::class, 'dashboardOwner'])->name('dashboardOwner');
+    Route::get('/dashboard-angel', [InvestorController::class, 'dashboardInvestor'])->name('dashboardInvestor');
 
-
-
-//    Chatify::routes();
-//    ChatifyServiceProvider::routes();
-
-//    Broadcast::routes();
-
-
-//    Route::get('/chatify-page', function () {
-//        return view('chatify-page');
-//    });
-
-
-//    Route::post('/pusher/auth', function() {
-//        return Pusher\Pusher::socket_auth(request());
-//    });
-
-
-//    Route::get('/chat', [HomeController::class, 'chatView'])->name('chatView');
 
     Route::get('/profile', [HomeController::class, 'profile'])->name('profile');
     Route::post('/profile/save', [HomeController::class, 'profileSave'])->name('profileSave');
@@ -128,6 +112,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/project/delete-project/{id_project}', [OwnerController::class, 'deleteProjectPreview'])->name('deleteProjectPreview');
     Route::post('/project/delete-project', [OwnerController::class, 'deleteProject'])->name('deleteProject');
 
+    Route::post('/notifications/{id}/mark-as-read', [HomeController::class, 'markAsRead'])->name('markAsRead');
+
+    Route::post('/report-problem', [HomeController::class, 'reportProblem'])->name('reportProblem');
 
     Route::prefix('admin')->middleware(['admin'])->group(function () {
         Route::get('/', [AdminController::class, 'index'])->name('admin.dashboard');
@@ -151,6 +138,8 @@ Route::middleware(['auth'])->group(function () {
 
         Route::get('/settings', [AdminController::class, 'settingsPage'])->name('admin.settingsPage');
         Route::post('/settings/save', [AdminController::class, 'settingsPageSave'])->name('admin.settingsPageSave');
+
+        Route::get('/reports', [AdminController::class, 'showReports'])->name('admin.reports');
     });
 
 

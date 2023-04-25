@@ -32,6 +32,10 @@
 <link rel="stylesheet" href="{{asset("css/main.css")}}" />
 <link rel="stylesheet" href="{{asset("css/main_chat.css")}}" />
 
+@if(App\Models\User::checkAdmin())
+    <link rel="stylesheet" href="{{asset("css/admin-css.css")}}" />
+@endif
+
 {{-- Setting messenger primary color to css --}}
 <style>
     :root {

@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\UserDetail;
 use App\Models\Projects;
 use App\Models\CategoryName;
+use App\Models\NotificationsUsers;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -21,9 +22,7 @@ class OwnerController extends Controller
 {
 
     function __construct(){
-//        if(!User::checkOwner()){
-//            return redirect(route('home'));
-//        }
+
     }
 
     public function profile(){
@@ -90,6 +89,27 @@ class OwnerController extends Controller
             $project->save();
 
             $project->update($data);
+
+            // Add notifications
+            $keywords = [$project->keyword1, $project->keyword2, $project->keyword3];
+            $userIds = UserDetail::where(function($query) use ($keywords) {
+                    $query->whereIn('categorty1_investor', $keywords)
+                        ->orWhereIn('categorty2_investor', $keywords)
+                        ->orWhereIn('categorty3_investor', $keywords);
+                })
+                ->pluck('user_id');
+
+            $notificationsUsers = collect();
+            $text_notification = "Created a project according to your interests \"" . $project->name_project . "\"";
+            foreach ($userIds as $userId) {
+                $notificationsUsers->push([
+                    'user_id' => $userId,
+                    'text' => $text_notification,
+                ]);
+            }
+            NotificationsUsers::insert($notificationsUsers->toArray());
+            //
+
         }else{
             $project = Projects::where('id', $request->input("id_project"))->first();
             $project->update($data);
@@ -141,6 +161,11 @@ class OwnerController extends Controller
     }
 
     public function ndaList(){
+
+        if (User::checkInvestor()){
+            return redirect(route("ndaListInvestor"));
+        }
+
         $data['title_page'] = 'NDA List';
 
         $data['user_detail'] = UserDetail::where('user_id', Auth::id())->first();
@@ -161,22 +186,7 @@ class OwnerController extends Controller
                 ];
             }
 
-//            dd($data['nda_list']);
         }
-
-
-//        $data['nda_list'] = [];
-//        $data['user_detail'] = UserDetail::where('user_id', Auth::id())->first();
-//
-//        $r = NdaProjects::where("user_id", Auth::id())->get();
-//        foreach ($r as $val){
-//            $data['nda_list'][] = [
-//                'nda' => $val,
-//                'project' => Projects::where('id', $val->id_project)->first(),
-//                'owner' => UserDetail::where('user_id', $val->user_id)->first(),
-//            ];
-//        }
-
 
         $name_company_owner = '';
         if(!empty($data['user_detail']) && isset($data['user_detail']->company_name)){
@@ -254,6 +264,14 @@ class OwnerController extends Controller
             'data_signature_owner' => date("Y-m-d H:i:s"),
         ]);
 
+        //add notification
+        $project_detail = Projects::where('id', $project_id)->first();
+        $text_notification = "Status changed to " . $ndaProjects->status . " for project " . $project_detail->name_project;
+        NotificationsUsers::create([
+            'user_id' => $ndaProjects->user_id,
+            'text' => $text_notification,
+        ]);
+
         try {
 
             $user_investor_id = $ndaProjects->user_id;
@@ -281,6 +299,14 @@ class OwnerController extends Controller
             'status' => 'rejected',
             'signature_owner' => '',
             'data_signature_owner' => null,
+        ]);
+
+        //add notification
+        $project_detail = Projects::where('id', $project_id)->first();
+        $text_notification = "Status changed to " . $ndaProjects->status . " for project " . $project_detail->name_project;
+        NotificationsUsers::create([
+            'user_id' => $ndaProjects->user_id,
+            'text' => $text_notification,
         ]);
 
         return redirect()->back();
@@ -339,6 +365,60 @@ class OwnerController extends Controller
         return response()->json([
             'message' => 'Successfully! Notification',
         ]);
+    }
+
+    public function dashboardOwner(Request $request){
+
+        $data['title_page'] = 'Owner Dashboard';
+
+        if (User::checkInvestor()){
+            return redirect(route("dashboardInvestor"));
+        }
+
+        $categories = $request->input('categories');
+        $search_keyword = $request->input('search_keyword');
+        $sort_by = $request->input('sort_by', 'created_at');
+        $sort_order = $request->input('sort_order', 'desc');
+        $items_per_page = $request->input('items_per_page', 3);
+
+        $query = Projects::query();
+        $query->where('user_id', Auth::id());
+        if ($categories) {
+            $query->where('keyword1', 'LIKE', '%' . $categories . '%')
+                ->orWhere('keyword2', 'LIKE', '%' . $categories . '%')
+                ->orWhere('keyword3', 'LIKE', '%' . $categories . '%');
+        }
+
+        if ($search_keyword) {
+            $query->where(function ($query) use ($search_keyword) {
+                $query->where('name_project', 'LIKE', "%{$search_keyword}%")
+                    ->orWhere('brief_description', 'LIKE', "%{$search_keyword}%")
+                    ->orWhere('project_story', 'LIKE', "%{$search_keyword}%")
+                    ->orWhere('business_plan', 'LIKE', "%{$search_keyword}%")
+                    ->orWhere('co_founder_terms_condition', 'LIKE', "%{$search_keyword}%");
+            });
+        }
+
+        $query->orderBy($sort_by, $sort_order);
+
+        $data['projects'] = $query->paginate($items_per_page);
+
+        $data['category'] = CategoryName::all();
+
+        $data['favorite_project'] = FavoriteProject::where('user_id', Auth::id())->pluck('project_id')->toArray();
+
+        $data['nda_list'] = NdaProjects::where('owner_pr_id', Auth::id())
+            ->where('status', 'signed')
+            ->latest()
+            ->take(3)
+            ->get();
+
+        return view("owner.dashboard-owner", [
+            'data' => $data,
+            'search_keyword' => $search_keyword,
+            'categories' => $categories,
+        ]);
+
     }
 
 }

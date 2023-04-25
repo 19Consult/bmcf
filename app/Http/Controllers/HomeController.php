@@ -12,6 +12,8 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\MailAccountDeletionConfirmation;
 use App\Models\Projects;
+use App\Models\NotificationsUsers;
+use App\Models\ReportProblems;
 
 class HomeController extends Controller
 {
@@ -186,5 +188,29 @@ class HomeController extends Controller
 //    public function chatView(){
 //        return view('chat-view');
 //    }
+
+    public function markAsRead($id){
+        NotificationsUsers::where('id', $id)->update(['seen' => true]);
+        return response()->json(['message' => 'Notification status has been updated.']);
+    }
+
+    public function reportProblem(Request $request){
+        $report = new ReportProblems([
+//            'user_id' => auth()->user()->id,
+//            'project_id' => $request->project_id,
+//            'type' => $request->type,
+//            'description' => $request->description,
+
+            'form_user_id' => Auth::id(),
+            'to_user_id' => $request->to_user_id,
+            'project_id' => $request->project_id,
+            'type' => $request->type,
+            'description' => $request->description,
+        ]);
+
+        $report->save();
+
+        return response()->json(['message' => 'success']);
+    }
 
 }

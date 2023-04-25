@@ -46,7 +46,7 @@
                         <div class="project-create__top-right-bottom full">
                             <?php $views = $data['project']->views->first();?>
                             <div class="left">Project views<span>{{!empty($views->total_views) ? $views->total_views : 0}}</span></div>
-                            <div class="right">Investor Interested<span>24</span></div>
+                            <div class="right">Angel Interested<span>24</span></div>
                         </div>
                     </div>
                 </div>

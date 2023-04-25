@@ -108,7 +108,7 @@ jQuery(document).ready(function ($) {
 		}
 	})
 	$('.scrollbar-init:not(.brief_description_project)').scrollbar()
-	
+
 	$('.project-create__top-descr .field-text__edit').click(function(){
 		setTimeout(() => {
 			$('.project-create__top-descr .scrollbar-init').scrollbar('destroy')
@@ -148,6 +148,46 @@ jQuery(document).ready(function ($) {
     $('.nav__back .close-nda').click(function() {
         $('.nda-agreement.nda-agreement--popup').removeClass('open');
     })
+
+    $('.nav__back a').click(function() {
+        $('.nda-agreement.nda-agreement--popup').removeClass('open');
+    })
+
+    $('.project__favorite').click(function() {
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        var project_id = $(this).attr('project-id');
+        console.log(project_id)
+
+        let data = {
+            project_id: project_id,
+        };
+
+        $.ajax({
+            url: '/project/favorite',
+            method: 'POST',
+            data: data,
+            success: function(data) {
+                let favoriteClass = $(`.favorite-projid-${project_id}`);
+                let favoriteClassPopUp = $(`.favorite-pop`);
+                if(data.success){
+                    favoriteClass.addClass("active")
+                    favoriteClassPopUp.addClass("active")
+                }else {
+                    favoriteClass.removeClass("active")
+                    favoriteClassPopUp.removeClass("active")
+                }
+            },
+            error: function(xhr, textStatus, errorThrown) {
+                console.log(xhr.responseText); // replace with your own error callback function
+            }
+        });
+    });
 
 
 	$('#signature').on('mousedown', function () {
@@ -334,3 +374,23 @@ if( $('.nda-info__signature').length > 0) {
 		draw = false;
 	});
 }
+
+
+$('.notification-user').click(function (event) {
+
+    let notificationId = $(this).attr('data-id');
+    console.log(notificationId);
+
+    $.ajax({
+        url: `/notifications/${notificationId}/mark-as-read`,
+        type: 'POST',
+        data: [],
+        success: function(data) {
+            console.log(data);
+        },
+        error: function(xhr, textStatus, errorThrown) {
+            console.log(xhr.responseText);
+        }
+    });
+
+})
