@@ -1,9 +1,18 @@
 @include('Chatify::layouts.headLinks')
 
 <main class="wrapper projects-search-v2">
-    @include("layouts.nav-menu-home")
+    @if(App\Models\User::checkAdmin())
+        @include("admin.nav-menu")
+    @else
+        @include("layouts.nav-menu-home")
+    @endif
     <div class="dashboard-wrapper">
-        @include("layouts.sidebar")
+        @if(App\Models\User::checkAdmin())
+            @include("admin.sidebar")
+        @else
+            @include("layouts.sidebar")
+        @endif
+
 {{--        <div class="chat-wrapper">--}}
 
             <div class="messenger">

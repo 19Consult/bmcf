@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use League\Csv\Writer;
 use App\Models\SettingsTable;
+use App\Models\ReportProblems;
 
 class AdminController extends Controller
 {
@@ -352,6 +353,27 @@ class AdminController extends Controller
         ]);
 
         return redirect()->back()->with('success', 'Settings have been saved.');
+    }
+
+    public function showReports(Request $request){
+        $data['title_page'] = 'Report Problem';
+
+        $perPage = $request->input('perPage', 10);
+        $sortField = $request->input('sortField', 'id');
+        $sortOrder = $request->input('sortOrder', 'desc');
+
+        $reportProblems = ReportProblems::orderBy($sortField, $sortOrder)->paginate($perPage);
+
+        $data['reportProblems'] = $reportProblems;
+
+        return view("admin.reports", [
+            'data' => $data,
+            'perPage' => $perPage,
+            'sortOrder' => $sortOrder,
+            'sortField' => $sortField,
+        ]);
+
+
     }
 
 }

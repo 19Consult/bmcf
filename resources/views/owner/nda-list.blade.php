@@ -11,7 +11,7 @@
                 <div class="nda__top">
                     <div class="nda__item">Project Name</div>
                     <div class="nda__item">STATUS</div>
-                    <div class="nda__item">Investor</div>
+                    <div class="nda__item">Angel</div>
                     <div class="nda__item">Idea Owner</div>
                     <div class="nda__item nda__item--sort-active nda__item--sort nda__item--sort-up">Contract Date</div>
                 </div>
@@ -54,12 +54,17 @@
                                     <a href="{{route("downloadNda", ['nda_id' => $val['nda']->id])}}" class="nda__download {{(empty($val['nda']->signature) || empty($val['nda']->signature_owner)) ? 'disabled-button' : ''}}"></a>
                                     <div class="nda__more" >
                                         <div class="nda__more-popup">
+
+                                            <div class="share-project-btn" data-nda-id="{{$val['nda']->id}}">Share Project</div>
+                                            <div class="share-profile-btn" data-nda-id="{{$val['nda']->id}}">Share Profile</div>
+                                            <div class="report-problem-btn" data-nda-id="{{$val['nda']->id}}">Report Problem</div>
+
                                             @if($val['nda']->status != 'signed')
                                                 <div class="approve-click" data-nda-id="{{$val['nda']->id}}">Approve</div>
                                             @endif
 
                                             @if($val['nda']->status != 'rejected')
-                                                <form action="{{route("rejectedNdaProject")}}" method="POST" class="list-reject-rt" style="display: none">
+                                                <form action="{{route("rejectedNdaProject")}}" method="POST" class="list-reject-rt">
                                                     @csrf
                                                     <input type="hidden" class="project-id-form" name="project_id" value="{{$val['project']->id}}">
                                                     <input type="hidden" class="project-id-nda" name="nda_id" value="{{$val['nda']->id}}">
@@ -85,7 +90,7 @@
                             <div class="nda-info__user-img"><img class="pr-user-photo" src="img/user-2.webp" alt=""></div>
                             <div class="nda-info__user-name-wrap">
                                 <div class="nda-info__user-name pr-user-full-name">Sam hill</div>
-                                <div class="nda-info__user-type">Investor</div>
+                                <div class="nda-info__user-type">Angel</div>
                             </div>
                         </div>
                         <div class="nda-info__read-more">Show Full NDA Body Text</div>
@@ -237,6 +242,7 @@
         cursor: pointer;
         background: unset;
         color: var(--color-3);
+        padding: 0px;
     }
 </style>
 

@@ -1,5 +1,5 @@
-<div class="sidebar">
-    <a href="" style="pointer-events: none; opacity: 0.2;"><img src="{{asset("img/icons/icon-home.svg")}}" alt="Home" /></a>
+<div class="sidebar {{(App\Models\User::checkInvestor()) ? 'investor' : ''}}">
+    <a href="{{route("dashboardOwner")}}" ><img src="{{asset("img/icons/icon-home.svg")}}" alt="Home" /></a>
     <a href="{{route("home")}}"><img src="{{asset("img/icons/icon-cupcake.svg")}}" alt="Cupcake" /></a>
 
     @if(App\Models\User::checkInvestor() && false)
