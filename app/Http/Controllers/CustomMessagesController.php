@@ -30,17 +30,19 @@ class CustomMessagesController extends ChatifyMessagesController
             ->paginate($request->per_page ?? $this->perPage);
         foreach ($records->items() as $record) {
 
-            $condition1 = NdaProjects::where('user_id', $record->id)
-                ->where('owner_pr_id', Auth::id())
-                ->where('status', 'signed')
-                ->exists();
-            $condition2 = NdaProjects::where('user_id', Auth::id())
-                ->where('owner_pr_id', $record->id)
-                ->where('status', 'signed')
-                ->exists();
-            $result = ($condition1 || $condition2);
-            if(!$result){
-                continue;
+            if (!User::checkAdmin()){
+                $condition1 = NdaProjects::where('user_id', $record->id)
+                    ->where('owner_pr_id', Auth::id())
+                    ->where('status', 'signed')
+                    ->exists();
+                $condition2 = NdaProjects::where('user_id', Auth::id())
+                    ->where('owner_pr_id', $record->id)
+                    ->where('status', 'signed')
+                    ->exists();
+                $result = ($condition1 || $condition2);
+                if(!$result){
+                    continue;
+                }
             }
 
             $getRecords .= view('Chatify::layouts.listItem', [

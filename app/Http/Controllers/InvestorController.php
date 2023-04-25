@@ -234,6 +234,11 @@ class InvestorController extends Controller
     }
 
     public function ndaListInvestor(){
+
+        if (User::checkOwner()){
+            return redirect(route("ndaList"));
+        }
+
         $data['title_page'] = 'NDA List';
 
         $data['nda_list'] = [];
@@ -311,6 +316,73 @@ class InvestorController extends Controller
             'insert_data' => $insert_data,
         ]);
         return $pdf->download('nda_' . $nda->id . '.pdf');
+
+    }
+
+    public function dashboardInvestor(Request $request){
+        $data['title_page'] = 'Angel Dashboard';
+
+        if (User::checkOwner()){
+            return redirect(route("dashboardOwner"));
+        }
+
+        $nda_list = NdaProjects::where('user_id', Auth::id())
+            ->where('status', 'signed')
+            ->latest()
+            ->take(3)
+            ->pluck('id_project')
+            ->toArray();
+
+        $data['single_nda_project'] = Projects::where('id', $nda_list)->get();
+        $data['favorite_project'] = FavoriteProject::where('user_id', Auth::id())->pluck('project_id')->toArray();
+
+        $user = Auth::user()->detail;
+
+        $keywords = [$user->categorty1_investor, $user->categorty2_investor, $user->categorty3_investor];
+        //dd($keywords);
+        $projects_int = Projects::where(function($query) use ($keywords) {
+            $query->whereIn('keyword1', $keywords)
+                ->orWhereIn('keyword2', $keywords)
+                ->orWhereIn('keyword3', $keywords);
+        })->get();
+        $data['projects_int'] = $projects_int;
+
+        $data['category'] = CategoryName::all();
+
+        $categories = $request->input('categories');
+        $search_keyword = $request->input('search_keyword');
+        $sort_by = $request->input('sort_by', 'created_at');
+        $sort_order = $request->input('sort_order', 'desc');
+        $items_per_page = $request->input('items_per_page', 3);
+
+        //Search
+        if(isset($categories) || isset($search_keyword)){
+            $query = Projects::query();
+            $query->where('user_id', Auth::id());
+            if ($categories) {
+                $query->where('keyword1', 'LIKE', '%' . $categories . '%')
+                    ->orWhere('keyword2', 'LIKE', '%' . $categories . '%')
+                    ->orWhere('keyword3', 'LIKE', '%' . $categories . '%');
+            }
+            if ($search_keyword) {
+                $query->where(function ($query) use ($search_keyword) {
+                    $query->where('name_project', 'LIKE', "%{$search_keyword}%")
+                        ->orWhere('brief_description', 'LIKE', "%{$search_keyword}%")
+                        ->orWhere('project_story', 'LIKE', "%{$search_keyword}%")
+                        ->orWhere('business_plan', 'LIKE', "%{$search_keyword}%")
+                        ->orWhere('co_founder_terms_condition', 'LIKE', "%{$search_keyword}%");
+                });
+            }
+            $query->orderBy($sort_by, $sort_order);
+            $data['projects_int'] = $query->paginate($items_per_page);
+        }
+
+
+        return view("investor.dashboard-investor", [
+            'data' => $data,
+            'search_keyword' => $search_keyword,
+            'categories' => $categories,
+        ]);
 
     }
 

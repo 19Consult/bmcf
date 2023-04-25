@@ -1,8 +1,14 @@
 <div class="sidebar admin-panel">
     <a href="{{route("admin.dashboard")}}"><img src="{{asset("img/icons/icon-home.svg")}}" alt="Home" /><span>Home</span></a>
     <a href="#"><img src="{{asset("img/icons/icon-cupcake.svg")}}" alt="Cupcake" /></a>
-    <a href="#"><img src="{{asset("img/icons/icon-chat.svg")}}" alt="Chat" /></a>
+    <a href="{{route('chat')}}"><img src="{{asset("img/icons/icon-chat.svg")}}" alt="Chat" /><span>Chat</span></a>
     <a href="#"><img src="{{asset("img/icons/icon-file.svg")}}" alt="File" /></a>
+
+    <a href="{{route("admin.reports")}}">
+        <img src="{{asset("img/icons/file_report.svg")}}" alt="Report Problem" />
+        <span>Report Problem</span>
+    </a>
+
     <a href="{{route("admin.category.list")}}">
         <img src="{{asset("img/icons/icon-file.svg")}}" alt="File" />
         <span>Category</span>

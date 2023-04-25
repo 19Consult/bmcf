@@ -17,7 +17,7 @@
                 </div>
             </div>
             <div class="col right">
-                <div class="home-page__title-top">I want Became a</div>
+                <div class="home-page__title-top">I WANT TO BE A</div>
                 <h2 class="home-page__title">COFOUNDER!</h2><a class="btn btn--border" href="{{ route('sign-up-co-founder') }}">START HERE</a>
                 <div class="home-page__descr-wrapper">
                     <div class="home-page__descr-title">True value of you</div>

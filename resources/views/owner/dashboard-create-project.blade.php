@@ -665,7 +665,7 @@
                                             {!! $data['project']->co_founder_terms_condition !!}
                                         @else
                                             <div class="field-add-btn"></div>
-                                            <div class="field-add-text">Describe Your Business Plan</div>
+                                            <div class="field-add-text">Describe the co-founders you are looking for what you are offering</div>
                                         @endif
                                     </div>
                                     <div class="field-text__edit">Edit</div>
