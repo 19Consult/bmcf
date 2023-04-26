@@ -1,8 +1,8 @@
 @include('layouts.message-alert',['classes'=>'pt-0 pb-4 px-2'])
 
 <nav class="nav">
-    <div class="nav__logo"><a href="{{route("home")}}"><img src="{{asset("img/logo_dashboard.svg")}}" alt="logo"></a></div>
-    <div class="nav__title"><a href="{{route("home")}}">BeMy Cofounder</a></div>
+    <div class="nav__logo"><a href="{{route("dashboardOwner")}}"><img src="{{asset("img/logo_dashboard.svg")}}" alt="logo"></a></div>
+    <div class="nav__title"><a href="{{route("dashboardOwner")}}">BeMy Cofounder</a></div>
 
     @if(app('checkNameRoute_app') == 'createProject')
         <div class="nav__back project">

@@ -4699,5 +4699,39 @@ form.rejected-nda-btn .btn--solid {
     margin-left: 20px;
 }
 
+.report-popup .form-group.select-type{
+    margin-bottom: 10px;
+}
+.successful-popup .suses-div {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    margin: 30px;
+    flex-direction: column;
+    align-items: center;
+}
+.successful-popup .suses-div img{
+    width: 35%;
+}
+.successful-popup .suses-div p{
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+.report-popup .nda-agreement--popup-content{
+    max-width: 560px;
+}
+.report-popup .report-form{
+    padding: 26px;
+}
+.report-popup .btn.btn-primary{
+    margin-top: 20px;
+    margin-left: auto;
+}
+
+.successful-popup .nda-agreement--popup-content{
+    max-width: 560px;
+}
+
+
 
 

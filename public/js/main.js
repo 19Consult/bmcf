@@ -189,6 +189,60 @@ jQuery(document).ready(function ($) {
         });
     });
 
+    $('.report-problem-btn').on('click', function(event) {
+        $('.report-popup').addClass('open')
+
+        //Investor
+        $('.project-id').val( $(this).attr('data-project-id') );
+        $('.to-user-id').val( $(this).attr('data-owner-id') );
+    });
+
+    $('.report-form').submit(function (e) {
+        e.preventDefault();
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'POST',
+            url: '/report-problem',
+            data: $(this).serialize(),
+            success: function (response) {
+                $('.report-popup').removeClass('open');
+                $('.successful-popup').addClass('open');
+
+                $('.description-report').val(" ");
+                //console.log(response.message);
+            }
+        });
+    });
+
+    //notifications
+    // $('.notification-user').submit(function (e) {
+    //     e.preventDefault();
+    //
+    //     $.ajaxSetup({
+    //         headers: {
+    //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //         }
+    //     });
+    //
+    //     $.ajax({
+    //         type: 'POST',
+    //         url: '/report-problem',
+    //         data: $(this).serialize(),
+    //         success: function (response) {
+    //             $('.report-popup').removeClass('open');
+    //             $('.successful-popup').addClass('open');
+    //
+    //             $('.description-report').val(" ");
+    //             //console.log(response.message);
+    //         }
+    //     });
+    // });
 
 	$('#signature').on('mousedown', function () {
 		$(this).parents('.nda-info__signature').addClass('active');
@@ -378,8 +432,14 @@ if( $('.nda-info__signature').length > 0) {
 
 $('.notification-user').click(function (event) {
 
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
     let notificationId = $(this).attr('data-id');
-    console.log(notificationId);
+    //console.log(notificationId);
 
     $.ajax({
         url: `/notifications/${notificationId}/mark-as-read`,
