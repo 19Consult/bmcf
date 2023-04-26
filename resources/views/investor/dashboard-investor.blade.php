@@ -46,11 +46,11 @@
                                             <div class="project__favorite favorite-projid-{{$val->id}} {{in_array($val->id, $data['favorite_project']) ? 'active' : ''}}" project-id="{{$val->id}}"></div>
                                         </div>
                                         <div class="project__content bottom">
-                                            <div class="project__views">
+                                            <div class="project__views line-s">
                                                 <div class="project__views-title">Project views</div>
                                                 <div class="project__views-quantity pr-total_views-{{$val->id}}">{{!empty($views->total_views) ? $views->total_views : 0}}</div>
                                             </div>
-                                            <div class="project__interested">
+                                            <div class="project__interested line-s">
                                                 <div class="project__interested-title">Angel Interested</div>
                                                 <div class="project__interested-quantity">{{count($ndaList)}}</div>
                                             </div>

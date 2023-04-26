@@ -95,7 +95,7 @@
 
                     <div class="form-group">
                         <label for="description">Description of the problem:</label>
-                        <textarea class="form-control" id="description" name="description" rows="3" maxlength="250"></textarea>
+                        <textarea class="form-control description-report" id="description" name="description" rows="3" maxlength="250"></textarea>
                     </div>
 
                     <button type="submit" class="btn btn-primary btn--arrow btn--solid">Send</button>
@@ -123,67 +123,67 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
 
-            $('.report-problem-btn').on('click', function(event) {
-                $('.report-popup').addClass('open')
-
-                //Investor
-                $('.project-id').val( $(this).attr('data-project-id') );
-                $('.to-user-id').val( $(this).attr('data-owner-id') );
-            });
-
-            $('.report-form').submit(function (e) {
-                e.preventDefault();
-
-                $.ajax({
-                    type: 'POST',
-                    url: '/report-problem',
-                    data: $(this).serialize(),
-                    success: function (response) {
-                        $('.report-popup').removeClass('open');
-                        $('.successful-popup').addClass('open');
-
-                        $('#description').val(" ");
-                        //console.log(response.message);
-                    }
-                });
-            });
+            // $('.report-problem-btn').on('click', function(event) {
+            //     $('.report-popup').addClass('open')
+            //
+            //     //Investor
+            //     $('.project-id').val( $(this).attr('data-project-id') );
+            //     $('.to-user-id').val( $(this).attr('data-owner-id') );
+            // });
+            //
+            // $('.report-form').submit(function (e) {
+            //     e.preventDefault();
+            //
+            //     $.ajax({
+            //         type: 'POST',
+            //         url: '/report-problem',
+            //         data: $(this).serialize(),
+            //         success: function (response) {
+            //             $('.report-popup').removeClass('open');
+            //             $('.successful-popup').addClass('open');
+            //
+            //             $('.description-report').val(" ");
+            //             //console.log(response.message);
+            //         }
+            //     });
+            // });
 
         })
     </script>
 
     <style>
-        .report-popup .form-group.select-type{
-            margin-bottom: 10px;
-        }
-        .successful-popup .suses-div {
-            display: flex;
-            justify-content: center;
-            align-content: center;
-            margin: 30px;
-            flex-direction: column;
-            align-items: center;
-        }
-        .successful-popup .suses-div img{
-            width: 35%;
-        }
-        .successful-popup .suses-div p{
-            margin-bottom: 20px;
-            font-size: 20px;
-        }
-        .report-popup .nda-agreement--popup-content{
-            max-width: 560px;
-        }
-        .report-popup .report-form{
-            padding: 26px;
-        }
-        .report-popup .btn.btn-primary{
-            margin-top: 20px;
-            margin-left: auto;
-        }
+        /*.report-popup .form-group.select-type{*/
+        /*    margin-bottom: 10px;*/
+        /*}*/
+        /*.successful-popup .suses-div {*/
+        /*    display: flex;*/
+        /*    justify-content: center;*/
+        /*    align-content: center;*/
+        /*    margin: 30px;*/
+        /*    flex-direction: column;*/
+        /*    align-items: center;*/
+        /*}*/
+        /*.successful-popup .suses-div img{*/
+        /*    width: 35%;*/
+        /*}*/
+        /*.successful-popup .suses-div p{*/
+        /*    margin-bottom: 20px;*/
+        /*    font-size: 20px;*/
+        /*}*/
+        /*.report-popup .nda-agreement--popup-content{*/
+        /*    max-width: 560px;*/
+        /*}*/
+        /*.report-popup .report-form{*/
+        /*    padding: 26px;*/
+        /*}*/
+        /*.report-popup .btn.btn-primary{*/
+        /*    margin-top: 20px;*/
+        /*    margin-left: auto;*/
+        /*}*/
 
-        .successful-popup .nda-agreement--popup-content{
-            max-width: 560px;
-        }
+        /*.successful-popup .nda-agreement--popup-content{*/
+        /*    max-width: 560px;*/
+        /*}*/
     </style>
 
 

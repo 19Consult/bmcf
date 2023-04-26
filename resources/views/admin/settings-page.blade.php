@@ -11,7 +11,7 @@
                     <div class="col row-field">
                         <div class="form_input_wrap">
                             <input type="number" id="count_posts" name="count_posts" min="1" required value="{{$data['setting']['count_posts']}}">
-                            <label for="count_posts">Count posts</label>
+                            <label for="count_posts">Allowed project post quantity</label>
                         </div>
                     </div>
 

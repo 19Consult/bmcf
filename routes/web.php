@@ -63,7 +63,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-    Route::get('/home-investor', [InvestorController::class, 'indexInvestor'])->name('homeInvestor');
+    Route::get('/home-angel', [InvestorController::class, 'indexInvestor'])->name('homeInvestor');
 
     //Dashboard
     Route::get('/dashboard', [OwnerController::class, 'dashboardOwner'])->name('dashboardOwner');
@@ -90,7 +90,7 @@ Route::middleware(['auth'])->group(function () {
 
 
     Route::get('/nda-list', [OwnerController::class, 'ndaList'])->name('ndaList');
-    Route::get('/nda-list-investor', [InvestorController::class, 'ndaListInvestor'])->name('ndaListInvestor');
+    Route::get('/nda-list-angel', [InvestorController::class, 'ndaListInvestor'])->name('ndaListInvestor');
 
     Route::get('/nda-download/{nda_id}', [InvestorController::class, 'downloadNda'])->name('downloadNda');
 

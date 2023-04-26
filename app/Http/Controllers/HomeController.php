@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\MailAccountDeletionConfirmation;
+use App\Mail\MailReportProblem;
 use App\Models\Projects;
 use App\Models\NotificationsUsers;
 use App\Models\ReportProblems;
@@ -196,11 +197,6 @@ class HomeController extends Controller
 
     public function reportProblem(Request $request){
         $report = new ReportProblems([
-//            'user_id' => auth()->user()->id,
-//            'project_id' => $request->project_id,
-//            'type' => $request->type,
-//            'description' => $request->description,
-
             'form_user_id' => Auth::id(),
             'to_user_id' => $request->to_user_id,
             'project_id' => $request->project_id,
@@ -209,6 +205,32 @@ class HomeController extends Controller
         ]);
 
         $report->save();
+
+        //add notification
+        $emails = [];
+        $name_user = Auth::user()->name;
+        $text_notification = "New Problem Report by " . $name_user;
+
+        $admin_id = User::where('role', 1)->get()->toArray();
+        if(count($admin_id) > 0){
+            foreach ($admin_id as $value){
+                NotificationsUsers::create([
+                    'user_id' => $value['id'],
+                    'text' => $text_notification,
+                ]);
+                $emails[] = $value['email'];
+            }
+
+            //Email
+            try {
+                $data = ['text' => $text_notification];
+                Mail::to($emails)->send(new MailReportProblem($data));
+            } catch (\Exception $e) {
+                $e->getMessage();
+            }
+
+        }
+
 
         return response()->json(['message' => 'success']);
     }
