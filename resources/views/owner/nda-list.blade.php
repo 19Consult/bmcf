@@ -57,7 +57,7 @@
 
                                             <div class="share-project-btn" data-nda-id="{{$val['nda']->id}}">Share Project</div>
                                             <div class="share-profile-btn" data-nda-id="{{$val['nda']->id}}">Share Profile</div>
-                                            <div class="report-problem-btn" data-nda-id="{{$val['nda']->id}}">Report Problem</div>
+                                            <div class="report-problem-btn" data-nda-id="{{$val['nda']->id}}" data-project-id="{{$val['project']->id}}" data-owner-id="{{Auth::id()}}">Report Problem</div>
 
                                             @if($val['nda']->status != 'signed')
                                                 <div class="approve-click" data-nda-id="{{$val['nda']->id}}">Approve</div>
@@ -230,6 +230,53 @@
                         </div>
 
                     </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="nda-agreement nda-agreement--popup report-popup">
+            <div class="nda-agreement-wrap">
+                <div class="nda-agreement--popup-content">
+                    <nav class="nav">
+                        <div class="nav__back"><a href="#">Go Back  </a> <span>Report Problem</span></div>
+                    </nav>
+
+                    <form class="report-form">
+                        @csrf
+                        <input type="hidden" class="project-id" name="project_id" value="">
+                        <input type="hidden" class="to-user-id" name="to_user_id" value="">
+                        <div class="form-group select-type">
+                            <label for="type">Select problem type:</label>
+                            <select class="form-control" id="type" name="type">
+                                <option value="user">User</option>
+                                <option value="project">Project</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="description">Description of the problem:</label>
+                            <textarea class="form-control description-report" id="description" name="description" rows="3" maxlength="250"></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn--arrow btn--solid">Send</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="nda-agreement nda-agreement--popup successful-popup">
+            <div class="nda-agreement-wrap">
+                <div class="nda-agreement--popup-content">
+                    <nav class="nav">
+                        <div class="nav__back"><a href="#">Go Back  </a></div>
+                    </nav>
+                    <div class="suses-div">
+                        <p>Thank you for the Problem Report</p>
+                        <img src="{{asset("img/icons/free-icon-check-1828640.svg")}}" />
+                    </div>
+
                 </div>
             </div>
         </div>

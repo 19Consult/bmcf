@@ -28,7 +28,7 @@ class AdminController extends Controller
 
     public function users(Request $request){
 
-        $perPage = $request->input('perPage', 20);
+        $perPage = $request->input('perPage', 10);
         $sortField = $request->input('sortField', 'id');
         $sortOrder = $request->input('sortOrder', 'desc');
 
@@ -356,7 +356,7 @@ class AdminController extends Controller
     }
 
     public function showReports(Request $request){
-        $data['title_page'] = 'Report Problem';
+        $data['title_page'] = 'Problem Report';
 
         $perPage = $request->input('perPage', 10);
         $sortField = $request->input('sortField', 'id');

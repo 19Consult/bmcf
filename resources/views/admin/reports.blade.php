@@ -35,7 +35,7 @@
                                 <div>Owner Email: {{$owner->email}}</div>
                             </div>
                             <div class="section-2">
-                                <div><b>Report Problem</b></div>
+                                <div><b>Problem Report</b></div>
                                 <div>Type: {{$var->type}}</div>
                                 <div>Date: {{$var->created_at}}</div>
                                 <div>Description: {{$var->description}}</div>

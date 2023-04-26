@@ -27,7 +27,7 @@
 
 @include('layouts.message-alert',['classes'=>'pt-0 pb-4 px-2'])
 <nav class="nav">
-    <div class="nav__logo"><a href="{{route("home")}}"><img src="{{asset("img/logo_dashboard.svg")}}" alt="logo"></a></div>
+    <div class="nav__logo"><a href="{{route("dashboardOwner")}}"><img src="{{asset("img/logo_dashboard.svg")}}" alt="logo"></a></div>
     <div class="nav__title">BeMy Cofounder</div>
     <div class="nav__back"><span>{{!empty($title_page) ? $title_page : ''}}</span></div>
     <div class="nav__right">
@@ -38,7 +38,7 @@
             <a class="nav__notifications {{ $check_notif ? 'has-notific' : '' }}" href="#"></a>
             <ul class="nav__notifications-popup">
                 @if(!Auth::user()->hasVerifiedEmail())
-                    <li>Mail not verified</li>
+                    <li>Email not verified</li>
                 @endif
                 @if($notifications['unread_count'] > 0)
                     @foreach($notifications['unseen_senders'] as $key => $val)
