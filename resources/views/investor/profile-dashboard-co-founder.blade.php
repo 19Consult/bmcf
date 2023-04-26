@@ -64,7 +64,10 @@
                         <div class="col row-field">
                             <div class="form_input_wrap">
                                 <div class="add-photo show" id="show-photo-wrapper">
-                                    <div id="show-photo"><img src="{{isset($data['userDetail']->photo) ? asset($data['userDetail']->photo) : 'img/user.png'}}" alt="user"></div><span></span>
+                                    <div id="show-photo">
+                                        <img src="{{isset($data['userDetail']->photo) ? asset($data['userDetail']->photo) : 'img/user.png'}}" alt="user">
+                                    </div>
+                                    <span></span>
                                 </div>
                                 <label>
                                     <input type="file" name="photo" accept="image/*,image/jpeg" id="file-uploader"><span class="btn btn--solid btn--arrow btn--photo">Upload Photo</span>

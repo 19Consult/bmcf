@@ -7,37 +7,42 @@
             @include("admin.sidebar")
 
             <div class="profile__wrapper">
+                <div class="profile__wrapper-top">
+                    <form method="GET" action="{{ route('admin.users') }}" class="form-admin-sort">
 
-                <form method="GET" action="{{ route('admin.users') }}" class="form-admin-sort">
+                        <select name="sortOrder" onchange="this.form.submit()">
+                            <option></option>
+                            <option value="asc" {{ $sortOrder == 'asc' ? 'selected' : '' }}>ASC</option>
+                            <option value="desc" {{ $sortOrder == 'desc' ? 'selected' : '' }}>DESC</option>
+                        </select>
 
-                    <select name="sortOrder" onchange="this.form.submit()">
-                        <option></option>
-                        <option value="asc" {{ $sortOrder == 'asc' ? 'selected' : '' }}>ASC</option>
-                        <option value="desc" {{ $sortOrder == 'desc' ? 'selected' : '' }}>DESC</option>
-                    </select>
+                        <select name="perPage" onchange="this.form.submit()">
+                            <option>All</option>
+                            <option value="20" {{ $perPage == 20 ? 'selected' : '' }}>20</option>
+                            <option value="30" {{ $perPage == 30 ? 'selected' : '' }}>30</option>
+                            <option value="50" {{ $perPage == 50 ? 'selected' : '' }}>50</option>
+                        </select>
 
-                    <select name="perPage" onchange="this.form.submit()">
-                        <option></option>
-                        <option value="20" {{ $perPage == 20 ? 'selected' : '' }}>20</option>
-                        <option value="30" {{ $perPage == 30 ? 'selected' : '' }}>30</option>
-                        <option value="50" {{ $perPage == 50 ? 'selected' : '' }}>50</option>
-                    </select>
+                        <select class="class-sortField" name="sortField" onchange="this.form.submit()">
+                            <option></option>
+                            <option value="id" {{ $sortField == 'id' ? 'selected' : '' }}>Id</option>
+                            <option value="last_name" {{ $sortField == 'last_name' ? 'selected' : '' }}>Last Name</option>
+                            <option value="company_name" {{ $sortField == 'company_name' ? 'selected' : '' }}>Company name</option>
+                            <option value="country" {{ $sortField == 'country' ? 'selected' : '' }}>Country</option>
+                        </select>
 
-                    <select class="class-sortField" name="sortField" onchange="this.form.submit()">
-                        <option></option>
-                        <option value="id" {{ $sortField == 'id' ? 'selected' : '' }}>Id</option>
-                        <option value="last_name" {{ $sortField == 'last_name' ? 'selected' : '' }}>Last Name</option>
-                        <option value="company_name" {{ $sortField == 'company_name' ? 'selected' : '' }}>Company name</option>
-                        <option value="country" {{ $sortField == 'country' ? 'selected' : '' }}>Country</option>
-                    </select>
+                        <div class="form_input_wrap">
+                            <input type="text" placeholder="Search" name="searchTerm" value="{{isset($searchTerm) ? $searchTerm : ''}}">
+                        </div>
 
-                    <div class="form_input_wrap">
-                        <input type="text" placeholder="Search" name="searchTerm" value="{{isset($searchTerm) ? $searchTerm : ''}}">
-                    </div>
+                        <button type="submit" class="btn btn--solid btn--arrow send send-form">Search</button>
 
-                    <button type="submit" class="btn btn--solid btn--arrow send send-form">Search</button>
-
-                </form>
+                    </form>
+                    
+                    @if(app('checkNameRoute_app') == 'admin.users')
+                        <a class="export-users btn btn--solid btn--arrow send" href="{{route("admin.users.export")}}">Export SCV</a>
+                    @endif
+                </div>
 
                 @foreach($data['users'] as $user)
 

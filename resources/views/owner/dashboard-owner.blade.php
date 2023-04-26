@@ -86,9 +86,9 @@
                                         <div class="project__img">
                                             <img src="{{isset($user->detail->photo) ? asset($user->detail->photo) : 'img/project-img.webp'}}" alt="User image"></div>
                                         <div class="project__content top">
-                                            <div>{{$user->detail->first_name}} {{$user->detail->last_name}}</div>
-                                            <div>{{$sector}}</div>
-                                            <div>{{$country}}</div>
+                                            <div class="project__content-user-name">{{$user->detail->first_name}} {{$user->detail->last_name}}</div>
+                                            <div class="project__content-user-sector">{{$sector}}</div>
+                                            <div class="project__content-user-country">{{$country}}</div>
                                         </div>
                                     </div>
                                 </div>
