@@ -43,8 +43,13 @@
                             if($val['nda']->status == 'signed'){
                                 $status_class = 'nda__item--status-signed';
                                 $status_name = 'Signed';
-                                $name_investor = $val['investor']->first_name . ' ' . $val['investor']->last_name;
-                                $name_owner = $data['user_detail']->first_name . ' ' . $data['user_detail']->last_name;
+                                if(isset($val['investor']->first_name)){
+                                    $name_investor = $val['investor']->first_name . ' ' . $val['investor']->last_name;
+                                }
+                                if(isset($data['user_detail']->first_name)){
+                                    $name_owner = $data['user_detail']->first_name . ' ' . $data['user_detail']->last_name;
+                                }
+
                             }elseif ($val['nda']->status == 'rejected'){
                                 $status_class = 'nda__item--status-rejected';
                                 $status_name = 'Rejected';
