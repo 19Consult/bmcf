@@ -49,6 +49,7 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     public static function checkInvestor(){
+        if (empty(Auth::user()->role )){return false;}
         return (Auth::user()->role == 3);
     }
 

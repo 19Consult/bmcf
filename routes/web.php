@@ -139,6 +139,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/settings', [AdminController::class, 'settingsPage'])->name('admin.settingsPage');
         Route::post('/settings/save', [AdminController::class, 'settingsPageSave'])->name('admin.settingsPageSave');
 
+        Route::get('/admin-settings', [AdminController::class, 'adminSettingsPage'])->name('admin.adminSettingsPage');
+        Route::post('/admin-settings/save', [AdminController::class, 'adminSettingsPageSave'])->name('adminSettingsPageSave');
+
         Route::get('/reports', [AdminController::class, 'showReports'])->name('admin.reports');
     });
 
