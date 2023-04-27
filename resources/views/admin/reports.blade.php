@@ -11,10 +11,16 @@
                     @foreach($data['reportProblems'] as $var)
 
                         @php
+                        if(empty($var->form_user_id) || empty($var->project_id)){
+                            continue;
+                        }
                         $user = \App\Models\User::where('id', $var->form_user_id)->first();
                         $project = \App\Models\Projects::where('id', $var->project_id)->first();
+
+                        if(empty($project->user_id)){
+                            continue;
+                        }
                         $owner = \App\Models\User::where('id', $project->user_id)->first();
-                        //$req_id =
                         @endphp
 
                         <div class="container-user">
