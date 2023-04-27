@@ -17,7 +17,7 @@
                         $user = \App\Models\User::where('id', $var->form_user_id)->first();
                         $project = \App\Models\Projects::where('id', $var->project_id)->first();
 
-                        if(empty($project->user_id)){
+                        if(empty($project->user_id) || empty($user)){
                             continue;
                         }
                         $owner = \App\Models\User::where('id', $project->user_id)->first();
