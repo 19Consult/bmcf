@@ -22,6 +22,14 @@
     </div>
 @endif
 
-@if(Session::has('error') || Session::has('success') || Session::has('warning'))
+@if (session('resent'))
+    <div class="alert text-white alert-dismissible alert-success mb-0">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        A new mail confirmation email has been sent to your email.
+    </div>
+@endif
+
+
+    @if(Session::has('error') || Session::has('success') || Session::has('warning'))
     </div>
 @endif

@@ -4770,5 +4770,12 @@ form.rejected-nda-btn .btn--solid {
   font-size: inherit;
 }
 
+button.btn-verified {
+    background: unset;
+    color: unset;
+    text-decoration: none;
+    padding: 0px;
+    cursor: pointer;
+}
 
 

@@ -38,7 +38,7 @@
         <div class="nav__notifications-wrap">
             <a class="nav__notifications {{ $check_notif ? 'has-notific' : '' }}" href="#"></a>
             <ul class="nav__notifications-popup">
-                @if(!Auth::user()->hasVerifiedEmail())
+                @if(!Auth::user()->hasVerifiedEmail() && !\App\Models\User::checkAdmin())
                     <li>Email not verified</li>
                 @endif
                 @if($notifications['unread_count'] > 0)
