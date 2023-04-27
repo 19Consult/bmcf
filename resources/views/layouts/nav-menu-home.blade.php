@@ -38,7 +38,13 @@
             <a class="nav__notifications {{ $check_notif ? 'has-notific' : '' }}" href="#"></a>
             <ul class="nav__notifications-popup">
                 @if(!Auth::user()->hasVerifiedEmail())
-                    <li>Email not verified</li>
+{{--                    <li>Email not verified</li>--}}
+                    <li>
+                        <form class="form-verified" method="POST" action="{{ route('verification.resend') }}">
+                            @csrf
+                            <button type="submit" class="btn-verified">Email not verified</button>
+                        </form>
+                    </li>
                 @endif
                 @if($notifications['unread_count'] > 0)
                     @foreach($notifications['unseen_senders'] as $key => $val)
