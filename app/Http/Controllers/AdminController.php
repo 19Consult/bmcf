@@ -423,7 +423,7 @@ class AdminController extends Controller
         $data = [
             'first_name' => $request->get('first_name'),
             'last_name' => $request->get('last_name'),
-//            'date_of_birth' => $request->get('date_of_birth'),
+            'date_of_birth' => date("Y-m-d"),
 //            'phone' => $request->get('code_phone') . ' ' . $request->get('phone'),
 //            'about_you' => $request->get('about_you'),
 //            'company_name' => $request->get('company_name'),
