@@ -26,14 +26,14 @@
                             $name_investor = '';
                             $name_owner = '';
 
-                            if( !empty($val['investor']->first_name) ){
+                            if( isset($val['investor']->first_name) && !empty($val['investor']->first_name) ){
                                 $name_investor = $val['investor']->first_name;
                                 if( !empty($val['investor']->last_name) ){
                                     $name_investor .=  ' ' . substr($val['investor']->last_name, 0, 1);
                                 }
                             }
 
-                            if(!empty($data['user_detail']->first_name)){
+                            if(isset($data['user_detail']->first_name) && !empty($data['user_detail']->first_name)){
                                 $name_owner = $data['user_detail']->first_name;
                                 if (!empty($data['user_detail']->last_name)){
                                     $name_owner .= ' ' . substr($data['user_detail']->last_name, 0, 1);
