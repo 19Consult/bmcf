@@ -4778,4 +4778,12 @@ button.btn-verified {
     cursor: pointer;
 }
 
+.default-img-user.display-none{
+    display: none;
+}
 
+.nav__notifications-popup .notification-user{
+    pointer-events: none;
+    cursor: default;
+    text-decoration: none;
+}

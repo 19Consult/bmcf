@@ -68,6 +68,9 @@
                             @foreach($data['nda_list'] as $key => $val)
                                 <?php
                                 $user = App\Models\User::where('id', $val->user_id)->first();
+                                if(empty($user->detail)){
+                                    continue;
+                                }
                                 $country = (new  App\Http\Controllers\CountryController)->getNameCountry($user->detail->country);
 
                                 $sector = '';
