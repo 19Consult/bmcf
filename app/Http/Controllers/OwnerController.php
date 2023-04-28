@@ -169,6 +169,9 @@ class OwnerController extends Controller
         $data['title_page'] = 'NDA List';
 
         $data['user_detail'] = UserDetail::where('user_id', Auth::id())->first();
+        if(empty($data['user_detail'])){
+            return redirect(route("profile"));
+        }
 
         $data['nda_list'] = [];
 
