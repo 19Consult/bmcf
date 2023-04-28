@@ -1,6 +1,8 @@
 
 @if(\App\Models\User::checkAdmin())
     <title>{{ config('app.name', 'COFOUNDER') }}</title>
+@elseif(\App\Models\User::checkInvestor())
+    <title>Angel</title>
 @else
     <title>{{\App\Models\User::getTitle()}}</title>
 @endif
