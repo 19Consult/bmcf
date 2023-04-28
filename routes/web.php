@@ -61,13 +61,13 @@ Route::middleware('guest')->group(function () {
  */
 Route::middleware(['auth'])->group(function () {
 
-    Route::get('/home', [HomeController::class, 'index'])->name('home');
-
-    Route::get('/home-angel', [InvestorController::class, 'indexInvestor'])->name('homeInvestor');
-
     //Dashboard
     Route::get('/dashboard', [OwnerController::class, 'dashboardOwner'])->name('dashboardOwner');
     Route::get('/dashboard-angel', [InvestorController::class, 'dashboardInvestor'])->name('dashboardInvestor');
+
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+    Route::get('/home-angel', [InvestorController::class, 'indexInvestor'])->name('homeInvestor');
 
 
     Route::get('/profile', [HomeController::class, 'profile'])->name('profile');
