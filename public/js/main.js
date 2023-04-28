@@ -41,6 +41,9 @@ jQuery(document).ready(function ($) {
 				img.src = event.target.result;
 				img.alt = file.name;
 			});
+
+			document.querySelector(".default-img-user").classList.remove('display-none');
+
 		});
 	}
 
@@ -297,6 +300,33 @@ jQuery(document).ready(function ($) {
 
 	$('body').on('click','.nav__notifications.has-notific', function(){
 		$(this).siblings('.nav__notifications-popup').toggleClass('show')
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        if($('.nav__notifications-popup').hasClass('show')){
+
+            //let notificationId = $(this).attr('data-id');
+            let notificationId = "all";
+            //console.log(notificationId);
+
+            $.ajax({
+                url: `/notifications/${notificationId}/mark-as-read`,
+                type: 'POST',
+                data: [],
+                success: function(data) {
+                    console.log(data);
+                },
+                error: function(xhr, textStatus, errorThrown) {
+                    console.log(xhr.responseText);
+                }
+            });
+
+        }
+
 	})
 
 	$('.nda__more').click(function(){
@@ -430,27 +460,27 @@ if( $('.nda-info__signature').length > 0) {
 }
 
 
-$('.notification-user').click(function (event) {
-
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-
-    let notificationId = $(this).attr('data-id');
-    //console.log(notificationId);
-
-    $.ajax({
-        url: `/notifications/${notificationId}/mark-as-read`,
-        type: 'POST',
-        data: [],
-        success: function(data) {
-            console.log(data);
-        },
-        error: function(xhr, textStatus, errorThrown) {
-            console.log(xhr.responseText);
-        }
-    });
-
-})
+// $('.notification-user').click(function (event) {
+//
+//     $.ajaxSetup({
+//         headers: {
+//             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+//         }
+//     });
+//
+//     let notificationId = $(this).attr('data-id');
+//     //console.log(notificationId);
+//
+//     $.ajax({
+//         url: `/notifications/${notificationId}/mark-as-read`,
+//         type: 'POST',
+//         data: [],
+//         success: function(data) {
+//             console.log(data);
+//         },
+//         error: function(xhr, textStatus, errorThrown) {
+//             console.log(xhr.responseText);
+//         }
+//     });
+//
+// })

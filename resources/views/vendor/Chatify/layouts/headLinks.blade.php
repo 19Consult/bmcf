@@ -22,6 +22,7 @@
 <script src="{{ asset('js/chatify/autosize.js') }}"></script>
 <script src="{{ asset('js/app.js') }}"></script>
 <script src='https://unpkg.com/nprogress@0.2.0/nprogress.js'></script>
+<script src="{{asset("js/main.js")}}"> </script>
 
 {{-- styles --}}
 <link rel='stylesheet' href='https://unpkg.com/nprogress@0.2.0/nprogress.css'/>

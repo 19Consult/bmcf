@@ -63,9 +63,13 @@
                     <div class="col fields picture">
                         <div class="col row-field">
                             <div class="form_input_wrap">
-                                <div class="add-photo show" id="show-photo-wrapper">
+                                <div class="add-photo {{isset($data['userDetail']->photo) ? 'show' : ''}}" id="show-photo-wrapper">
                                     <div id="show-photo">
-                                        <img src="{{isset($data['userDetail']->photo) ? asset($data['userDetail']->photo) : 'img/user.png'}}" alt="user">
+                                        @if(isset($data['userDetail']->photo))
+                                            <img src="{{isset($data['userDetail']->photo) ? asset($data['userDetail']->photo) : ''}}" alt="user">
+                                        @else
+                                            <img class="default-img-user display-none" src="" alt="user">
+                                        @endif
                                     </div>
                                     <span></span>
                                 </div>
