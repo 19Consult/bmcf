@@ -4787,3 +4787,15 @@ button.btn-verified {
     cursor: default;
     text-decoration: none;
 }
+
+.nav__notifications-popup{
+    height: auto;
+    overflow-y: auto;
+    max-height: 200px;
+}
+
+.nav__notifications-popup::-webkit-scrollbar { width: 0; }
+
+.nav__notifications-popup { -ms-overflow-style: none; }
+
+.nav__notifications-popup { overflow: -moz-scrollbars-none; }
