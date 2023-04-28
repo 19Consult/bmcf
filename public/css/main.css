@@ -4512,7 +4512,9 @@ body {
     width: 100%;
     display: flex;
     justify-content: center;
+    align-items: center;
     color: var(--color-6);
+    height: 166px;
 }
 form.rejected-nda-btn {
     display: flex;
@@ -4683,6 +4685,7 @@ form.rejected-nda-btn .btn--solid {
 .dashboard__wrapper .dashboard-begin{
     display: flex;
     width: 100%;
+    align-items: center;
 }
 .dashboard__wrapper .dashboard-s1,
 .dashboard__wrapper .dashboard-s2 {
