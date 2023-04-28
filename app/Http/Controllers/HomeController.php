@@ -191,7 +191,11 @@ class HomeController extends Controller
 //    }
 
     public function markAsRead($id){
-        NotificationsUsers::where('id', $id)->update(['seen' => true]);
+        if($id == 'all'){
+            NotificationsUsers::where('user_id', Auth::id())->update(['seen' => true]);
+        }else{
+            NotificationsUsers::where('id', $id)->update(['seen' => true]);
+        }
         return response()->json(['message' => 'Notification status has been updated.']);
     }
 

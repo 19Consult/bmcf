@@ -17,8 +17,6 @@
     $check_notif = false;
     if (($notifications['unread_count'] > 0 || (!empty($nda_notifications) && count($nda_notifications->toArray()) > 0))){
         $check_notif = true;
-    }elseif (!Auth::user()->hasVerifiedEmail()){
-        $check_notif = true;
     }elseif (count($notificationsUsers->toArray()) > 0){
         $check_notif = true;
     }
