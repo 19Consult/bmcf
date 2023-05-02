@@ -262,14 +262,21 @@ class HomeController extends Controller
         //Email
         try {
             $link = route("viewProjectPublic", ['id' => $project_id]);
-            $text_notification = '';
-            $text_notification .= "<p>Hi,<br>";
-            $text_notification .= "User " . Auth::user()->name . " shared the " . $project->name_project . " project with you (<a href=\"$link\">follow the link for review</a>).<br>";
-            $text_notification .= "Thank you,<br>";
-            $text_notification .= "Membership team<br>";
-            $text_notification .= "<a href=\"" . route("welcome") . "\">BeMyCoFounders.com</a></p>";
+//            $text_notification = '';
+//            $text_notification .= "<p>Hi,<br>";
+//            $text_notification .= "User " . Auth::user()->name . " shared the " . $project->name_project . " project with you (<a href=\"$link\">follow the link for review</a>).<br>";
+//            $text_notification .= "Thank you,<br>";
+//            $text_notification .= "Membership team<br>";
+//            $text_notification .= "<a href=\"" . route("welcome") . "\">BeMyCoFounders.com</a></p>";
 
-            $text_notification =  html_entity_decode(strip_tags($text_notification));
+            $text_notification = "Hi,\n" .
+                "User " . Auth::user()->name . " shared the " . $project->name_project . " project with you (follow the link for review: " . $link . ").\n" .
+                "Thank you,\n" .
+                "Membership team\n" .
+                "BeMyCoFounders.com";
+
+
+            //$text_notification =  html_entity_decode(strip_tags($text_notification));
             $data = [
                 'text' => $text_notification,
                 'title' => 'Share Project',
