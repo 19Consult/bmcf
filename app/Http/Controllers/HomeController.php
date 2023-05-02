@@ -269,7 +269,7 @@ class HomeController extends Controller
             $text_notification .= "Membership team<br>";
             $text_notification .= "<a href=\"" . route("welcome") . "\">BeMyCoFounders.com</a></p>";
 
-            $text_notification =  htmlspecialchars($text_notification, ENT_NOQUOTES, 'UTF-8');
+            $text_notification =  strip_tags($text_notification);
             $data = [
                 'text' => $text_notification,
                 'title' => 'Share Project',
