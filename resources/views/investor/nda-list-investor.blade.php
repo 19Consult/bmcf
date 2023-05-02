@@ -20,6 +20,11 @@
                     @if(!empty($data['nda_list']) && isset($data['nda_list']))
                         @foreach($data['nda_list'] as $val)
                             <?php
+
+                                if(empty($val['owner']->user_id)){
+                                    continue;
+                                }
+
                                 $status_class = '';
                                 $status_name = '';
 
