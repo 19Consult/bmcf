@@ -8,6 +8,7 @@ use App\Http\Controllers\InvestorController;
 use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\RegistController;
 use App\Http\Controllers\CustomMessagesController;
+use App\Http\Controllers\PublicController;
 use Illuminate\Support\Facades\Route;
 
 //use Chatify;
@@ -33,6 +34,9 @@ use Illuminate\Support\Facades\Broadcast;
 Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
+
+Route::get('/project-public/{id}', [PublicController::class, 'viewProjectPublic'])->name('viewProjectPublic');
+Route::get('/project-public/{id}/next', [PublicController::class, 'viewProjectPublicNext'])->name('viewProjectPublicNext');
 
 Auth::routes(['verify' => true]);
 
@@ -79,6 +83,9 @@ Route::middleware(['auth'])->group(function () {
 
     // ajax cities
     Route::post('/ajax-get-cities', [CountryController::class, 'ajaxGetCities']);
+
+    // ajax share-project
+    Route::post('/share-project', [HomeController::class, 'ajaxShareProject']);
 
     // project
     Route::get('/create-project', [OwnerController::class, 'createProject'])->name('createProject');
