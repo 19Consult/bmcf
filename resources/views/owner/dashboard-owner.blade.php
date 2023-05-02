@@ -40,8 +40,21 @@
                                             <div class="project__title-wrap">
 
                                                 <a class="project__title_link" href="{{route("viewProject", ['id' => $val->id])}}">{{isset($val->name_project) ? $val->name_project : ''}}</a>
-
-                                                <div class="project__subtitle">Social</div>
+                                                @php
+                                                    $sector = '';
+                                                    if(!empty($val->keyword1)){
+                                                        $sector .= $val->keyword1 . ', ';
+                                                    }
+                                                    if(!empty($val->keyword2)){
+                                                        $sector .= $val->keyword2 . ', ';
+                                                    }
+                                                    if(!empty($val->keyword3)){
+                                                        $sector .= $val->keyword3;
+                                                    }
+                                                    $sector = trim($sector);
+                                                    $sector = rtrim($sector, ',');
+                                                @endphp
+                                                <div class="project__subtitle">{{$sector}}</div>
                                             </div>
                                             <div style="display: none" class="project__favorite favorite-projid-{{$val->id}} {{in_array($val->id, $data['favorite_project']) ? 'active' : ''}}" project-id="{{$val->id}}"></div>
                                         </div>
@@ -83,6 +96,8 @@
                                 if(!empty($user->detail->categorty3_investor)){
                                     $sector .= $user->detail->categorty3_investor;
                                 }
+                                $sector = trim($sector);
+                                $sector = rtrim($sector, ',');
                                 ?>
                                 <div class="project__item">
                                     <div class="project__item-wrap">
