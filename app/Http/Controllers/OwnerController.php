@@ -395,6 +395,10 @@ class OwnerController extends Controller
 
     public function dashboardOwner(Request $request){
 
+        if (User::checkAdmin()){
+            return redirect(route("admin.dashboard"));
+        }
+
         $user_detail = UserDetail::where('user_id', Auth::id())->first();
         if (!$user_detail && !User::checkAdmin()){
             return redirect(route("profile"));
