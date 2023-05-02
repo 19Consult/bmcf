@@ -223,6 +223,76 @@ jQuery(document).ready(function ($) {
         });
     });
 
+    $('.share-project-btn').on('click', function(event) {
+        $('.share-project-popup').addClass('open')
+        $('.project-id').val( $(this).attr('data-project-id') );
+    });
+
+    $('.share-project-form').submit(function (e) {
+        e.preventDefault();
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        let data = $(this).serialize();
+        //console.log(data);
+
+        let emails = $('#email_list').val().split(',').filter(function(email) {
+            return email.trim().length > 0;
+        });
+
+        if (emails.length > 4) {
+            $('.error-label-sher').text('You can enter up to 4 email addresses');
+            return;
+        }
+
+        var valid = true;
+        for (var i = 0; i < emails.length; i++) {
+            var email = emails[i].trim();
+            if (email.length === 0) {
+                continue; // пропускаем пустые значения
+            }
+            if (!isValidEmail(email)) {
+                valid = false;
+                break;
+            }
+        }
+
+        if(emails.length < 1){
+            $('.error-label-sher').text('You have not entered any email');
+        }else if (valid) {
+            $('.error-label-sher').text('');
+
+            $.ajax({
+                type: 'POST',
+                url: '/share-project',
+                data: $(this).serialize(),
+                success: function (response) {
+                    if(response.status == '1'){
+                        console.log(response.message);
+                        $('.share-project-popup').removeClass('open');
+                        $('.share-project-successful').addClass('open');
+                        $('.email_list').val(" ");
+                    }
+
+                    if(response.status == '0'){
+                        console.log(response.message);
+                    }
+                }
+            });
+        } else {
+            $('.error-label-sher').text('One or more email addresses are entered incorrectly');
+        }
+
+    });
+
+    function isValidEmail(email) {
+        var pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return pattern.test(email);
+    }
     //notifications
     // $('.notification-user').submit(function (e) {
     //     e.preventDefault();

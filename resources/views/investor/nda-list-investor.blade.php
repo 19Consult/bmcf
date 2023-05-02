@@ -57,7 +57,7 @@
                                     <a href="{{route("downloadNda", ['nda_id' => $val['nda']->id])}}" class="nda__download {{(empty($val['nda']->signature) || empty($val['nda']->signature_owner)) ? 'disabled-button' : ''}}"></a>
                                     <div class="nda__more" >
                                         <div class="nda__more-popup">
-                                            <div class="share-project-btn" data-nda-id="{{$val['nda']->id}}">Share Project</div>
+                                            <div class="share-project-btn" data-nda-id="{{$val['nda']->id}}" data-project-id="{{$val['project']->id}}">Share Project</div>
                                             <div class="share-profile-btn" data-nda-id="{{$val['nda']->id}}">Share Profile</div>
                                             <div class="report-problem-btn" data-nda-id="{{$val['nda']->id}}" data-project-id="{{$val['project']->id}}" data-owner-id="{{$val['owner']->user_id}}">Report Problem</div>
                                         </div>
@@ -113,6 +113,48 @@
                 </nav>
                 <div class="suses-div">
                     <p>Thank you for the Problem Report</p>
+                    <img src="{{asset("img/icons/free-icon-check-1828640.svg")}}" />
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="nda-agreement nda-agreement--popup share-project-popup">
+        <div class="nda-agreement-wrap">
+            <div class="nda-agreement--popup-content">
+                <nav class="nav">
+                    <div class="nav__back"><a href="#">Go Back  </a> <span>Share Project</span></div>
+                </nav>
+
+                <form class="share-project-form">
+                    @csrf
+                    <input type="hidden" class="project-id" name="project_id" value="">
+
+                    <div class="form-group">
+                        <label for="email_list">Specify a comma-separated email with whom you want to share the project</label>
+                        <input class="form-control email_list" id="email_list" name="email_list">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="error-label-sher"></label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn--arrow btn--solid">Send</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="nda-agreement nda-agreement--popup successful-popup share-project-successful">
+        <div class="nda-agreement-wrap">
+            <div class="nda-agreement--popup-content">
+                <nav class="nav">
+                    <div class="nav__back"><a href="#">Go Back  </a></div>
+                </nav>
+                <div class="suses-div">
+                    <p>Thanks for sharing the project</p>
                     <img src="{{asset("img/icons/free-icon-check-1828640.svg")}}" />
                 </div>
 

@@ -47,6 +47,12 @@ class InvestorController extends Controller
 
         $query = Projects::query();
 
+        $session_query_id_project = $request->input('id_project', 0);
+        if($session_query_id_project != 0){
+            $query->where('id', $session_query_id_project);
+        }
+
+
         if ($categories) {
 //            $query->whereIn('category', $categories);
 

@@ -7,6 +7,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
@@ -45,6 +46,12 @@ class LoginController extends Controller
         if ($user->is_blocked) {
             Auth::logout();
             return redirect()->back()->with('error', 'Your account has been blocked.');
+        }
+
+        // redirect public project page
+        $retrievedValue = Session::get('id_project_view');
+        if (!empty($retrievedValue) && isset($retrievedValue)){
+            return redirect(route("viewProject", ['id' => $retrievedValue]));
         }
 
         return redirect()->intended($this->redirectPath());

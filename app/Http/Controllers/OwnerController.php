@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Mail;
 
 use App\Mail\MailSendInvestorDeleteProject;
 use App\Mail\NdaSendMailInvestor;
+use App\Mail\MailRejectedNdaProject;
+use Illuminate\Support\Facades\Session;
 
 class OwnerController extends Controller
 {
@@ -119,6 +121,11 @@ class OwnerController extends Controller
     }
 
     public function viewProject($id){
+
+        $retrievedValue = Session::get('id_project_view');
+        if (!empty($retrievedValue) && isset($retrievedValue)){
+            Session::forget('id_project_view');
+        }
 
         $check_asses = NdaProjects::where('user_id', Auth::id())->where("id_project", $id)->first();
 
@@ -312,6 +319,16 @@ class OwnerController extends Controller
             'text' => $text_notification,
         ]);
 
+        //Email
+        try {
+            $user = User::where('id', $ndaProjects->user_id)->first();
+            $user_email = $user->email;
+            $data = ['text' => $text_notification];
+            Mail::to($user_email)->send(new MailRejectedNdaProject($data));
+        } catch (\Exception $e) {
+            $e->getMessage();
+        }
+
         return redirect()->back();
 
     }
@@ -334,6 +351,12 @@ class OwnerController extends Controller
                 $user_id = $val->user_id;
                 $user = User::where('id', $user_id)->first();
                 $user_email = $user->email;
+
+                $text_notification = "The " . $project->name_project . " is now removed";
+                NotificationsUsers::create([
+                    'user_id' => $user_id,
+                    'text' => $text_notification,
+                ]);
 
                 $data_mail = ['project_name' => $project->name_project];
 
@@ -371,6 +394,11 @@ class OwnerController extends Controller
     }
 
     public function dashboardOwner(Request $request){
+
+        $user_detail = UserDetail::where('user_id', Auth::id())->first();
+        if (!$user_detail && !User::checkAdmin()){
+            return redirect(route("profile"));
+        }
 
         $data['title_page'] = 'Owner Dashboard';
 
