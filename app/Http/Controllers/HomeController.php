@@ -261,7 +261,7 @@ class HomeController extends Controller
 
         //Email
         try {
-            $link = route("viewProject", ['id' => $project_id]);
+            $link = route("viewProjectPublic", ['id' => $project_id]);
             $text_notification = '';
             $text_notification .= "<p>Hi,<br>";
             $text_notification .= "User " . Auth::user()->name . " shared the " . $project->name_project . " project with you (<a href=\"$link\">follow the link for review</a>).<br>";
@@ -269,6 +269,7 @@ class HomeController extends Controller
             $text_notification .= "Membership team<br>";
             $text_notification .= "<a href=\"" . route("welcome") . "\">BeMyCoFounders.com</a></p>";
 
+            $text_notification =  htmlentities($text_notification);
             $data = [
                 'text' => $text_notification,
                 'title' => 'Share Project',
