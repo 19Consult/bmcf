@@ -326,6 +326,11 @@ class InvestorController extends Controller
     }
 
     public function dashboardInvestor(Request $request){
+
+        if (User::checkAdmin()){
+            return redirect(route("admin.dashboard"));
+        }
+
         $data['title_page'] = 'Angel Dashboard';
 
         if (User::checkOwner()){
