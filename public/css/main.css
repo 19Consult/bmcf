@@ -4735,7 +4735,7 @@ form.rejected-nda-btn .btn--solid {
     margin-left: 20px;
 }
 
-.report-popup .form-group.select-type, .share-project-popup .form-group.select-type{
+.report-popup .form-group.select-type, .share-project-popup .form-group.select-type, .share-profile-popup .form-group.select-type{
     margin-bottom: 10px;
 }
 .successful-popup .suses-div {
@@ -4753,13 +4753,13 @@ form.rejected-nda-btn .btn--solid {
     margin-bottom: 20px;
     font-size: 20px;
 }
-.report-popup .nda-agreement--popup-content, .share-project-popup .nda-agreement--popup-content{
+.report-popup .nda-agreement--popup-content, .share-project-popup .nda-agreement--popup-content, .share-profile-popup .nda-agreement--popup-content{
     max-width: 560px;
 }
-.report-popup .report-form, .share-project-popup .share-project-form{
+.report-popup .report-form, .share-project-popup .share-project-form, .share-profile-popup .share-profile-form{
     padding: 26px;
 }
-.report-popup .btn.btn-primary, .share-project-popup .btn.btn-primary{
+.report-popup .btn.btn-primary, .share-project-popup .btn.btn-primary, .share-profile-popup .btn.btn-primary{
     margin-top: 20px;
     margin-left: auto;
 }

@@ -38,6 +38,9 @@ Route::get('/', function () {
 Route::get('/project-public/{id}', [PublicController::class, 'viewProjectPublic'])->name('viewProjectPublic');
 Route::get('/project-public/{id}/next', [PublicController::class, 'viewProjectPublicNext'])->name('viewProjectPublicNext');
 
+Route::get('/profile-public/{id}', [PublicController::class, 'viewProfilePublic'])->name('viewProfilePublic');
+Route::get('/profile-public/{id}/next', [PublicController::class, 'viewProfilePublicNext'])->name('viewProfilePublicNext');
+
 Auth::routes(['verify' => true]);
 
 /**
@@ -86,6 +89,9 @@ Route::middleware(['auth'])->group(function () {
 
     // ajax share-project
     Route::post('/share-project', [HomeController::class, 'ajaxShareProject']);
+
+    // ajax share-profile
+    Route::post('/share-profile', [HomeController::class, 'ajaxShareProfile']);
 
     // project
     Route::get('/create-project', [OwnerController::class, 'createProject'])->name('createProject');
