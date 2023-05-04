@@ -62,8 +62,16 @@
                                     <a href="{{route("downloadNda", ['nda_id' => $val['nda']->id])}}" class="nda__download {{(empty($val['nda']->signature) || empty($val['nda']->signature_owner)) ? 'disabled-button' : ''}}"></a>
                                     <div class="nda__more" >
                                         <div class="nda__more-popup">
+                                            @php
+                                            $data_profile_id = '';
+                                            if(App\Models\User::checkInvestor()){
+                                                $data_profile_id = $val['owner']->user_id;
+                                            }else{
+                                                $data_profile_id = $val['user_detail']->user_id;
+                                            }
+                                            @endphp
                                             <div class="share-project-btn" data-nda-id="{{$val['nda']->id}}" data-project-id="{{$val['project']->id}}">Share Project</div>
-                                            <div class="share-profile-btn" data-nda-id="{{$val['nda']->id}}">Share Profile</div>
+                                            <div class="share-profile-btn" data-nda-id="{{$val['nda']->id}}" data-profile-id="{{$data_profile_id}}">Share Profile</div>
                                             <div class="report-problem-btn" data-nda-id="{{$val['nda']->id}}" data-project-id="{{$val['project']->id}}" data-owner-id="{{$val['owner']->user_id}}">Report Problem</div>
                                         </div>
                                     </div>
@@ -167,71 +175,47 @@
         </div>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
+    <div class="nda-agreement nda-agreement--popup share-profile-popup">
+        <div class="nda-agreement-wrap">
+            <div class="nda-agreement--popup-content">
+                <nav class="nav">
+                    <div class="nav__back"><a href="#">Go Back  </a> <span>Share Profile</span></div>
+                </nav>
 
-            // $('.report-problem-btn').on('click', function(event) {
-            //     $('.report-popup').addClass('open')
-            //
-            //     //Investor
-            //     $('.project-id').val( $(this).attr('data-project-id') );
-            //     $('.to-user-id').val( $(this).attr('data-owner-id') );
-            // });
-            //
-            // $('.report-form').submit(function (e) {
-            //     e.preventDefault();
-            //
-            //     $.ajax({
-            //         type: 'POST',
-            //         url: '/report-problem',
-            //         data: $(this).serialize(),
-            //         success: function (response) {
-            //             $('.report-popup').removeClass('open');
-            //             $('.successful-popup').addClass('open');
-            //
-            //             $('.description-report').val(" ");
-            //             //console.log(response.message);
-            //         }
-            //     });
-            // });
+                <form class="share-profile-form">
+                    @csrf
+                    <input type="hidden" class="profile-id" name="profile_id" value="">
 
-        })
-    </script>
+                    <div class="form-group">
+                        <label for="email_list_pr">Specify a comma-separated email with whom you want to share the profile</label>
+                        <input class="form-control email_list_pr" id="email_list_pr" name="email_list">
+                    </div>
 
-    <style>
-        /*.report-popup .form-group.select-type{*/
-        /*    margin-bottom: 10px;*/
-        /*}*/
-        /*.successful-popup .suses-div {*/
-        /*    display: flex;*/
-        /*    justify-content: center;*/
-        /*    align-content: center;*/
-        /*    margin: 30px;*/
-        /*    flex-direction: column;*/
-        /*    align-items: center;*/
-        /*}*/
-        /*.successful-popup .suses-div img{*/
-        /*    width: 35%;*/
-        /*}*/
-        /*.successful-popup .suses-div p{*/
-        /*    margin-bottom: 20px;*/
-        /*    font-size: 20px;*/
-        /*}*/
-        /*.report-popup .nda-agreement--popup-content{*/
-        /*    max-width: 560px;*/
-        /*}*/
-        /*.report-popup .report-form{*/
-        /*    padding: 26px;*/
-        /*}*/
-        /*.report-popup .btn.btn-primary{*/
-        /*    margin-top: 20px;*/
-        /*    margin-left: auto;*/
-        /*}*/
+                    <div class="form-group">
+                        <label class="error-label-sher"></label>
+                    </div>
 
-        /*.successful-popup .nda-agreement--popup-content{*/
-        /*    max-width: 560px;*/
-        /*}*/
-    </style>
+                    <button type="submit" class="btn btn-primary btn--arrow btn--solid">Send</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+    <div class="nda-agreement nda-agreement--popup successful-popup share-profile-successful">
+        <div class="nda-agreement-wrap">
+            <div class="nda-agreement--popup-content">
+                <nav class="nav">
+                    <div class="nav__back"><a href="#">Go Back  </a></div>
+                </nav>
+                <div class="suses-div">
+                    <p>Thanks for sharing the profile</p>
+                    <img src="{{asset("img/icons/free-icon-check-1828640.svg")}}" />
+                </div>
+
+            </div>
+        </div>
+    </div>
+
 
 
 </main>

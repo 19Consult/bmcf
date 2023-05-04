@@ -296,4 +296,43 @@ class HomeController extends Controller
         ]);
     }
 
+    public function ajaxShareProfile(Request $request){
+        $profile_id = $request->get('profile_id');
+        $profile = User::where('id', $profile_id)->first();
+
+        $emailString = $request->get('email_list');
+        $emails = explode(',', $emailString);
+        $emails = array_map('trim', $emails);
+
+        //Email
+        try {
+            $link = route("viewProfilePublic", ['id' => $profile_id]);
+
+            $text_notification = "Hi,\n" .
+                "User " . Auth::user()->name . " shared the " . $profile->name . " profile with you (follow the link for review: " . $link . ").\n" .
+                "Thank you,\n" .
+                "Membership team\n" .
+                "BeMyCoFounders.com";
+
+
+            //$text_notification =  html_entity_decode(strip_tags($text_notification));
+            $data = [
+                'text' => $text_notification,
+                'title' => 'Share Profile',
+            ];
+            Mail::to($emails)->send(new MailGeneralTemplate($data));
+            return response()->json([
+                'message' => 'success',
+                'status' => '1',
+            ]);
+        } catch (\Exception $e) {
+            $e->getMessage();
+        }
+
+        return response()->json([
+            'message' => 'Problem sending mail',
+            'status' => '0',
+        ]);
+    }
+
 }

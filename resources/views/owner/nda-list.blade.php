@@ -76,7 +76,7 @@
                                         <div class="nda__more-popup">
 
                                             <div class="share-project-btn" data-nda-id="{{$val['nda']->id}}" data-project-id="{{$val['project']->id}}">Share Project</div>
-                                            <div class="share-profile-btn" data-nda-id="{{$val['nda']->id}}">Share Profile</div>
+                                            <div class="share-profile-btn" data-nda-id="{{$val['nda']->id}}" data-profile-id="{{$val['investor']->user_id}}">Share Profile</div>
                                             <div class="report-problem-btn" data-nda-id="{{$val['nda']->id}}" data-project-id="{{$val['project']->id}}" data-owner-id="{{Auth::id()}}">Report Problem</div>
 
                                             @if($val['nda']->status != 'signed')
@@ -336,6 +336,47 @@
                     </nav>
                     <div class="suses-div">
                         <p>Thanks for sharing the project</p>
+                        <img src="{{asset("img/icons/free-icon-check-1828640.svg")}}" />
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="nda-agreement nda-agreement--popup share-profile-popup">
+            <div class="nda-agreement-wrap">
+                <div class="nda-agreement--popup-content">
+                    <nav class="nav">
+                        <div class="nav__back"><a href="#">Go Back  </a> <span>Share Profile</span></div>
+                    </nav>
+
+                    <form class="share-profile-form">
+                        @csrf
+                        <input type="hidden" class="profile-id" name="profile_id" value="">
+
+                        <div class="form-group">
+                            <label for="email_list_pr">Specify a comma-separated email with whom you want to share the profile</label>
+                            <input class="form-control email_list_pr" id="email_list_pr" name="email_list">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="error-label-sher"></label>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn--arrow btn--solid">Send</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+        <div class="nda-agreement nda-agreement--popup successful-popup share-profile-successful">
+            <div class="nda-agreement-wrap">
+                <div class="nda-agreement--popup-content">
+                    <nav class="nav">
+                        <div class="nav__back"><a href="#">Go Back  </a></div>
+                    </nav>
+                    <div class="suses-div">
+                        <p>Thanks for sharing the profile</p>
                         <img src="{{asset("img/icons/free-icon-check-1828640.svg")}}" />
                     </div>
 

@@ -293,6 +293,72 @@ jQuery(document).ready(function ($) {
         var pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return pattern.test(email);
     }
+
+    $('.share-profile-btn').on('click', function(event) {
+        $('.share-profile-popup').addClass('open')
+        $('.profile-id').val( $(this).attr('data-profile-id') );
+    });
+
+    $('.share-profile-form').submit(function (e) {
+        e.preventDefault();
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        let data = $(this).serialize();
+        //console.log(data);
+
+        let emails = $('#email_list_pr').val().split(',').filter(function(email) {
+            return email.trim().length > 0;
+        });
+
+        if (emails.length > 4) {
+            $('.error-label-sher').text('You can enter up to 4 email addresses');
+            return;
+        }
+
+        var valid = true;
+        for (var i = 0; i < emails.length; i++) {
+            var email = emails[i].trim();
+            if (email.length === 0) {
+                continue; // пропускаем пустые значения
+            }
+            if (!isValidEmail(email)) {
+                valid = false;
+                break;
+            }
+        }
+
+        if(emails.length < 1){
+            $('.error-label-sher').text('You have not entered any email');
+        }else if (valid) {
+            $('.error-label-sher').text('');
+
+            $.ajax({
+                type: 'POST',
+                url: '/share-profile',
+                data: $(this).serialize(),
+                success: function (response) {
+                    if(response.status == '1'){
+                        console.log(response.message);
+                        $('.share-profile-popup').removeClass('open');
+                        $('.share-profile-successful').addClass('open');
+                        $('.email_list_pr').val(" ");
+                    }
+
+                    if(response.status == '0'){
+                        console.log(response.message);
+                    }
+                }
+            });
+        } else {
+            $('.error-label-sher').text('One or more email addresses are entered incorrectly');
+        }
+
+    });
     //notifications
     // $('.notification-user').submit(function (e) {
     //     e.preventDefault();
