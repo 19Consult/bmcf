@@ -28,6 +28,7 @@
                 <div class="dashboard-begin">
                     <div class="dashboard-s1">
                         @if(!empty($data['projects_int']) && isset($data['projects_int']) && count($data['projects_int']->toArray()) > 0)
+                            
                             @foreach($data['projects_int'] as $key => $val)
                                 <?php
                                 $views = $val->views->first();
