@@ -52,7 +52,8 @@ class OwnerController extends Controller
         $data['first_name'] = $user_detail->first_name;
         $data['last_name'] = $user_detail->last_name;
 
-        $data['category'] = CategoryName::all();
+        //$data['category'] = CategoryName::all();
+        $data['category'] = CategoryName::orderBy('category_name', 'asc')->get();
 
         return view("owner.dashboard-create-project", [
             'data' => $data,
@@ -159,7 +160,8 @@ class OwnerController extends Controller
             ]);
         }
 
-        $data['category'] = CategoryName::all();
+        //$data['category'] = CategoryName::all();
+        $data['category'] = CategoryName::orderBy('category_name', 'asc')->get();
 
         return view("owner.dashboard-create-project", [
             'data' => $data,
@@ -438,7 +440,8 @@ class OwnerController extends Controller
 
         $data['projects'] = $query->paginate($items_per_page);
 
-        $data['category'] = CategoryName::all();
+        //$data['category'] = CategoryName::all();
+        $data['category'] = CategoryName::orderBy('category_name', 'asc')->get();
 
         $data['favorite_project'] = FavoriteProject::where('user_id', Auth::id())->pluck('project_id')->toArray();
 

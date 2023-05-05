@@ -30,7 +30,8 @@ class MailReportProblem extends Mailable
      */
     public function build()
     {
-        return $this->subject('Problem Report')
+        //Problem Report
+        return $this->subject('Message from BMCF')
             ->view('emails.account_deletion_request')->with(['text' => $this->data['text'], 'title' => 'Problem Report']);
 
     }

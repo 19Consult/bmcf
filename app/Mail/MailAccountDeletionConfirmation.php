@@ -30,8 +30,8 @@ class MailAccountDeletionConfirmation extends Mailable
     public function build()
     {
         $text = 'User id:' . Auth::id() . ' sent a request to delete an account';
-
-        return $this->subject('Account deletion request')
+        //Account deletion request
+        return $this->subject('Message from BMCF')
             ->view('emails.account_deletion_request')->with(['text' => $text, 'title' => 'Account deletion request']);
     }
 }

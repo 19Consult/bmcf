@@ -30,6 +30,7 @@ class NdaSendMailInvestor extends Mailable
      */
     public function build()
     {
-        return $this->subject('Project Access')->view('emails.nda-send-mail-investor')->with(['data' => $this->data]);
+        //Project Access
+        return $this->subject('Message from BMCF')->view('emails.nda-send-mail-investor')->with(['data' => $this->data]);
     }
 }

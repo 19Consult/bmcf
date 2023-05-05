@@ -67,7 +67,8 @@ class HomeController extends Controller
             $data['userDetail'] = $user_detail;
         }
 
-        $data['category'] = CategoryName::all();
+        //$data['category'] = CategoryName::all();
+        $data['category'] = CategoryName::orderBy('category_name', 'asc')->get();
 
         $data['allCountry'] = (new CountryController)->allCountries();
         unset($data['allCountry']['EU']);
@@ -141,6 +142,12 @@ class HomeController extends Controller
         $data['categorty1_investor'] = $request->get('categorty1_investor');
         $data['categorty2_investor'] = $request->get('categorty2_investor');
         $data['categorty3_investor'] = $request->get('categorty3_investor');
+
+        $data['city_other'] = empty($request->input('city_other')) ? false : true;
+        if( !empty($request->input('city_other'))  ){
+            $data['city'] = $request->get('city_other_name');
+        }
+
 
 
         $user->email = $request->get('email');

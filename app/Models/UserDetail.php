@@ -39,6 +39,7 @@ class UserDetail extends Model
         'categorty1_investor',
         'categorty2_investor',
         'categorty3_investor',
+        'city_other',
     ];
 
 }

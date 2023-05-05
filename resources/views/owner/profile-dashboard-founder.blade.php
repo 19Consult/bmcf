@@ -121,7 +121,7 @@
                                     </select>
                                     <label for="country">Country</label>
                                 </div>
-                                <div class="form_input_wrap">
+                                <div class="form_input_wrap city-checkbox">
                                     <select name="city" class="click-select-cities">
 
                                         @if(isset($data['userDetail']->city) && !empty(isset($data['userDetail']->city)))
@@ -135,6 +135,18 @@
 
                                     </select>
                                     <label for="city">City</label>
+                                </div>
+                            </div>
+
+                            <div class="row row-field">
+                                <div class="form_input_wrap">
+                                    <div class="form_input_wrap">
+                                        <input type="text" id="city_other_name" placeholder="Your City" name="city_other_name" value="{{isset($data['userDetail']->city) ? $data['userDetail']->city : ''}}">
+                                    </div>
+
+                                    <input type="checkbox" name="city_other" id="city_other" {{(isset($data['userDetail']->city_other) && $data['userDetail']->city_other)? 'checked' : ''}} value="1">
+                                    <label for="city_other">Specify the country manually</label>
+
                                 </div>
                             </div>
 
