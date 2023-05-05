@@ -75,23 +75,23 @@ class InvestorController extends Controller
 
         $data['projects'] = $query->paginate($items_per_page);
 
-//        $currentUser = Auth::user();
-//        if ($currentUser) {
-//            $projects = $data['projects'];
-//            foreach ($projects as $key => $project) {
-//                $projectID = $project->id;
-//
-//                $ndaProject = NdaProjects::where('id_project', $projectID)
-//                    ->where('user_id', $currentUser->id)
-//                    ->where('status', 'signed')
-//                    ->first();
-//
-//                if (!$ndaProject) {
-//                    //$data['projects']->forget($project->id);
-//                    $data['projects']->forget($key);
-//                }
-//            }
-//        }
+        $currentUser = Auth::user();
+        if ($currentUser) {
+            $projects = $data['projects'];
+            foreach ($projects as $key => $project) {
+                $projectID = $project->id;
+
+                $ndaProject = NdaProjects::where('id_project', $projectID)
+                    ->where('user_id', $currentUser->id)
+                    ->where('status', 'signed')
+                    ->first();
+
+                if (!$ndaProject) {
+                    //$data['projects']->forget($project->id);
+                    $data['projects']->forget($key);
+                }
+            }
+        }
 
 
         //$data['category'] = CategoryName::all();
