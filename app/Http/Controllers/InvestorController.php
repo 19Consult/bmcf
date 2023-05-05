@@ -367,14 +367,14 @@ class InvestorController extends Controller
 
         $user = Auth::user()->detail;
 
-        $keywords = [$user->categorty1_investor, $user->categorty2_investor, $user->categorty3_investor];
-        //dd($keywords);
-        $projects_int = Projects::where(function($query) use ($keywords) {
-            $query->whereIn('keyword1', $keywords)
-                ->orWhereIn('keyword2', $keywords)
-                ->orWhereIn('keyword3', $keywords);
-        })->get();
-        $data['projects_int'] = $projects_int;
+//        $keywords = [$user->categorty1_investor, $user->categorty2_investor, $user->categorty3_investor];
+//        //dd($keywords);
+//        $projects_int = Projects::where(function($query) use ($keywords) {
+//            $query->whereIn('keyword1', $keywords)
+//                ->orWhereIn('keyword2', $keywords)
+//                ->orWhereIn('keyword3', $keywords);
+//        })->get();
+//        $data['projects_int'] = $projects_int;
 
         //$data['category'] = CategoryName::all();
         $data['category'] = CategoryName::orderBy('category_name', 'asc')->get();
@@ -388,7 +388,7 @@ class InvestorController extends Controller
         //Search
         if(isset($categories) || isset($search_keyword)){
             $query = Projects::query();
-            $query->where('user_id', Auth::id());
+            //$query->where('user_id', Auth::id());
             if ($categories) {
                 $query->where('keyword1', 'LIKE', '%' . $categories . '%')
                     ->orWhere('keyword2', 'LIKE', '%' . $categories . '%')
@@ -405,6 +405,37 @@ class InvestorController extends Controller
             }
             $query->orderBy($sort_by, $sort_order);
             $data['projects_int'] = $query->paginate($items_per_page);
+            //dd($data['projects_int']);
+        }else{
+            $keywords = [$user->categorty1_investor, $user->categorty2_investor, $user->categorty3_investor];
+            //dd($keywords);
+            $projects_int = Projects::where(function($query) use ($keywords) {
+                $query->whereIn('keyword1', $keywords)
+                    ->orWhereIn('keyword2', $keywords)
+                    ->orWhereIn('keyword3', $keywords);
+            })->get();
+            $data['projects_int'] = $projects_int;
+
+            //test
+//            $currentUser = Auth::user();
+//            if ($currentUser) {
+//                $projects = $data['projects_int'];
+//                foreach ($projects as $key => $project) {
+//                    $projectID = $project->id;
+//
+//                    $ndaProject = NdaProjects::where('id_project', $projectID)
+//                        ->where('user_id', $currentUser->id)
+//                        ->where('status', '!=' , 'signed')
+//                        ->first();
+//
+//                    if (!$ndaProject) {
+//                        //$data['projects']->forget($project->id);
+//                        $data['projects_int']->forget($key);
+//                    }
+//                }
+//            }
+            //--test
+
         }
 
         $investor = UserDetail::where('user_id', Auth::id())->first();

@@ -143,7 +143,7 @@
                                 </div>
 
                                 <input type="checkbox" name="city_other" id="city_other" {{(isset($data['userDetail']->city_other) && $data['userDetail']->city_other)? 'checked' : ''}} value="1">
-                                <label for="city_other">Specify the country manually</label>
+                                <label for="city_other">Specify the city manually</label>
 
                             </div>
                         </div>
