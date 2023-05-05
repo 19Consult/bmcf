@@ -145,7 +145,7 @@
             </div>
         </div>
 
-        <div class="nda-agreement nda-agreement--popup ">
+        <div class="nda-agreement nda-agreement--popup nda-popup-list">
             <div class="nda-agreement-wrap">
                 <div class="nda-agreement--popup-content">
                     <nav class="nav">

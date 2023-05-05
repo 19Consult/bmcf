@@ -78,12 +78,21 @@
                     </div>
                     <div class="dashboard-s2">
                         @if(!empty($data['nda_list']) && isset($data['nda_list']) && count($data['nda_list']->toArray()) > 0)
+                            <?php
+                                $using_user = [];
+                            ?>
                             @foreach($data['nda_list'] as $key => $val)
                                 <?php
                                 $user = App\Models\User::where('id', $val->user_id)->first();
                                 if(empty($user->detail)){
                                     continue;
                                 }
+                                if(in_array($user->id, $using_user)){
+                                    continue;
+                                }else{
+                                    $using_user[] = $user->id;
+                                }
+
                                 $country = (new  App\Http\Controllers\CountryController)->getNameCountry($user->detail->country);
 
                                 $sector = '';
@@ -104,7 +113,7 @@
                                         <div class="project__img">
                                             <img src="{{isset($user->detail->photo) ? asset($user->detail->photo) : 'img/project-img.webp'}}" alt="User image"></div>
                                         <div class="project__content top">
-                                            <div class="project__content-user-name">{{$user->detail->first_name}} {{$user->detail->last_name}}</div>
+                                            <div class="project__content-user-name"><a href="{{route("viewProfilePublic", ["id" => $user->id])}}">{{$user->detail->first_name}} {{$user->detail->last_name}}</a></div>
                                             <div class="project__content-user-sector">{{$sector}}</div>
                                             <div class="project__content-user-country">{{$country}}</div>
                                         </div>

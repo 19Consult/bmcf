@@ -30,7 +30,8 @@ class MailGeneralTemplate extends Mailable
      */
     public function build()
     {
-        return $this->subject($this->data['title'])
+        //$this->data['title']
+        return $this->subject('Message from BMCF')
             ->view('emails.account_deletion_request')->with(['text' => $this->data['text'], 'title' => $this->data['title']]);
 
     }

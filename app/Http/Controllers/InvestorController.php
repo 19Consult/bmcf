@@ -75,10 +75,28 @@ class InvestorController extends Controller
 
         $data['projects'] = $query->paginate($items_per_page);
 
+//        $currentUser = Auth::user();
+//        if ($currentUser) {
+//            $projects = $data['projects'];
+//            foreach ($projects as $key => $project) {
+//                $projectID = $project->id;
+//
+//                $ndaProject = NdaProjects::where('id_project', $projectID)
+//                    ->where('user_id', $currentUser->id)
+//                    ->where('status', 'signed')
+//                    ->first();
+//
+//                if (!$ndaProject) {
+//                    //$data['projects']->forget($project->id);
+//                    $data['projects']->forget($key);
+//                }
+//            }
+//        }
 
-//        $data['projects'] = Projects::with('views')->get();
 
-        $data['category'] = CategoryName::all();
+        //$data['category'] = CategoryName::all();
+        $data['category'] = CategoryName::orderBy('category_name', 'asc')->get();
+
 
         $data['favorite_project'] = FavoriteProject::where('user_id', Auth::id())->pluck('project_id')->toArray();
 
@@ -358,7 +376,8 @@ class InvestorController extends Controller
         })->get();
         $data['projects_int'] = $projects_int;
 
-        $data['category'] = CategoryName::all();
+        //$data['category'] = CategoryName::all();
+        $data['category'] = CategoryName::orderBy('category_name', 'asc')->get();
 
         $categories = $request->input('categories');
         $search_keyword = $request->input('search_keyword');
@@ -388,11 +407,34 @@ class InvestorController extends Controller
             $data['projects_int'] = $query->paginate($items_per_page);
         }
 
+        $investor = UserDetail::where('user_id', Auth::id())->first();
+        $address_investor = '';
+        if(!empty($investor->street) && !empty($investor->house) && !empty($investor->city) && !empty($investor->country)){
+            $address_investor .= '(';
+
+            $address_investor .= (new CountryController)->getNameCountry($investor->country);
+            $address_investor .= ', ' . $investor->city;
+            $address_investor .= ', ' . $investor->street;
+            $address_investor .= ', ' . $investor->house;
+
+            if(!empty($investor->postal_code)){
+                $address_investor .= ', ' . $investor->postal_code;
+            }
+
+            $address_investor .= ')';
+        }else{
+            $address_investor .= '(';
+            $user = User::where('id', $investor->user_id)->first();
+            $address_investor .= $user->email;
+            $address_investor .= ')';
+        }
+        $nda_address_investor = $investor->first_name . ' ' . $investor->last_name . ' ' . $address_investor;
 
         return view("investor.dashboard-investor", [
             'data' => $data,
             'search_keyword' => $search_keyword,
             'categories' => $categories,
+            'nda_address_investor' => $nda_address_investor
         ]);
 
     }

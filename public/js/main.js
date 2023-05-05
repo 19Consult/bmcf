@@ -57,6 +57,24 @@ jQuery(document).ready(function ($) {
         })
 	}
 
+    if ($('#city_other').is(':checked')) {
+        $('#city_other_name').show();
+        $('.city-checkbox').hide();
+    } else {
+        $('#city_other_name').hide();
+        $('.city-checkbox').show();
+    }
+
+    $('#city_other').change(function() {
+        if ($(this).is(':checked')) {
+            $('#city_other_name').show();
+            $('.city-checkbox').hide();
+        } else {
+            $('#city_other_name').hide();
+            $('.city-checkbox').show();
+        }
+    });
+
 	$('.projects-search-v1 .project__title').click(function(){
 		$('.project-preview').addClass('open');
 	})
@@ -145,7 +163,7 @@ jQuery(document).ready(function ($) {
 	$('.nda-info__read-more').click(function () {
 		$(this).toggleClass('active');
 		$('.nda-info__content').toggleClass('show');
-        $('.nda-agreement.nda-agreement--popup').addClass('open');
+        $('.nda-agreement.nda-agreement--popup.nda-popup-list').addClass('open');
 	})
 
     $('.nav__back .close-nda').click(function() {

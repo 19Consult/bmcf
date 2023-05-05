@@ -54,40 +54,40 @@
                 <script>
                     document.addEventListener('DOMContentLoaded', function () {
 
-                        $(document).ready(function () {
-                            $.ajaxSetup({
-                                headers: {
-                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                                }
-                            });
-
-                            $('.project__favorite').click(function() {
-                                var project_id = $(this).attr('project-id');
-                                console.log(project_id)
-
-                                let data = {
-                                    project_id: project_id,
-                                };
-
-                                $.ajax({
-                                    url: '/project/favorite',
-                                    method: 'POST',
-                                    data: data,
-                                    success: function(data) {
-                                        let favoriteClass = $(`.favorite-projid-${project_id}`);
-
-                                        if(data.success){
-                                            favoriteClass.addClass("active")
-                                        }else {
-                                            favoriteClass.removeClass("active")
-                                        }
-                                    },
-                                    error: function(xhr, textStatus, errorThrown) {
-                                        console.log(xhr.responseText); // replace with your own error callback function
-                                    }
-                                });
-                            });
-                        });
+                        // $(document).ready(function () {
+                        //     $.ajaxSetup({
+                        //         headers: {
+                        //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        //         }
+                        //     });
+                        //
+                        //     $('.project__favorite').click(function() {
+                        //         var project_id = $(this).attr('project-id');
+                        //         console.log(project_id)
+                        //
+                        //         let data = {
+                        //             project_id: project_id,
+                        //         };
+                        //
+                        //         $.ajax({
+                        //             url: '/project/favorite',
+                        //             method: 'POST',
+                        //             data: data,
+                        //             success: function(data) {
+                        //                 let favoriteClass = $(`.favorite-projid-${project_id}`);
+                        //
+                        //                 if(data.success){
+                        //                     favoriteClass.addClass("active")
+                        //                 }else {
+                        //                     favoriteClass.removeClass("active")
+                        //                 }
+                        //             },
+                        //             error: function(xhr, textStatus, errorThrown) {
+                        //                 console.log(xhr.responseText); // replace with your own error callback function
+                        //             }
+                        //         });
+                        //     });
+                        // });
                     });
                 </script>
 
