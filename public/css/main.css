@@ -4539,6 +4539,9 @@ form.rejected-nda-btn .btn--solid {
     color: var(--color-6);
     cursor: pointer;
 }
+.project__title-wrap {
+  flex: 1;
+}
 .disabled-button {
     pointer-events: none;
     opacity: 0.5;
@@ -4685,7 +4688,6 @@ form.rejected-nda-btn .btn--solid {
 .dashboard__wrapper .dashboard-begin{
     display: flex;
     width: 100%;
-    align-items: center;
 }
 .dashboard__wrapper .dashboard-s1,
 .dashboard__wrapper .dashboard-s2 {
