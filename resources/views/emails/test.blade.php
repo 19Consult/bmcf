@@ -38,7 +38,7 @@
         <td align="center">
             <table class="content" width="100%" cellpadding="0" cellspacing="0" role="presentation">
                 <tr>
-                    <td class="header">
+                    <td class="header" style="text-align: center;">
                         <a href="{{ $url }}" style="display: inline-block;">
                             @if (trim($slot1) === 'Laravel')
                                 <img src="https://laravel.com/img/notification-logo.png" class="logo" alt="Laravel Logo">
