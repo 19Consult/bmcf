@@ -396,7 +396,7 @@
 {{--                                            <canvas class="nda-info__signature-field" id="signature" width="300" height="69"></canvas>--}}
 {{--                                            <div class="remove-signature">Remove signature</div>--}}
                                             <input name="signature" id="podpis" type="text" >
-                                            <label for="podpis">Enter name or first letters from their name</label>
+                                            <div style="font-size: 13px; text-align: center; padding-top: 5px;">Please, type your name</div>
                                         </div>
                                         <button type="submit" class="nda-info__btn-confirm btn btn--solid btn--arrow">Confirm and Sign</button>
                                     </div>
