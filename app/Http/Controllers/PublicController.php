@@ -91,7 +91,7 @@ class PublicController extends Controller
             'data' => [
                 'subject' => '',
                 'first_name' => '',
-                'text_body' => '',
+                'text_body' => '<p>Test text_body <b>TTTTTTTT qqqqq</b> <a href="' . route("testView") . '">link test</a></p>',
                 'text_before' => '',
             ],
         ]);
@@ -103,7 +103,7 @@ class PublicController extends Controller
             $data = [
                 'subject' => 'Test subject',
                 'first_name' => 'Test first_name',
-                'text_body' => '<p>Test text_body <b>TTTTTTTT qqqqq</b><a>' . "<a href=\"/rrrrrr\"" . 'link test' ."</a>",
+                'text_body' => '<p>Test text_body <b>TTTTTTTT qqqqq</b> <a href="' . route("testView") . '">link test</a></p>',
                 'text_before' => 'hi hi hi hi',
             ];
 
