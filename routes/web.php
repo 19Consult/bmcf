@@ -44,7 +44,7 @@ Route::get('/profile-public/{id}/next', [PublicController::class, 'viewProfilePu
 Auth::routes(['verify' => true]);
 
 // test
-Route::get('/test', [PublicController::class, 'test']);
+Route::get('/test', [PublicController::class, 'test'])->name('testView');
 Route::get('/test-send', [PublicController::class, 'testSend']);
 
 /**
