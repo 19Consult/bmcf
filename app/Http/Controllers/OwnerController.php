@@ -260,7 +260,6 @@ class OwnerController extends Controller
             'signature_owner' => [
                 'required',
                 'string',
-                'min:10',
             ],
         ]);
 

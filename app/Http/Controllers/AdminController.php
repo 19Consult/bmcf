@@ -25,7 +25,8 @@ class AdminController extends Controller
     }
 
     public function index(){
-        return view("admin.dashboard");
+        return redirect(route("admin.adminSettingsPage"));
+        //return view("admin.dashboard");
     }
 
     public function users(Request $request){

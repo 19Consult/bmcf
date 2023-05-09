@@ -113,7 +113,7 @@
 
                             <div class="row row-field">
                                 <div class="form_input_wrap">
-                                    <select name="country" class="click-select-country">
+                                    <select name="country" class="click-select-country select-list">
                                         <option selected="true" disabled="disabled" id="country" name="country">Select country</option>
                                         @foreach($data['allCountry'] as $key => $val)
                                             <option value="{{$key}}" {{(isset($data['userDetail']->country) && $data['userDetail']->country == $key) ? 'selected' : ''}}>{{$val}}</option>
@@ -122,7 +122,7 @@
                                     <label for="country">Country</label>
                                 </div>
                                 <div class="form_input_wrap city-checkbox">
-                                    <select name="city" class="click-select-cities">
+                                    <select name="city" class="click-select-cities select-list">
 
                                         @if(isset($data['userDetail']->city) && !empty(isset($data['userDetail']->city)))
                                             @foreach((new \App\Http\Controllers\CountryController)->getCities($data['userDetail']->country) as $val )
@@ -130,7 +130,7 @@
                                                 <option {{($data['userDetail']->city == $val) ? 'selected' : ''}} value="{{$val}}" >{{$val}}</option>
                                             @endforeach
                                         @else
-                                            <option selected="true" disabled="disabled" id="city" name="city">Select city</option>
+                                            <option selected="true" disabled="disabled" id="city" >Select city</option>
                                         @endif
 
                                     </select>

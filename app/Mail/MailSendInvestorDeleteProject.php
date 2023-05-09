@@ -31,6 +31,6 @@ class MailSendInvestorDeleteProject extends Mailable
     public function build()
     {
         //Project Access
-        return $this->subject('Message from BMCF')->view('emails.investor-delete-project')->with(['data' => $this->data]);
+        return $this->subject('Message from BeMyCoFounder.com')->view('emails.investor-delete-project')->with(['data' => $this->data]);
     }
 }

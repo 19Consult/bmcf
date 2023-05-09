@@ -142,10 +142,12 @@
                 IN WITNESS WHEREOF, the Parties have executed this Agreement as of the date first above written.
             </p>
             <p>
-                <img class="nda-info__signature-field" style="width: 300px; height: 69px;" width="300" height="69" src="{{ $signature_owner }}">
+                {{ $signature_owner }}
+{{--                <img class="nda-info__signature-field" style="width: 300px; height: 69px;" width="300" height="69" src="{{ $signature_owner }}">--}}
             </p>
             <p style="margin-top: 50px;">
-                <img class="nda-info__signature-field" style="width: 300px; height: 69px;" width="300" height="69" src="{{ $signature }}">
+                {{ $signature }}
+{{--                <img class="nda-info__signature-field" style="width: 300px; height: 69px;" width="300" height="69" src="{{ $signature }}">--}}
             </p>
         </form>
     </div>

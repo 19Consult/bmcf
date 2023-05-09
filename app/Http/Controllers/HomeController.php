@@ -72,6 +72,8 @@ class HomeController extends Controller
 
         $data['allCountry'] = (new CountryController)->allCountries();
         unset($data['allCountry']['EU']);
+        asort($data['allCountry']);
+        //array_unshift($data['allCountry'], "Åland Islands");
 
         if(User::checkOwner()){
             return view("owner.profile-dashboard-founder", ['data' => $data]);
@@ -153,6 +155,10 @@ class HomeController extends Controller
         $user->email = $request->get('email');
         $user->name = $request->get('first_name') . ' ' . $request->get('last_name');
         $user->save();
+
+//        if($data['city'] == 0){
+//            $data['city'] = null;
+//        }
 
         if ($user_detail) {
             $user_detail->update($data);
