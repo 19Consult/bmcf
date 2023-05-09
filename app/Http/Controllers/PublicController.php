@@ -103,7 +103,7 @@ class PublicController extends Controller
             $data = [
                 'subject' => 'Test subject',
                 'first_name' => 'Test first_name',
-                'text_body' => '<p>Test text_body <b>TTTTTTTT qqqqq</b><p>',
+                'text_body' => '<p>Test text_body <b>TTTTTTTT qqqqq</b><a>' . "<a href=\"/rrrrrr\"" . 'link test' ."</a>",
                 'text_before' => 'hi hi hi hi',
             ];
 
