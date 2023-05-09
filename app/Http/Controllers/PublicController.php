@@ -88,10 +88,12 @@ class PublicController extends Controller
 
     public function test(){
         return view("emails.test", [
-//            'data' => $data,
-//            'user_id' => $id,
-//            'check_type' => $check_type,
-//            'check_nda' => $check_nda,
+            'data' => [
+                'subject' => '',
+                'first_name' => '',
+                'text_body' => '',
+                'text_before' => '',
+            ],
         ]);
     }
 
@@ -99,10 +101,10 @@ class PublicController extends Controller
         try {
             $to_email = 'ruslan.butivchenko.test@gmail.com';
             $data = [
-                'slot1' => '',
-                'slot2' => '',
-                'slot3' => '',
-                'slot4' => '',
+                'subject' => 'Test subject',
+                'first_name' => 'Test first_name',
+                'text_body' => '<p>Test text_body <b>TTTTTTTT qqqqq</b><a>' . "<a href=\"/rrrrrr\"" . 'link test' ."</a>",
+                'text_before' => 'hi hi hi hi',
             ];
 
             Mail::to($to_email)->send(new MailTestTemplateBlade($data));

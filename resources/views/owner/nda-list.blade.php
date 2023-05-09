@@ -129,7 +129,7 @@
 {{--                                    <canvas class="nda-info__signature-field" id="signature" width="300" height="69"></canvas>--}}
 {{--                                    <div class="remove-signature">Remove signature</div>--}}
                                     <input style="border: 1px solid #dbd3d3; height: 55%" name="signature_owner" id="podpis" type="text" required>
-                                    <div style="font-size: 12px;">Enter name or first letters from their name</div>
+                                    <div style="font-size: 12px;">Please, type your name</div>
 
                                 </div>
                                 <button type="submit" class="nda-info__btn-confirm btn btn--solid btn--arrow nda-info__btn-confirm">Confirm and Sign</button>
