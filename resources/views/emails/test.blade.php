@@ -31,7 +31,20 @@
         }
     </style>
 </head>
-<body>
+<body style="
+        -webkit-text-size-adjust: none;
+        background-color: #ffffff;
+        color: #718096;
+        height: 100%;
+        line-height: 1.4;
+        margin: 0;
+        padding: 0;
+        width: 100% !important;
+        box-sizing: border-box;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif,
+        'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+        position: relative;
+">
 
 <table class="wrapper" style="background-color: #edf2f7; margin: 0; padding: 0; width: 100%;" width="100%" cellpadding="0" cellspacing="0" role="presentation">
     <tr>
