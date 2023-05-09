@@ -30,7 +30,11 @@ class MailTestTemplateBlade extends Mailable
      */
     public function build()
     {
-        //Project Access
-        return $this->subject('Message from BeMyCoFounder.com TEST')->view('emails.test')->with(['data' => $this->data]);
+        $subject = 'Message from BeMyCoFounder.com';
+        if(isset($this->data['subject']) && !empty($this->data['subject'])){
+            $subject = $this->data['subject'];
+        }
+
+        return $this->subject($subject)->view('emails.test')->with(['data' => $this->data]);
     }
 }

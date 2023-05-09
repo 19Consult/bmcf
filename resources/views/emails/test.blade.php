@@ -1,9 +1,37 @@
 @php
     $url = config('app.url');
-    $slot1 = config('app.name');
-    $slot2 = "<p>The 99999999 is now removed <br> by owner and all terms of your NDA remain in effect.<br> Thank you, <a href=\"" . route("welcome") . "\">BMCF</a></p>";
-    $slot3 = 'sdf ds fsdf dsfs f';
-    $slot4 = '© ' .  date('Y') . ' ' . config('app.name') . ' ' . __('All rights reserved.');
+    //$slot1 = config('app.name');
+    $slot1 = 'BeMyCoFounder';
+
+    $first_name = '';
+    if(isset($data['first_name']) && !empty($data['first_name'])){
+        $first_name = $data['first_name'];
+    }
+
+    $text_body = '';
+    if(isset($data['text_body']) && !empty($data['text_body'])){
+        $text_body = $data['text_body'];
+    }
+
+    $slot2 = "Hi," . '<br>';
+    if(isset($first_name) && !empty($first_name)){
+        $slot2 = "Hi $first_name," . '<br>';
+    }
+    $slot2 .= "<br>";
+    $slot2 .= 'You have an update on your BeMyCoFounder.com account.';
+    $slot2 .= "<p>";
+    $slot2 .= $text_body;
+    $slot2 .= "</p>";
+    $slot2 .= "Best regards, <br>BMCF Team <br><a href=\"" . route("welcome") . "\">BeMyCoFounders.com</a>";
+
+    // text before line
+    $slot3 = '';
+    if(isset($data['text_before']) && !empty($data['text_before'])){
+        $slot3 = $data['text_before'];
+    }
+
+
+    $slot4 = '© ' .  date('Y') . ' ' . $slot1 . ' ' . __('All rights reserved.');
 @endphp
 
     <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
