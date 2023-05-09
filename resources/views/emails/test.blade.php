@@ -97,12 +97,12 @@
                         <table class="inner-body" align="center" width="570" cellpadding="0" cellspacing="0" role="presentation" style="background-color: #ffffff; border-color: #e8e5ef; border-radius: 2px; border-width: 1px; box-shadow: 0 2px 0 rgba(0, 0, 150, 0.025), 2px 4px 0 rgba(0, 0, 150, 0.015); margin: 0 auto; padding: 0; width: 570px;">
                             <!-- Body content -->
                             <tr>
-                                <td class="content-cell" style="max-width: 100vw; padding: 32px;">
+                                <td class="content-cell" style="max-width: 100vw; padding: 32px; color: #718096;">
                                     {{ Illuminate\Mail\Markdown::parse($slot2) }}
 
                                     <table class="subcopy" width="100%" cellpadding="0" cellspacing="0" role="presentation" style="border-top: 1px solid #e8e5ef; margin-top: 25px; padding-top: 25px;">
                                         <tr>
-                                            <td>
+                                            <td style="color: #718096;">
                                                 {{ Illuminate\Mail\Markdown::parse($slot3) }}
                                             </td>
                                         </tr>
