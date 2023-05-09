@@ -110,4 +110,5 @@ class PublicController extends Controller
             $e->getMessage();
         }
     }
+
 }
