@@ -13,6 +13,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\MailAccountDeletionConfirmation;
 use App\Mail\MailReportProblem;
+use App\Mail\MailTestTemplateBlade;
 use App\Models\Projects;
 use App\Models\NotificationsUsers;
 use App\Models\ReportProblems;
@@ -83,6 +84,31 @@ class PublicController extends Controller
     public function viewProfilePublicNext($id){
         Session::put('id_profile_view', $id);
         return redirect(route("welcome"));
+    }
+
+    public function test(){
+        return view("emails.test", [
+//            'data' => $data,
+//            'user_id' => $id,
+//            'check_type' => $check_type,
+//            'check_nda' => $check_nda,
+        ]);
+    }
+
+    public function testSend(){
+        try {
+            $to_email = 'ruslan.butivchenko.test@gmail.com';
+            $data = [
+                'slot1' => '',
+                'slot2' => '',
+                'slot3' => '',
+                'slot4' => '',
+            ];
+
+            Mail::to($to_email)->send(new MailTestTemplateBlade($data));
+        } catch (\Exception $e) {
+            $e->getMessage();
+        }
     }
 
 }
