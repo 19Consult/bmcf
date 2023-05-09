@@ -224,7 +224,7 @@ class InvestorController extends Controller
 
         $project_detail = Projects::where('id', $request->input('id_project'))->first();
 
-        $ndaProjects = NdaProjects::create([
+        $data = [
             'user_id' => Auth::id(),
             'id_project' => $request->input('id_project'),
             'signature' => $request->input('signature'),
@@ -235,7 +235,18 @@ class InvestorController extends Controller
             'receiving_mail' => $request->input('receiving_mail'),
             'status' => 'pending',
             'owner_pr_id' => $project_detail->user_id,
-        ]);
+        ];
+
+        $nda = NdaProjects::where('user_id', Auth::id())->where('id_project', $request->input('id_project'))->first();
+
+        if(!$nda){
+            $ndaProjects = NdaProjects::create($data);
+        }else{
+            $nda->update($data);
+            $ndaProjects = $nda;
+        }
+
+
 
         try {
 
@@ -416,25 +427,23 @@ class InvestorController extends Controller
             })->get();
             $data['projects_int'] = $projects_int;
 
-            //test
-//            $currentUser = Auth::user();
-//            if ($currentUser) {
-//                $projects = $data['projects_int'];
-//                foreach ($projects as $key => $project) {
-//                    $projectID = $project->id;
-//
-//                    $ndaProject = NdaProjects::where('id_project', $projectID)
-//                        ->where('user_id', $currentUser->id)
-//                        ->where('status', '!=' , 'signed')
-//                        ->first();
-//
-//                    if (!$ndaProject) {
-//                        //$data['projects']->forget($project->id);
-//                        $data['projects_int']->forget($key);
-//                    }
-//                }
-//            }
-            //--test
+            //Delete signet project with list interests
+            $currentUser = Auth::user();
+            if ($currentUser) {
+                $projects = $data['projects_int'];
+                foreach ($projects as $key => $project) {
+                    $projectID = $project->id;
+                    $ndaProject = NdaProjects::where('id_project', $projectID)
+                        ->where('user_id', $currentUser->id)
+                        ->where('status', 'signed')
+                        ->first();
+
+                    if ($ndaProject) {
+                        $data['projects_int']->forget($key);
+                    }
+                }
+            }
+            //--
 
         }
 

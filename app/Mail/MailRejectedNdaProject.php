@@ -31,7 +31,7 @@ class MailRejectedNdaProject extends Mailable
     public function build()
     {
         //Reject Project
-        return $this->subject('Message from BMCF')
+        return $this->subject('Message from BeMyCoFounder.com')
             ->view('emails.account_deletion_request')->with(['text' => $this->data['text'], 'title' => 'Reject Project']);
 
     }

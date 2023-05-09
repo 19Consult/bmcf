@@ -30,7 +30,7 @@ class AccountDeletionNotification extends Mailable
     {
         $text = 'Your account has been successfully deleted.';
         //Account deletion request
-        return $this->subject('Message from BMCF')
+        return $this->subject('Message from BeMyCoFounder.com')
             ->view('emails.account_deletion_request')->with(['text' => $text, 'title' => 'Account deletion request']);
     }
 }

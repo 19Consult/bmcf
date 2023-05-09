@@ -121,13 +121,16 @@
                             <p style="display: none">Hello I’m Mariam Li lingues differe solmen in li grammatica, li pronunciation e li plu commun vocabules. Omnicos directe al desirabilite de un nov lingua franca: On refusa continuar payar custosi traductores. At solmen va esser necessi far uniform grammatica, pronunciation e plu sommun paroles.</p>
                             <form action="{{route("confirmNdaProject")}}" method="POST" class="nda-info__bottom">
                                 @csrf
-                                <input type="hidden" class="image-podpis signature-owner-owner" name="signature_owner" value="" required>
+{{--                                <input type="hidden" class="image-podpis signature-owner-owner" name="signature_owner" value="" required>--}}
                                 <input type="hidden" class="project-id-form" name="project_id" value="">
                                 <input type="hidden" class="project-id-nda" name="nda_id" value="">
                                 <div class="nda-info__signature">
-                                    <label>Your Signature</label>
-                                    <canvas class="nda-info__signature-field" id="signature" width="300" height="69"></canvas>
-                                    <div class="remove-signature">Remove signature</div>
+{{--                                    <label>Your Signature</label>--}}
+{{--                                    <canvas class="nda-info__signature-field" id="signature" width="300" height="69"></canvas>--}}
+{{--                                    <div class="remove-signature">Remove signature</div>--}}
+                                    <input style="border: 1px solid #dbd3d3; height: 55%" name="signature_owner" id="podpis" type="text" required>
+                                    <div style="font-size: 12px;">Enter name or first letters from their name</div>
+
                                 </div>
                                 <button type="submit" class="nda-info__btn-confirm btn btn--solid btn--arrow nda-info__btn-confirm">Confirm and Sign</button>
                             </form>
@@ -243,7 +246,8 @@
                             <div class="nda-agreement__text-bottom">
                                 <div class="nda-info__bottom">
                                     <div class="nda-info__signature">
-                                        <img class="nda-info__signature-field signature_owner" style="width: 300px; height: 69px;" width="300" height="69" src="">
+{{--                                        <img class="nda-info__signature-field signature_owner" style="width: 300px; height: 69px;" width="300" height="69" src="">--}}
+                                        <div class="nda-info__signature-field signature_owner" style="width: 300px; height: 69px; display: flex;justify-content: center;align-items: center;" width="300" height="69" >
                                     </div>
                                 </div>
                             </div>
@@ -417,18 +421,18 @@
                 });
 
 
-                $('.nda-info__btn-confirm').click(function () {
-                    var signature = document.getElementById("signature");
-                    var signatureData = signature.toDataURL();
-
-                    if (isCanvasEmpty(signature)) {
-                        alert('Signature required');
-                    } else {
-                        $(".image-podpis").val(signatureData);
-                    }
-
-
-                })
+                // $('.nda-info__btn-confirm').click(function () {
+                //     var signature = document.getElementById("signature");
+                //     var signatureData = signature.toDataURL();
+                //
+                //     if (isCanvasEmpty(signature)) {
+                //         alert('Signature required');
+                //     } else {
+                //         $(".image-podpis").val(signatureData);
+                //     }
+                //
+                //
+                // })
                 $('.remove-signature').click(function () {
                     $(".image-podpis").val('');
                 })
@@ -473,7 +477,8 @@
 
                             //nda_address_investor
                             $(".nda_address_investor").text(data.nda_investor_name);
-                            $(".signature_owner").attr("src", data.nda_projects.signature);
+                            //$(".signature_owner").attr("src", data.nda_projects.signature);
+                            $(".signature_owner").text(data.nda_projects.signature);
 
 
                         },

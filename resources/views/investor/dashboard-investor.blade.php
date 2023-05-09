@@ -28,7 +28,7 @@
                 <div class="dashboard-begin">
                     <div class="dashboard-s1">
                         @if(!empty($data['projects_int']) && isset($data['projects_int']) && count($data['projects_int']->toArray()) > 0)
-                            
+
                             @foreach($data['projects_int'] as $key => $val)
                                 <?php
                                 $views = $val->views->first();
@@ -302,7 +302,7 @@
                         <form class="nda-agreement__text" action="{{route("saveNdaProject")}}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <input type="hidden" class="nda-id-project" name="id_project" value="0">
-                            <input type="hidden" class="image-podpis" name="signature" value="" required>
+{{--                            <input type="hidden" class="image-podpis" name="signature" value="" required>--}}
                             <div class="title">NON-DISCLOSURE AGREEMENT (NDA)</div>
                             <p>
                                 This Non-Disclosure Agreement (the "Agreement") is made and entered into on
@@ -392,9 +392,11 @@
                                 <div class="nda-agreement__text-bottom">
                                     <div class="nda-info__bottom">
                                         <div class="nda-info__signature">
-                                            <label>Your Signature</label>
-                                            <canvas class="nda-info__signature-field" id="signature" width="300" height="69"></canvas>
-                                            <div class="remove-signature">Remove signature</div>
+{{--                                            <label>Your Signature</label>--}}
+{{--                                            <canvas class="nda-info__signature-field" id="signature" width="300" height="69"></canvas>--}}
+{{--                                            <div class="remove-signature">Remove signature</div>--}}
+                                            <input name="signature" id="podpis" type="text" >
+                                            <label for="podpis">Enter name or first letters from their name</label>
                                         </div>
                                         <button type="submit" class="nda-info__btn-confirm btn btn--solid btn--arrow">Confirm and Sign</button>
                                     </div>
