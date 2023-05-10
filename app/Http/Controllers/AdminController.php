@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\AccountDeletionNotification;
+use App\Mail\MailTestTemplateBlade;
 use App\Models\FavoriteProject;
 use App\Models\Projects;
 use App\Models\User;
@@ -273,7 +274,17 @@ class AdminController extends Controller
 
         //send email user
         try {
-            Mail::to($email)->send(new AccountDeletionNotification());
+            //Mail::to($email)->send(new AccountDeletionNotification());
+            $text = 'Your account has been successfully deleted.';
+            $data = [
+                'subject' => '',
+                'first_name' => '',
+                'text_body' => '<p>' . $text . '</p>',
+                'text_before' => '',
+            ];
+
+            Mail::to($email)->send(new MailTestTemplateBlade($data));
+
         } catch (\Exception $e) {
             $e->getMessage();
         }
