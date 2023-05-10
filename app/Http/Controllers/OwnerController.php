@@ -192,10 +192,14 @@ class OwnerController extends Controller
             $projects = NdaProjects::whereIn('id_project', $projectIds)->get();
 
             foreach ($projects as $val){
+                $user_detail = UserDetail::where('user_id', $val->user_id)->first();
+                if(!isset($user_detail) && empty($user_detail)){
+                    continue;
+                }
                 $data['nda_list'][] = [
                     'nda' => $val,
                     'project' => Projects::where('id', $val->id_project)->first(),
-                    'investor' => UserDetail::where('user_id', $val->user_id)->first(),
+                    'investor' => $user_detail,
                 ];
             }
 
