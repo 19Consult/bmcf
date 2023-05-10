@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\MailAccountDeletionConfirmation;
 use App\Mail\MailReportProblem;
 use App\Mail\MailGeneralTemplate;
+use App\Mail\MailTestTemplateBlade;
 use App\Models\Projects;
 use App\Models\NotificationsUsers;
 use App\Models\ReportProblems;
@@ -201,7 +202,17 @@ class HomeController extends Controller
                 $emails[] = $user->email;
             }
             try {
-                Mail::to($emails)->send(new MailAccountDeletionConfirmation());
+                //Mail::to($emails)->send(new MailAccountDeletionConfirmation());
+                $text = 'User id:' . Auth::id() . ' sent a request to delete an account';
+                $data = [
+                    'subject' => '',
+                    'first_name' => '',
+                    'text_body' => '<p>' . $text . '</p>',
+                    'text_before' => '',
+                ];
+
+                Mail::to($emails)->send(new MailTestTemplateBlade($data));
+
             } catch (\Exception $e) {
                 $e->getMessage();
             }
@@ -252,8 +263,18 @@ class HomeController extends Controller
 
             //Email
             try {
-                $data = ['text' => $text_notification];
-                Mail::to($emails)->send(new MailReportProblem($data));
+                //$data = ['text' => $text_notification];
+                //Mail::to($emails)->send(new MailReportProblem($data));
+
+                $data = [
+                    'subject' => '',
+                    'first_name' => '',
+                    'text_body' => '<p>' . $text_notification . '</p>',
+                    'text_before' => '',
+                ];
+
+                Mail::to($emails)->send(new MailTestTemplateBlade($data));
+
             } catch (\Exception $e) {
                 $e->getMessage();
             }
@@ -282,19 +303,31 @@ class HomeController extends Controller
 //            $text_notification .= "Membership team<br>";
 //            $text_notification .= "<a href=\"" . route("welcome") . "\">BeMyCoFounders.com</a></p>";
 
-            $text_notification = "Hi,\n" .
-                "User " . Auth::user()->name . " shared the " . $project->name_project . " project with you (follow the link for review: " . $link . ").\n" .
-                "Thank you,\n" .
-                "Membership team\n" .
-                "BeMyCoFounders.com";
+//            $text_notification = "Hi,\n" .
+//                "User " . Auth::user()->name . " shared the " . $project->name_project . " project with you (follow the link for review: " . $link . ").\n" .
+//                "Thank you,\n" .
+//                "Membership team\n" .
+//                "BeMyCoFounders.com";
 
-
-            //$text_notification =  html_entity_decode(strip_tags($text_notification));
+            /*
             $data = [
                 'text' => $text_notification,
                 'title' => 'Share Project',
             ];
             Mail::to($emails)->send(new MailGeneralTemplate($data));
+            */
+
+            $text_notification = "User " . Auth::user()->name . " shared the " . $project->name_project . " project with you (follow the link for review: " . $link . ").";
+            $data = [
+                'subject' => '',
+                'first_name' => '',
+                'text_body' => '<p>' . $text_notification . '</p>',
+                'text_before' => '',
+            ];
+            Mail::to($emails)->send(new MailTestTemplateBlade($data));
+
+
+
             return response()->json([
                 'message' => 'success',
                 'status' => '1',
@@ -329,11 +362,24 @@ class HomeController extends Controller
 
 
             //$text_notification =  html_entity_decode(strip_tags($text_notification));
+            /*
             $data = [
                 'text' => $text_notification,
                 'title' => 'Share Profile',
             ];
             Mail::to($emails)->send(new MailGeneralTemplate($data));
+            */
+
+            $text_notification = "User " . Auth::user()->name . " shared the " . $profile->name . " profile with you (follow the link for review: " . $link . ").";
+            $data = [
+                'subject' => '',
+                'first_name' => '',
+                'text_body' => '<p>' . $text_notification . '</p>',
+                'text_before' => '',
+            ];
+            Mail::to($emails)->send(new MailTestTemplateBlade($data));
+
+
             return response()->json([
                 'message' => 'success',
                 'status' => '1',

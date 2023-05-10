@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\MailSendInvestorDeleteProject;
 use App\Mail\NdaSendMailInvestor;
 use App\Mail\MailRejectedNdaProject;
+use App\Mail\MailTestTemplateBlade;
 use Illuminate\Support\Facades\Session;
 
 class OwnerController extends Controller
@@ -289,9 +290,18 @@ class OwnerController extends Controller
             $user_investor_info = User::where('id', $user_investor_id)->first();
             $user_investor_email = $user_investor_info->email;
 
-            $data = ['project_id' => $project_id, 'user_name' => $user_investor_info->name];
+//            $data = ['project_id' => $project_id, 'user_name' => $user_investor_info->name];
+//            Mail::to($user_investor_email)->send(new NdaSendMailInvestor($data));
 
-            Mail::to($user_investor_email)->send(new NdaSendMailInvestor($data));
+            $data = [
+                'subject' => '',
+                'first_name' => $user_investor_info->name,
+                'text_body' => '<p>Your request to the project access was approved. Please, <a href="' . route("viewProject", ['id' => $project_id]) . '">click here</a></p>',
+                'text_before' => '',
+            ];
+
+            Mail::to($user_investor_email)->send(new MailTestTemplateBlade($data));
+
         } catch (\Exception $e) {
             $e->getMessage();
         }
@@ -324,8 +334,18 @@ class OwnerController extends Controller
         try {
             $user = User::where('id', $ndaProjects->user_id)->first();
             $user_email = $user->email;
-            $data = ['text' => $text_notification];
-            Mail::to($user_email)->send(new MailRejectedNdaProject($data));
+            //$data = ['text' => $text_notification];
+            //Mail::to($user_email)->send(new MailRejectedNdaProject($data));
+
+            $data = [
+                'subject' => '',
+                'first_name' => $user->name,
+                'text_body' => '<p>' . $text_notification . '</p>',
+                'text_before' => '',
+            ];
+
+            Mail::to($user_email)->send(new MailTestTemplateBlade($data));
+
         } catch (\Exception $e) {
             $e->getMessage();
         }
@@ -359,10 +379,20 @@ class OwnerController extends Controller
                     'text' => $text_notification,
                 ]);
 
-                $data_mail = ['project_name' => $project->name_project];
+               // $data_mail = ['project_name' => $project->name_project];
 
                 try {
-                    Mail::to($user_email)->send(new MailSendInvestorDeleteProject($data_mail));
+                    //Mail::to($user_email)->send(new MailSendInvestorDeleteProject($data_mail));
+
+                    $data = [
+                        'subject' => '',
+                        'first_name' => $user->name,
+                        'text_body' => '<p>The ' . $project->name_project . ' is now removed by owner and all terms of your NDA remain in effect.</p>',
+                        'text_before' => '',
+                    ];
+
+                    Mail::to($user_email)->send(new MailTestTemplateBlade($data));
+
                 } catch (\Exception $e) {
                     $e->getMessage();
                 }
