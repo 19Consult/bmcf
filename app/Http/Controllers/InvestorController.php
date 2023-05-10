@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Auth;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\NdaSendMailRequest;
+use App\Mail\MailTestTemplateBlade;
 
 //use Barryvdh\DomPDF\PDF;
 
@@ -254,9 +255,20 @@ class InvestorController extends Controller
             $user_info = User::where('id', $project_detail->user_id)->first();
             $user_detail = UserDetail::where('user_id', $project_detail->user_id)->first();
             $email = $user_info->email;
-            $data = ['name' => $user_detail->first_name];
+            //$data = ['name' => $user_detail->first_name];
+            //Mail::to($email)->send(new NdaSendMailRequest($data));
 
-            Mail::to($email)->send(new NdaSendMailRequest($data));
+            //You have documents to review. Please <a href="{{route("ndaList")}}">click</a> here
+
+            $data = [
+                'subject' => '',
+                'first_name' => $user_detail->first_name,
+                'text_body' => '<p>You have documents to review. Please <a href="' . route("ndaList") . '">click here</a></p>',
+                'text_before' => '',
+            ];
+
+            Mail::to($email)->send(new MailTestTemplateBlade($data));
+
         } catch (\Exception $e) {
             $e->getMessage();
         }
