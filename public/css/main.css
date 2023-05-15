@@ -894,14 +894,20 @@ form.type-1 .btn {
   cursor: pointer;
 }
 
-span .select2-selection__arrow {
+span .select2-selection__arrow,
+.project__search-bar .ui.search .dropdown.icon{
   top: 50% !important;
   height: 10px !important;
   -webkit-transform: translateY(-50%);
       -ms-transform: translateY(-50%);
           transform: translateY(-50%);
 }
-span .select2-selection__arrow b {
+.project__search-bar .ui.search .dropdown.icon{
+  right: 8px !important;
+  margin: unset !important;
+}
+span .select2-selection__arrow b,
+.project__search-bar .ui.search .dropdown.icon::before {
   left: unset !important;
   top: unset !important;
   margin-top: unset !important;
@@ -909,19 +915,25 @@ span .select2-selection__arrow b {
   border: unset !important;
   width: 10px !important;
   height: 10px !important;
-  background: url("../img/icons/icon-arrow-dropdown.svg") no-repeat;
-  background-position: center;
-  background-size: contain;
+  background: url("../img/icons/icon-arrow-dropdown.svg") no-repeat !important;
+  background-position: center !important;
+  background-size: contain !important;
   -webkit-transition: var(--anim2);
   -o-transition: var(--anim2);
-  transition: var(--anim2);
+  transition: var(--anim2) !important;
 }
-span.select2-container .select2-selection--single {
+.project__search-bar .ui.search .dropdown.icon::before {
+  display: block;
+  content: '';
+}
+span.select2-container .select2-selection--single,
+.project__search-bar .ui.search.dropdown{
   padding: 16px 21px;
   height: unset;
   padding-right: 30px;
 }
-span.select2-container--open .select2-selection__arrow b {
+span.select2-container--open .select2-selection__arrow b,
+.project__search-bar .ui.search.active .dropdown.icon::before {
   -webkit-transform: rotate(180deg);
       -ms-transform: rotate(180deg);
           transform: rotate(180deg);
@@ -929,12 +941,14 @@ span.select2-container--open .select2-selection__arrow b {
 span.select2-container--default .select2-results__option--highlighted.select2-results__option--selectable {
   background-color: var(--color-second) !important;
 }
-span.select2-container--default .select2-selection--single {
+span.select2-container--default .select2-selection--single,
+.project__search-bar .ui.search{
   border: unset;
   border-radius: 5px;
   font-weight: 300;
   background-color: var(--color-2);
 }
+
 span.select2-container--default .select2-selection--single .select2-selection__rendered {
   padding: unset;
   /* line-height: 1; */
@@ -4737,6 +4751,20 @@ form.rejected-nda-btn .btn--solid {
     margin-left: 20px;
 }
 
+.dashboard-s2 .project__item {
+  height: auto;
+}
+.dashboard-s2 .project__img {
+  width: 170px;
+  height: 105px;
+}
+.dashboard-s2 .project__content.top {
+  padding: 10px 20px;
+}
+.dashboard-s2 .project__content-user-sector {
+  margin-bottom: 10px;
+}
+
 .report-popup .form-group.select-type, .share-project-popup .form-group.select-type, .share-profile-popup .form-group.select-type{
     margin-bottom: 10px;
 }
@@ -4811,4 +4839,54 @@ button.btn-verified {
     color: var(--color-6);
     padding: 0px 5px;
     font-size: 12px;
+}
+/* .project__search-bar .ui.search.dropdown {
+  border: unset;
+  border-radius: 5px;
+  padding: 16px 21px;
+  width: 100%;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  color: var(--color-first);
+  background: var(--color-2);
+}
+.project__search-bar .ui.selection.dropdown>.delete.icon, 
+.project__search-bar .ui.selection.dropdown>.dropdown.icon, 
+.project__search-bar .ui.selection.dropdown>.search.icon {
+  top: 50%;
+  transform: translateY(-50%);
+  margin: 0;
+  right: 0;
+}
+.project__search-bar .ui.search.dropdown>.text {
+  padding-right: 10px;
+} 
+*/
+
+.project__search-bar .ui.selection.active.dropdown .menu {
+  width: auto;
+}
+.project__search-bar .ui.fluid.dropdown>.dropdown.icon {
+  padding: unset;
+}
+.project__search-bar .ui.selection.active.dropdown .menu {
+  border: unset;
+  background: var(--color-2);
+}
+.project__search-bar .ui.dropdown .menu>.item:hover {
+  background-color: var(--color-second);
+  color: #fff;
+}
+
+.project__search-bar .ui.dropdown .menu .selected.item,
+.project__search-bar .ui.dropdown.selected {
+  background-color: #ddd;
+  color: inherit;
+  font-weight: 400;
+}
+.project__search-bar .ui.search.dropdown>input.search {
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 13px 20px;
 }
