@@ -17,10 +17,10 @@
 
     <link rel="icon" href="{{asset("img/favicon.svg")}}" type="image/svg+xml" />
     <link rel="stylesheet" href="{{asset("css/intlTelInput.min.css")}}" />
-    <link rel="stylesheet" href="{{asset("css/main.css")}}" />
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-
+    
     <link rel="stylesheet" type="text/css" href="{{asset("Semantic/semantic.min.css")}}">
+    <link rel="stylesheet" href="{{asset("css/main.css")}}" />
 
 </head>
 <body>
