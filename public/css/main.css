@@ -4806,3 +4806,9 @@ button.btn-verified {
 .nav__notifications-popup { -ms-overflow-style: none; }
 
 .nav__notifications-popup { overflow: -moz-scrollbars-none; }
+
+.style-span-max-size{
+    color: var(--color-6);
+    padding: 0px 5px;
+    font-size: 12px;
+}
