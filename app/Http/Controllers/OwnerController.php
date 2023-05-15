@@ -104,7 +104,7 @@ class OwnerController extends Controller
                 ->pluck('user_id');
 
             $notificationsUsers = collect();
-            $text_notification = "Created a project according to your interests \"" . $project->name_project . "\"";
+            $text_notification = "A new project added \"" . $project->name_project . "\" matches your interest";
             foreach ($userIds as $userId) {
                 $notificationsUsers->push([
                     'user_id' => $userId,
@@ -147,6 +147,10 @@ class OwnerController extends Controller
         $data['last_name'] = $user_detail->last_name;
         $data['about_you'] = $user_detail->about_you;
         $data['project'] = Projects::where('id', $id)->first();
+
+        if (User::checkOwner() && $data['project']->user_id != Auth::id()){
+            return redirect()->back();
+        }
 
         if (User::checkInvestor()){
             $user_detail = UserDetail::where('user_id', $data['project']->user_id)->first();

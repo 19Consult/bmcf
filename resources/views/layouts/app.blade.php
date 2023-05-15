@@ -20,6 +20,8 @@
     <link rel="stylesheet" href="{{asset("css/main.css")}}" />
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
+    <link rel="stylesheet" type="text/css" href="{{asset("Semantic/semantic.min.css")}}">
+
 </head>
 <body>
 
@@ -37,6 +39,8 @@
 
     <script src="{{asset("js/libs/ckeditor/ckeditor.js")}}"> </script>
 {{--    <script src="//cdn.ckeditor.com/4.20.2/standard/ckeditor.js"></script>--}}
+    <script src="{{asset("Semantic/semantic.min.js")}}"></script>
+
 
 </body>
 </html>

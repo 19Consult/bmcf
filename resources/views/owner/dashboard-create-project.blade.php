@@ -181,7 +181,7 @@
 
 
 <main class="wrapper project-create">
-    @include("layouts.nav-menu", ['title_page' => $data['title_page']])
+    @include("layouts.nav-menu-home", ['title_page' => $data['title_page']])
     <div class="dashboard-wrapper">
         @include("layouts.sidebar")
         <div class="project-create-wrap">

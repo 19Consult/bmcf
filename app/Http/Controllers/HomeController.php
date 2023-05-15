@@ -95,6 +95,7 @@ class HomeController extends Controller
                 'max:255',
                 Rule::unique('users', 'email')->ignore(auth()->id()),
             ],
+            'photo' => 'image|max:512',
         ]);
 
 
