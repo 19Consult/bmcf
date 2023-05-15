@@ -74,9 +74,10 @@
                                     <span></span>
                                 </div>
                                 <label>
-                                    <input type="file" name="photo" accept="image/*,image/jpeg" id="file-uploader"><span class="btn btn--solid btn--arrow btn--photo">Upload Photo</span>
+                                    <input type="file" name="photo" maxlength="524288" accept="image/*,image/jpeg" id="file-uploader"><span class="btn btn--solid btn--arrow btn--photo">Upload Photo</span>
                                 </label>
                             </div>
+                            <span class="style-span-max-size">*max size 512 kB</span>
                         </div>
                     </div>
                 </div>
@@ -111,28 +112,60 @@
                     <div class="col fields">
                         <div class="row row-field">
                             <div class="form_input_wrap">
-                                <select name="country" class="click-select-country select-list">
-                                    <option selected="true" disabled="disabled" id="country" name="country">Select country</option>
-                                    @foreach($data['allCountry'] as $key => $val)
-                                        <option value="{{$key}}" {{(isset($data['userDetail']->country) && $data['userDetail']->country == $key) ? 'selected' : ''}}>{{$val}}</option>
-                                    @endforeach
-                                </select>
+
+{{--                                <select name="country" class="click-select-country select-list">--}}
+{{--                                    <option selected="true" disabled="disabled" id="country" name="country">Select country</option>--}}
+{{--                                    @foreach($data['allCountry'] as $key => $val)--}}
+{{--                                        <option value="{{$key}}" {{(isset($data['userDetail']->country) && $data['userDetail']->country == $key) ? 'selected' : ''}}>{{$val}}</option>--}}
+{{--                                    @endforeach--}}
+{{--                                </select>--}}
+{{--                                <label for="country">Country</label>--}}
+
+                                <div class="ui fluid search selection dropdown">
+                                    <input type="hidden" name="country" value="{{(isset($data['userDetail']->country) ) ? $data['userDetail']->country : ''}}">
+                                    <i class="dropdown icon"></i>
+                                    <input class="search" tabindex="0">
+                                    <div class="default text">Select country</div>
+                                    <div class="menu">
+                                        @foreach($data['allCountry'] as $key => $val)
+                                            <div class="item click-div-country" data-value="{{$key}}" >{{$val}}</div>
+                                        @endforeach
+                                    </div>
+                                </div>
                                 <label for="country">Country</label>
+
                             </div>
                             <div class="form_input_wrap city-checkbox">
-                                <select name="city" class="click-select-cities select-list">
 
-                                    @if(isset($data['userDetail']->city) && !empty(isset($data['userDetail']->city)))
-                                        @foreach((new \App\Http\Controllers\CountryController)->getCities($data['userDetail']->country) as $val )
+{{--                                <select name="city" class="click-select-cities select-list">--}}
 
-                                            <option {{($data['userDetail']->city == $val) ? 'selected' : ''}} value="{{$val}}" >{{$val}}</option>
-                                        @endforeach
-                                    @else
-                                        <option selected="true" disabled="disabled" id="city" >Select city</option>
-                                    @endif
+{{--                                    @if(isset($data['userDetail']->city) && !empty(isset($data['userDetail']->city)))--}}
+{{--                                        @foreach((new \App\Http\Controllers\CountryController)->getCities($data['userDetail']->country) as $val )--}}
 
-                                </select>
+{{--                                            <option {{($data['userDetail']->city == $val) ? 'selected' : ''}} value="{{$val}}" >{{$val}}</option>--}}
+{{--                                        @endforeach--}}
+{{--                                    @else--}}
+{{--                                        <option selected="true" disabled="disabled" id="city" >Select city</option>--}}
+{{--                                    @endif--}}
+
+{{--                                </select>--}}
+{{--                                <label for="city">City</label>--}}
+
+                                <div class="ui fluid search selection dropdown ples-city-change">
+                                    <input class="city-select-class" type="hidden" name="city" value="{{(isset($data['userDetail']->city) ) ? $data['userDetail']->city : ''}}">
+                                    <i class="dropdown icon"></i>
+                                    <input class="search" tabindex="0">
+                                    <div class="default text">Select city</div>
+                                    <div class="menu list-cities-div">
+                                        @if(isset($data['userDetail']->city) && !empty(isset($data['userDetail']->city)))
+                                            @foreach((new \App\Http\Controllers\CountryController)->getCities($data['userDetail']->country) as $val )
+                                                <div class="item " data-value="{{$val}}" >{{$val}}</div>
+                                            @endforeach
+                                        @endif
+                                    </div>
+                                </div>
                                 <label for="city">City</label>
+
                             </div>
                         </div>
 

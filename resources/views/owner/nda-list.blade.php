@@ -258,137 +258,140 @@
             </div>
         </div>
 
-        <div class="nda-agreement nda-agreement--popup report-popup">
-            <div class="nda-agreement-wrap">
-                <div class="nda-agreement--popup-content">
-                    <nav class="nav">
-                        <div class="nav__back"><a href="#">Go Back  </a> <span>Report Problem</span></div>
-                    </nav>
 
-                    <form class="report-form">
-                        @csrf
-                        <input type="hidden" class="project-id" name="project_id" value="">
-                        <input type="hidden" class="to-user-id" name="to_user_id" value="">
-                        <div class="form-group select-type">
-                            <label for="type">Select problem type:</label>
-                            <select class="form-control" id="type" name="type">
-                                <option value="user">User</option>
-                                <option value="project">Project</option>
-                                <option value="other">Other</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="description">Description of the problem:</label>
-                            <textarea class="form-control description-report" id="description" name="description" rows="3" maxlength="250"></textarea>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary btn--arrow btn--solid">Send</button>
-                    </form>
-
-                </div>
-            </div>
-        </div>
-
-        <div class="nda-agreement nda-agreement--popup successful-popup">
-            <div class="nda-agreement-wrap">
-                <div class="nda-agreement--popup-content">
-                    <nav class="nav">
-                        <div class="nav__back"><a href="#">Go Back  </a></div>
-                    </nav>
-                    <div class="suses-div">
-                        <p>Thank you for the Problem Report</p>
-                        <img src="{{asset("img/icons/free-icon-check-1828640.svg")}}" />
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-        <div class="nda-agreement nda-agreement--popup share-project-popup">
-            <div class="nda-agreement-wrap">
-                <div class="nda-agreement--popup-content">
-                    <nav class="nav">
-                        <div class="nav__back"><a href="#">Go Back  </a> <span>Share Project</span></div>
-                    </nav>
-
-                    <form class="share-project-form">
-                        @csrf
-                        <input type="hidden" class="project-id" name="project_id" value="">
-
-                        <div class="form-group">
-                            <label for="email_list">Specify a comma-separated email with whom you want to share the project</label>
-                            <input class="form-control email_list" id="email_list" name="email_list">
-                        </div>
-
-                        <div class="form-group">
-                            <label class="error-label-sher"></label>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary btn--arrow btn--solid">Send</button>
-                    </form>
-
-                </div>
-            </div>
-        </div>
-
-        <div class="nda-agreement nda-agreement--popup successful-popup share-project-successful">
-            <div class="nda-agreement-wrap">
-                <div class="nda-agreement--popup-content">
-                    <nav class="nav">
-                        <div class="nav__back"><a href="#">Go Back  </a></div>
-                    </nav>
-                    <div class="suses-div">
-                        <p>Thanks for sharing the project</p>
-                        <img src="{{asset("img/icons/free-icon-check-1828640.svg")}}" />
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-        <div class="nda-agreement nda-agreement--popup share-profile-popup">
-            <div class="nda-agreement-wrap">
-                <div class="nda-agreement--popup-content">
-                    <nav class="nav">
-                        <div class="nav__back"><a href="#">Go Back  </a> <span>Share Profile</span></div>
-                    </nav>
-
-                    <form class="share-profile-form">
-                        @csrf
-                        <input type="hidden" class="profile-id" name="profile_id" value="">
-
-                        <div class="form-group">
-                            <label for="email_list_pr">Specify a comma-separated email with whom you want to share the profile</label>
-                            <input class="form-control email_list_pr" id="email_list_pr" name="email_list">
-                        </div>
-
-                        <div class="form-group">
-                            <label class="error-label-sher"></label>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary btn--arrow btn--solid">Send</button>
-                    </form>
-
-                </div>
-            </div>
-        </div>
-        <div class="nda-agreement nda-agreement--popup successful-popup share-profile-successful">
-            <div class="nda-agreement-wrap">
-                <div class="nda-agreement--popup-content">
-                    <nav class="nav">
-                        <div class="nav__back"><a href="#">Go Back  </a></div>
-                    </nav>
-                    <div class="suses-div">
-                        <p>Thanks for sharing the profile</p>
-                        <img src="{{asset("img/icons/free-icon-check-1828640.svg")}}" />
-                    </div>
-
-                </div>
-            </div>
-        </div>
 
     </div>
+
+    <div class="nda-agreement nda-agreement--popup report-popup">
+        <div class="nda-agreement-wrap">
+            <div class="nda-agreement--popup-content">
+                <nav class="nav">
+                    <div class="nav__back"><a href="#">Go Back  </a> <span>Report Problem</span></div>
+                </nav>
+
+                <form class="report-form">
+                    @csrf
+                    <input type="hidden" class="project-id" name="project_id" value="">
+                    <input type="hidden" class="to-user-id" name="to_user_id" value="">
+                    <div class="form-group select-type">
+                        <label for="type">Select problem type:</label>
+                        <select class="form-control" id="type" name="type">
+                            <option value="user">User</option>
+                            <option value="project">Project</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Description of the problem:</label>
+                        <textarea class="form-control description-report" id="description" name="description" rows="3" maxlength="250"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn--arrow btn--solid">Send</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="nda-agreement nda-agreement--popup successful-popup">
+        <div class="nda-agreement-wrap">
+            <div class="nda-agreement--popup-content">
+                <nav class="nav">
+                    <div class="nav__back"><a href="#">Go Back  </a></div>
+                </nav>
+                <div class="suses-div">
+                    <p>Thank you for the Problem Report</p>
+                    <img src="{{asset("img/icons/free-icon-check-1828640.svg")}}" />
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="nda-agreement nda-agreement--popup share-project-popup">
+        <div class="nda-agreement-wrap">
+            <div class="nda-agreement--popup-content">
+                <nav class="nav">
+                    <div class="nav__back"><a href="#">Go Back  </a> <span>Share Project</span></div>
+                </nav>
+
+                <form class="share-project-form">
+                    @csrf
+                    <input type="hidden" class="project-id" name="project_id" value="">
+
+                    <div class="form-group">
+                        <label for="email_list">Specify a comma-separated email with whom you want to share the project</label>
+                        <input class="form-control email_list" id="email_list" name="email_list">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="error-label-sher"></label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn--arrow btn--solid">Send</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="nda-agreement nda-agreement--popup successful-popup share-project-successful">
+        <div class="nda-agreement-wrap">
+            <div class="nda-agreement--popup-content">
+                <nav class="nav">
+                    <div class="nav__back"><a href="#">Go Back  </a></div>
+                </nav>
+                <div class="suses-div">
+                    <p>Thanks for sharing the project</p>
+                    <img src="{{asset("img/icons/free-icon-check-1828640.svg")}}" />
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="nda-agreement nda-agreement--popup share-profile-popup">
+        <div class="nda-agreement-wrap">
+            <div class="nda-agreement--popup-content">
+                <nav class="nav">
+                    <div class="nav__back"><a href="#">Go Back  </a> <span>Share Profile</span></div>
+                </nav>
+
+                <form class="share-profile-form">
+                    @csrf
+                    <input type="hidden" class="profile-id" name="profile_id" value="">
+
+                    <div class="form-group">
+                        <label for="email_list_pr">Specify a comma-separated email with whom you want to share the profile</label>
+                        <input class="form-control email_list_pr" id="email_list_pr" name="email_list">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="error-label-sher"></label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn--arrow btn--solid">Send</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+    <div class="nda-agreement nda-agreement--popup successful-popup share-profile-successful">
+        <div class="nda-agreement-wrap">
+            <div class="nda-agreement--popup-content">
+                <nav class="nav">
+                    <div class="nav__back"><a href="#">Go Back  </a></div>
+                </nav>
+                <div class="suses-div">
+                    <p>Thanks for sharing the profile</p>
+                    <img src="{{asset("img/icons/free-icon-check-1828640.svg")}}" />
+                </div>
+
+            </div>
+        </div>
+    </div>
+
 </main>
 
 <style>

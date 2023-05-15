@@ -14,15 +14,28 @@
                     <input name="search_keyword" type="text" placeholder="Search by Keyword" value="{{$search_keyword}}">
                     <button class="search-btn" onchange="this.form.submit()"></button>
                 </div>
-                <select name="categories" class="categories select-list" onchange="this.form.submit()">
-                    <option></option>
-                    <option selected="true" value="">All Categories</option>
-                    @if(!empty($data['category']))
+{{--                <select name="categories" class="categories select-list" onchange="this.form.submit()">--}}
+{{--                    <option></option>--}}
+{{--                    <option selected="true" value="">All Categories</option>--}}
+{{--                    @if(!empty($data['category']))--}}
+{{--                        @foreach($data['category'] as $key => $val)--}}
+{{--                            <option value="{{$val->category_name}}" {{ $categories == $val->category_name ? 'selected' : '' }}>{{$val->category_name}}</option>--}}
+{{--                        @endforeach--}}
+{{--                    @endif--}}
+{{--                </select>--}}
+
+                <div class="ui fluid search selection dropdown" style="width: auto;">
+                    <input type="hidden" name="categories" value="{{(isset($categories) ) ? $categories : ''}}" onchange="this.form.submit()">
+                    <i class="dropdown icon"></i>
+                    <input class="search" tabindex="0">
+                    <div class="default text">All Categories</div>
+                    <div class="menu">
                         @foreach($data['category'] as $key => $val)
-                            <option value="{{$val->category_name}}" {{ $categories == $val->category_name ? 'selected' : '' }}>{{$val->category_name}}</option>
+                            <div class="item" data-value="{{$val->category_name}}" >{{$val->category_name}}</div>
                         @endforeach
-                    @endif
-                </select>
+                    </div>
+                </div>
+
                 <a href="{{route("homeInvestor")}}" class="btn--arrow btn--solid search-reset">Reset</a>
 
             </form>
