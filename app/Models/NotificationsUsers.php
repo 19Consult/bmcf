@@ -24,4 +24,7 @@ class NotificationsUsers extends Model
         'type',
     ];
 
+    protected $type = [
+      'like',
+    ];
 }
