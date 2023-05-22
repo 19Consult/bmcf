@@ -58,7 +58,13 @@
                 @endif
                 @if(!empty($notificationsUsers) && isset($notificationsUsers))
                     @foreach($notificationsUsers as $key => $val)
-                        <li><a class="notification-user" data-id="{{$val->id}}" href="">{{$val->text}}</a></li>
+                        @php
+                        $link = '';
+                        if( !empty($val->url) ){
+                            $link = url($val->url);
+                        }
+                        @endphp
+                        <li><a class="notification-user" data-id="{{$val->id}}" href="{{$link}}">{{$val->text}}</a></li>
                     @endforeach
                 @endif
 
