@@ -72,6 +72,11 @@ if(\Illuminate\Support\Facades\Auth::check() && \Illuminate\Support\Facades\Auth
                                         <p>{{$data['user']->about_you}}</p>
                                     @endif
                                 </div>
+
+                                @if(App\Models\User::checkOwner())
+                                    <div class="profile__favorite {{$check_favorite_owner ? 'active' : ''}}" owner_id="{{auth()->id()}}" investor_id="{{$data['user']->user_id}}"></div>
+                                @endif
+
                             </div>
                             <div class="project-create__top-right">
                                 <div class="project-create__top-right-top">
@@ -94,5 +99,68 @@ if(\Illuminate\Support\Facades\Auth::check() && \Illuminate\Support\Facades\Auth
                 </div>
             </div>
         </main>
+
+        <style>
+            .profile__favorite {
+                margin-top: 4px;
+                margin-right: 10px;
+                width: 20px;
+                height: 20px;
+                background: url("../img/icons/icon-favorite.svg") no-repeat;
+                background-position: center;
+                background-size: contain;
+                cursor: pointer;
+                margin-left: auto;
+            }
+            .profile__favorite.active {
+                background: url("../img/icons/icon-favorite-active.svg") no-repeat;
+            }
+        </style>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                $(document).ready(function () {
+
+                    $('.profile__favorite').click(function() {
+
+                        $.ajaxSetup({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            }
+                        });
+
+                        var owner_id = $(this).attr('owner_id');
+                        var investor_id = $(this).attr('investor_id');
+
+
+                        let data = {
+                            owner_id: owner_id,
+                            investor_id: investor_id,
+                        };
+
+                        //console.log(data);
+
+                        $.ajax({
+                            url: '{{route("profilePublicFavorite")}}',
+                            method: 'POST',
+                            data: data,
+                            success: function(data) {
+                                //console.log(data);
+                                let favoriteClass = $(`.profile__favorite`);
+                                if(data.success){
+                                    favoriteClass.addClass("active")
+                                }else {
+                                    favoriteClass.removeClass("active")
+                                }
+                            },
+                            error: function(xhr, textStatus, errorThrown) {
+                                console.log(xhr.responseText); // replace with your own error callback function
+                            }
+                        });
+                    });
+
+                });
+            });
+
+        </script>
     @endif
 @endsection

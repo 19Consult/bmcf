@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class NotificationsUsers extends Model
+class FavoriteProfileOwner extends Model
 {
     use HasFactory;
 
-    public $table = "notifications_users";
+    public $table = "favorite_profile_owner";
 
     /**
      * The attributes that are mass assignable.
@@ -17,11 +17,7 @@ class NotificationsUsers extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'user_id',
-        'text',
-        'seen',
-        'url',
-        'type',
+        'owner_id',
+        'investor_id',
     ];
-
 }

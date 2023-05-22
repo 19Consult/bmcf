@@ -144,6 +144,148 @@
                             <div class="error-search-project">Sorry, nothing found</div>
                         @endif
 
+
+                            <div id="project-more-list">
+
+                            </div>
+
+                            <button id="project-load-more-btn" class="btn-more-owner-angel">More</button>
+
+
+                            <script>
+                                document.addEventListener('DOMContentLoaded', function () {
+
+                                    $(document).ready(function() {
+
+                                        $.ajaxSetup({
+                                            headers: {
+                                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                            }
+                                        });
+
+                                        var offset = 0;
+                                        var limit = 5;
+                                         //limit = 1;
+
+                                        $.ajax({
+                                            url: '{{ route("dashboardProjectsLoad") }}',
+                                            method: 'POST',
+                                            data: {
+                                                offset: offset
+                                            },
+                                            success: function(response) {
+                                                //console.log(response)
+                                                if (response.data.length > 0) {
+
+                                                    let title = `<div class="error-search-project angel-suggest">Project Suggested for you</div>`;
+                                                    $('#project-more-list').append(title);
+                                                    $('#project-more-list').show();
+
+                                                    response.data.forEach(function(angel) {
+
+
+                                                            let angel_block = `<div class="project__item">
+                                                                                    <div class="project__item-wrap">
+                                                                                        <div class="project__img"><img src="${angel.photo}" alt="Project image"></div>
+                                                                                        <div class="project__content top">
+                                                                                            <div class="project__title-wrap">
+                                                                                                    <div class="project__title counter-project-view" data-project-id="${angel.proj.id}">${angel.proj.name_project}</div>
+
+                                                                                                <div class="project__subtitle">${angel.sector}</div>
+                                                                                            </div>
+                                                                                            <div class="project__favorite favorite-projid-${angel.proj.id} ${angel.favorite_proj}" project-id="${angel.proj.id}"></div>
+                                                                                        </div>
+                                                                                        <div class="project__content bottom">
+                                                                                            <div class="project__views">
+                                                                                                <div class="project__views-title">Project views</div>
+                                                                                                <div class="project__views-quantity pr-total_views-${angel.proj.id}">${angel.total_views}</div>
+                                                                                            </div>
+                                                                                            <div class="project__interested">
+                                                                                                <div class="project__interested-title">Angel Interested</div>
+                                                                                                <div class="project__interested-quantity">${angel.countNdaList}</div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>`;
+
+                                                            $('#project-more-list').append(angel_block);
+
+                                                    });
+
+                                                    offset += limit;
+
+                                                    if (response.data.length < 5) {
+                                                        $('#project-load-more-btn').remove();
+                                                    }
+
+                                                } else {
+                                                    //$('#project-more-list').hidden();
+                                                    $('#project-load-more-btn').remove();
+                                                }
+                                            }
+                                        });
+
+                                        $('#project-load-more-btn').click(function() {
+
+                                            $.ajax({
+                                                url: '{{ route("dashboardProjectsLoad") }}',
+                                                method: 'POST',
+                                                data: {
+                                                    offset: offset
+                                                },
+                                                success: function(response) {
+                                                    //console.log(response)
+
+                                                    if (response.length !== 0 && response.data.length > 0) {
+
+                                                        response.data.forEach(function(angel) {
+
+                                                            let angel_block = `<div class="project__item">
+                                                                                    <div class="project__item-wrap">
+                                                                                        <div class="project__img"><img src="${angel.photo}" alt="Project image"></div>
+                                                                                        <div class="project__content top">
+                                                                                            <div class="project__title-wrap">
+                                                                                                    <div class="project__title counter-project-view" data-project-id="${angel.proj.id}">${angel.proj.name_project}</div>
+
+                                                                                                <div class="project__subtitle">${angel.sector}</div>
+                                                                                            </div>
+                                                                                            <div class="project__favorite favorite-projid-${angel.proj.id} ${angel.favorite_proj}" project-id="${angel.proj.id}"></div>
+                                                                                        </div>
+                                                                                        <div class="project__content bottom">
+                                                                                            <div class="project__views">
+                                                                                                <div class="project__views-title">Project views</div>
+                                                                                                <div class="project__views-quantity pr-total_views-${angel.proj.id}">${angel.total_views}</div>
+                                                                                            </div>
+                                                                                            <div class="project__interested">
+                                                                                                <div class="project__interested-title">Angel Interested</div>
+                                                                                                <div class="project__interested-quantity">${angel.countNdaList}</div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>`;
+
+                                                            $('#project-more-list').append(angel_block);
+
+                                                        });
+
+                                                        offset += limit;
+
+                                                        if (response.data.length < 5) {
+                                                            $('#project-load-more-btn').remove();
+                                                        }
+
+                                                    } else {
+                                                        $('#project-load-more-btn').text('No more entries').prop('disabled', true);
+                                                    }
+
+                                                }
+                                            });
+                                        });
+                                    });
+
+                                });
+                            </script>
+
                     </div>
                 </div>
 
@@ -172,7 +314,7 @@
                             $('.scrollbar-inner-ajax').scrollbar('destroy')
                         })
 
-                        $('.counter-project-view').on('click', function(event) {
+                        $(document).on('click', '.counter-project-view', function(event) {
                             event.preventDefault();
 
                             let project_id = $(this).attr("data-project-id");

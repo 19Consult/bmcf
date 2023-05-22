@@ -13,11 +13,19 @@ window.addEventListener('beforeunload', function(e) {
     }
 });
 
-function saveBtn(){
+// function saveBtn(){
+//     unsavedChanges = false;
+//     let form = document.querySelector('form');
+//     form.submit();
+// }
+
+function saveBtn() {
     unsavedChanges = false;
-    let form = document.querySelector('form');
-    form.submit();
+    let forms = document.querySelectorAll('form');
+    let lastForm = forms[forms.length - 1];
+    lastForm.submit();
 }
+
 
 let btn_send = document.querySelector(".send.send-form");
 btn_send.addEventListener('click', function() {

@@ -85,7 +85,6 @@
                                     </div>
                                 </div>
                             @endforeach
-
                         @else
                             <div class="error-search-project">Sorry, nothing found</div>
                         @endif
@@ -138,6 +137,151 @@
                         @else
                             <div class="error-search-project">Sorry, nothing found</div>
                         @endif
+
+
+                            <div id="angel-more-list">
+
+                            </div>
+
+                            <button id="load-more-btn" class="btn-more-owner-angel">More</button>
+
+
+                            <script>
+                                document.addEventListener('DOMContentLoaded', function () {
+
+                                    $(document).ready(function() {
+
+                                        $.ajaxSetup({
+                                            headers: {
+                                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                            }
+                                        });
+
+                                        var offset = 0;
+                                        var limit = 5;
+
+                                        $.ajax({
+                                            url: '{{ route("dashboardAgentsLoad") }}',
+                                            method: 'POST',
+                                            data: {
+                                                offset: offset
+                                            },
+                                            success: function(response) {
+                                                //console.log(response)
+                                                if (response.data.length > 0) {
+
+                                                    let title = `<div class="error-search-project angel-suggest">Angels suggested for you</div>`;
+                                                    $('#angel-more-list').append(title);
+                                                    $('#angel-more-list').show();
+
+                                                    response.data.forEach(function(angel) {
+                                                        if (typeof angel.users_angel !== 'undefined' && typeof angel.users_angel.detail !== 'undefined' && angel.users_angel.detail != null) {
+
+                                                            let sector = '';
+                                                            if (angel.users_angel.detail.categorty1_investor) {
+                                                                sector += angel.users_angel.detail.categorty1_investor + ', ';
+                                                            }
+                                                            if (angel.users_angel.detail.categorty2_investor) {
+                                                                sector += angel.users_angel.detail.categorty2_investor + ', ';
+                                                            }
+                                                            if (angel.users_angel.detail.categorty3_investor) {
+                                                                sector += angel.users_angel.detail.categorty3_investor;
+                                                            }
+                                                            sector = sector.trim();
+                                                            sector = sector.replace(/,$/, '');
+
+                                                            let angel_block = `<div class="project__item">
+                                                                            <div class="project__item-wrap">
+                                                                                <div class="project__img">
+                                                                                    <img src="${angel.user_photo}" alt="User image"></div>
+                                                                                <div class="project__content top">
+                                                                                    <div class="project__content-user-name"><a href="${angel.link_angel}" target="_blank">${angel.users_angel.name}</a></div>
+                                                                                    <div class="project__content-user-sector">${sector}</div>
+                                                                                    <div class="project__content-user-country">${angel.country_angel}</div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>`;
+
+                                                            $('#angel-more-list').append(angel_block);
+                                                        }
+                                                    });
+
+                                                    offset += limit;
+
+                                                    if (response.data.length < 5) {
+                                                        $('#load-more-btn').remove();
+                                                    }
+
+                                                } else {
+                                                    //$('#angel-more-list').hidden();
+                                                    $('#load-more-btn').remove();
+                                                }
+                                            }
+                                        });
+
+                                        $('#load-more-btn').click(function() {
+
+                                            $.ajax({
+                                                url: '{{ route("dashboardAgentsLoad") }}',
+                                                method: 'POST',
+                                                data: {
+                                                    offset: offset
+                                                },
+                                                success: function(response) {
+                                                    //console.log(response)
+                                                    if (response.data.length > 0) {
+
+                                                        response.data.forEach(function(angel) {
+                                                            if (typeof angel.users_angel !== 'undefined' && typeof angel.users_angel.detail !== 'undefined' && angel.users_angel.detail != null) {
+
+                                                                let sector = '';
+                                                                if (angel.users_angel.detail.categorty1_investor) {
+                                                                    sector += angel.users_angel.detail.categorty1_investor + ', ';
+                                                                }
+                                                                if (angel.users_angel.detail.categorty2_investor) {
+                                                                    sector += angel.users_angel.detail.categorty2_investor + ', ';
+                                                                }
+                                                                if (angel.users_angel.detail.categorty3_investor) {
+                                                                    sector += angel.users_angel.detail.categorty3_investor;
+                                                                }
+                                                                sector = sector.trim();
+                                                                sector = sector.replace(/,$/, '');
+
+                                                                let angel_block = `<div class="project__item">
+                                                                            <div class="project__item-wrap">
+                                                                                <div class="project__img">
+                                                                                    <img src="${angel.user_photo}" alt="User image"></div>
+                                                                                <div class="project__content top">
+                                                                                    <div class="project__content-user-name"><a href="${angel.link_angel}" target="_blank">${angel.users_angel.name}</a></div>
+                                                                                    <div class="project__content-user-sector">${sector}</div>
+                                                                                    <div class="project__content-user-country">${angel.country_angel}</div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>`;
+
+                                                                $('#angel-more-list').append(angel_block);
+                                                            }
+                                                        });
+
+                                                        offset += limit;
+
+                                                         if (response.data.length < 5) {
+                                                            $('#load-more-btn').remove();
+                                                        }
+
+                                                    } else {
+                                                        $('#load-more-btn').text('No more entries').prop('disabled', true);
+                                                    }
+
+                                                }
+                                            });
+                                        });
+                                    });
+
+                                });
+                            </script>
+
+
                     </div>
                 </div>
 
