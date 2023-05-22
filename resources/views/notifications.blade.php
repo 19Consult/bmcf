@@ -107,7 +107,12 @@
                                         class_seen = 'notifications-seen';
                                     }
 
-                                    let content = `<a href="${value.url}" target="_blank" data-id="${value.id}" class="notifications-div ${class_seen}"><span class="icon-notif icon-notif-nda"></span>${value.text}</a>`;
+                                    let span_img = 'icon-notif-nda';
+                                    if(value.type == 'like'){
+                                        span_img = 'icon-notif-like';
+                                    }
+
+                                    let content = `<a href="${value.url}" target="_blank" data-id="${value.id}" class="notifications-div ${class_seen}"><span class="icon-notif ${span_img}"></span>${value.text}</a>`;
 
                                     $('#notifications-more-list').append(content);
                                 }else {
@@ -116,7 +121,12 @@
                                         class_seen = 'notifications-seen';
                                     }
 
-                                    let content = `<div class="notifications-div ${class_seen}" data-id="${value.id}"><span class="icon-notif icon-notif-nda"></span>${value.text}</div>`;
+                                    let span_img = 'icon-notif-nda';
+                                    if(value.type == 'like'){
+                                        span_img = 'icon-notif-like';
+                                    }
+
+                                    let content = `<div class="notifications-div ${class_seen}" data-id="${value.id}"><span class="icon-notif ${span_img}"></span>${value.text}</div>`;
 
                                     $('#notifications-more-list').append(content);
                                 }
@@ -156,7 +166,12 @@
                                             class_seen = 'notifications-seen';
                                         }
 
-                                        let content = `<a href="${value.url}" target="_blank" data-id="${value.id}" class="notifications-div ${class_seen}"><span class="icon-notif icon-notif-nda"></span>${value.text}</a>`;
+                                        let span_img = 'icon-notif-nda';
+                                        if(value.type == 'like'){
+                                            span_img = 'icon-notif-like';
+                                        }
+
+                                        let content = `<a href="${value.url}" target="_blank" data-id="${value.id}" class="notifications-div ${class_seen}"><span class="icon-notif ${span_img}"></span>${value.text}</a>`;
 
                                         $('#notifications-more-list').append(content);
                                     }else {
@@ -165,7 +180,12 @@
                                             class_seen = 'notifications-seen';
                                         }
 
-                                        let content = `<div class="notifications-div ${class_seen}" data-id="${value.id}"><span class="icon-notif icon-notif-nda"></span>${value.text}</div>`;
+                                        let span_img = 'icon-notif-nda';
+                                        if(value.type == 'like'){
+                                            span_img = 'icon-notif-like';
+                                        }
+
+                                        let content = `<div class="notifications-div ${class_seen}" data-id="${value.id}"><span class="icon-notif ${span_img}"></span>${value.text}</div>`;
 
                                         $('#notifications-more-list').append(content);
                                     }
@@ -275,6 +295,10 @@
         }
         .icon-notif-email{
             background: url('./img/icon-user-notif.svg') no-repeat;
+        }
+
+        .icon-notif-like{
+            background: url('./img/heart 20х20.svg') no-repeat;
         }
     </style>
 
