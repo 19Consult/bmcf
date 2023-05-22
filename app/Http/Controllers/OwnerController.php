@@ -397,7 +397,7 @@ class OwnerController extends Controller
             foreach ($nda as $val){
                 $user_id = $val->user_id;
                 $user = User::where('id', $user_id)->first();
-                $user_email = $user->email;
+                //$user_email = $user->email;
 
                 $text_notification = "The " . $project->name_project . " is now removed";
                 NotificationsUsers::create([
@@ -410,6 +410,7 @@ class OwnerController extends Controller
                 try {
                     //Mail::to($user_email)->send(new MailSendInvestorDeleteProject($data_mail));
 
+                    $user_email = $user->email;
                     $data = [
                         'subject' => '',
                         'first_name' => $user->name,
