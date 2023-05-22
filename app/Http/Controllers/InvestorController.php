@@ -23,6 +23,9 @@ use App\Mail\MailTestTemplateBlade;
 
 class InvestorController extends Controller
 {
+
+    //private $myData;
+
     public function indexInvestor( Request $request)
     {
         if (User::checkAdmin()){
@@ -441,9 +444,10 @@ class InvestorController extends Controller
 
             //Delete signet project with list interests
             $currentUser = Auth::user();
-            if ($currentUser) {
+            //if ($currentUser) {
                 $projects = $data['projects_int'];
                 foreach ($projects as $key => $project) {
+
                     $projectID = $project->id;
                     $ndaProject = NdaProjects::where('id_project', $projectID)
                         ->where('user_id', $currentUser->id)
@@ -454,7 +458,20 @@ class InvestorController extends Controller
                         $data['projects_int']->forget($key);
                     }
                 }
+            //}
+            if (count($data['projects_int']) > 3) {
+                $keys = $data['projects_int']->keys()->toArray();
+                $keysToRemove = array_slice($keys, 3);
+
+                foreach ($keysToRemove as $key) {
+                    unset($data['projects_int'][$key]);
+                }
             }
+
+
+            $using_ajax_projects = $data['projects_int']->pluck('id')->toArray();
+            session(['using_ajax_projects' => $using_ajax_projects]);
+
             //--
 
         }
@@ -488,6 +505,103 @@ class InvestorController extends Controller
             'categories' => $categories,
             'nda_address_investor' => $nda_address_investor
         ]);
+
+    }
+
+    public function dashboardProjectsLoad(Request $request){
+
+        $offset = $request->input('offset', 0);
+        $limit = 5;
+        //$limit = 1;
+
+        $favorite_project = FavoriteProject::where('user_id', Auth::id())->pluck('project_id')->toArray();
+
+        $user = Auth::user()->detail;
+
+        $keywords = [$user->categorty1_investor, $user->categorty2_investor, $user->categorty3_investor];
+        //dd($keywords);
+        $projects_int = Projects::where(function($query) use ($keywords) {
+            $query->whereIn('keyword1', $keywords)
+                ->orWhereIn('keyword2', $keywords)
+                ->orWhereIn('keyword3', $keywords);
+        })->get();
+
+        $data['projects_int'] = $projects_int;
+
+        //Delete signet project with list interests
+        $currentUser = Auth::user();
+        if ($currentUser) {
+            $projects = $data['projects_int'];
+            foreach ($projects as $key => $project) {
+                $projectID = $project->id;
+                $ndaProject = NdaProjects::where('id_project', $projectID)
+                    ->where('user_id', $currentUser->id)
+                    ->where('status', 'signed')
+                    ->first();
+
+                if ($ndaProject) {
+                    $data['projects_int']->forget($key);
+                }
+            }
+        }
+
+        $id_projects_more = $data['projects_int']->pluck('id')->toArray();
+
+        //$data_ajax['using_ajax_projects'] = $using_ajax_projects;
+        // using load page
+        $using_ajax_projects = session('using_ajax_projects');
+        //delete id using projects
+        $id_projects_more = array_diff($id_projects_more, $using_ajax_projects);
+        
+
+        $list_projects_more = Projects::whereIn('id', $id_projects_more)
+            ->offset($offset)
+            ->limit($limit)
+            ->get();
+
+        $data_ajax = [];
+
+
+        foreach ($list_projects_more as $key => $val){
+            $views = $val->views->first();
+            $ndaList = NdaProjects::where('id_project', $val->id)->where('status', 'signed')->pluck('user_id')->toArray();
+            $photo = isset($val->photo_project) ? asset($val->photo_project) : 'img/project-img.webp';
+            $proj = $val;
+
+            $sector = '';
+            if(!empty($val->keyword1)){
+                $sector .= $val->keyword1 . ', ';
+            }
+            if(!empty($val->keyword2)){
+                $sector .= $val->keyword2 . ', ';
+            }
+            if(!empty($val->keyword3)){
+                $sector .= $val->keyword3;
+            }
+            $sector = trim($sector);
+            $sector = rtrim($sector, ',');
+
+            $total_views = !empty($views->total_views) ? $views->total_views : 0;
+
+            $countNdaList = count($ndaList);
+
+            $favorite_proj = in_array($val->id, $favorite_project) ? 'active' : '';
+
+            $data_ajax['data'][] = [
+                'views' => $views,
+                'ndaList' => $ndaList,
+                'photo' => $photo,
+                'proj' => $proj,
+                'sector' => $sector,
+                'total_views' => $total_views,
+                'countNdaList' => $countNdaList,
+                'favorite_proj' => $favorite_proj
+            ];
+
+        }
+
+
+        return response()->json($data_ajax);
 
     }
 

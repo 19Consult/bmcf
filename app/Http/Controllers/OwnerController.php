@@ -8,6 +8,7 @@ use App\Models\UserDetail;
 use App\Models\Projects;
 use App\Models\CategoryName;
 use App\Models\NotificationsUsers;
+use App\Models\FavoriteProfileOwner;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,6 +21,8 @@ use App\Mail\NdaSendMailInvestor;
 use App\Mail\MailRejectedNdaProject;
 use App\Mail\MailTestTemplateBlade;
 use Illuminate\Support\Facades\Session;
+
+use Illuminate\Support\Facades\URL;
 
 class OwnerController extends Controller
 {
@@ -119,7 +122,8 @@ class OwnerController extends Controller
             $project->update($data);
         }
 
-        return redirect(route("viewProject", ['id' => $project->id]));
+        //return redirect(route("viewProject", ['id' => $project->id]));
+        return redirect(route("dashboardOwner"));
     }
 
     public function viewProject($id){
@@ -488,6 +492,10 @@ class OwnerController extends Controller
             ->take(3)
             ->get();
 
+        $using_ajax_angel_nda = $data['nda_list']->pluck('user_id')->toArray();
+        $using_ajax_angel_nda = array_unique($using_ajax_angel_nda);
+        session(['using_ajax_angel_nda' => $using_ajax_angel_nda]);
+
         return view("owner.dashboard-owner", [
             'data' => $data,
             'search_keyword' => $search_keyword,
@@ -495,5 +503,112 @@ class OwnerController extends Controller
         ]);
 
     }
+
+    public function dashboardAgentsLoad(Request $request){
+        $offset = $request->input('offset', 0);
+        $limit = 5;
+
+        //$data['angel_suggest'] = [];
+        $user_id = Auth::id();
+
+        $keywords_angel_sug = Projects::where('user_id', $user_id)
+            ->select('keyword1', 'keyword2', 'keyword3')
+            ->distinct()
+            ->pluck('keyword1')
+            ->concat(Projects::where('user_id', $user_id)
+                ->select('keyword2')
+                ->distinct()
+                ->pluck('keyword2'))
+            ->concat(Projects::where('user_id', $user_id)
+                ->select('keyword3')
+                ->distinct()
+                ->pluck('keyword3'))
+            ->unique()
+            ->values()
+            ->all();
+
+        if($keywords_angel_sug && !empty($keywords_angel_sug)){
+            $keywords_angel_sug = array_diff($keywords_angel_sug, array(null));
+
+            $userIds = UserDetail::where(function($query) use ($keywords_angel_sug) {
+                $query->whereIn('categorty1_investor', $keywords_angel_sug)
+                    ->orWhereIn('categorty2_investor', $keywords_angel_sug)
+                    ->orWhereIn('categorty3_investor', $keywords_angel_sug);
+            })->pluck('user_id');
+
+        }
+
+
+        //$userIds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17];
+
+
+        $using_ajax_angel_nda = session('using_ajax_angel_nda');
+        $userIds = array_diff($userIds->toArray(), $using_ajax_angel_nda);
+
+
+        $users = User::whereIn('id', $userIds)
+            ->with('detail')
+            ->whereHas('detail')
+            ->offset($offset)
+            ->limit($limit)
+            ->get();
+
+        $data = [];
+        foreach ($users as $user){
+
+            $country = isset($user->detail->country) ? (new CountryController)->getNameCountry($user->detail->country) : '';
+
+            $data[] = [
+                'users_angel' => $user,
+                'link_angel' => route("viewProfilePublic", ["id" => $user->id]),
+                'country_angel' => $country,
+                'user_photo' => isset($user->detail->photo) ? asset($user->detail->photo) : asset('img/project-img.webp'),
+            ];
+        }
+
+        $posts = [
+          'data' => $data,
+        ];
+
+        return response()->json($posts);
+    }
+
+    public function profilePublicFavorite(Request $request){
+
+        if(!User::checkOwner()){
+            return false;
+        }
+
+        $owner_id = $request->get('owner_id');
+        $investor_id = $request->get('investor_id');
+
+        $favorite_profile = FavoriteProfileOwner::where('owner_id', $owner_id)->where('investor_id', $investor_id)->first();
+
+        if(!$favorite_profile){
+            $favorite_profile = FavoriteProfileOwner::create([
+                'owner_id' => $owner_id,
+                'investor_id' => $investor_id,
+            ]);
+
+
+            $text_notification = "You received the Like from " . Auth::user()->name;
+            $url = route('viewProfileProjects', ['id' => $owner_id]);
+            $path = URL::to($url);
+            $baseUrl = URL::to('/');
+            $url_link = str_replace($baseUrl, '', $path);
+
+            NotificationsUsers::create([
+                'user_id' => $investor_id,
+                'text' => $text_notification,
+                'url' => $url_link,
+            ]);
+
+            return response()->json(['success' => true, 'data' => $favorite_profile]);
+        }else{
+            $favorite_profile->delete();
+            return response()->json(['success' => false, 'data' => $favorite_profile]);
+        }
+    }
+
 
 }

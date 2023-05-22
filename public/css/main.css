@@ -827,6 +827,9 @@ form.type-1 .btn {
   background: url("../img/icons/icon-has-notifications.svg") no-repeat;
   pointer-events: auto;
 }
+.nav__notifications.non-notific {
+    pointer-events: auto;
+}
 .nav__notifications-wrap {
   position: relative;
 }
@@ -4851,8 +4854,8 @@ button.btn-verified {
   color: var(--color-first);
   background: var(--color-2);
 }
-.project__search-bar .ui.selection.dropdown>.delete.icon, 
-.project__search-bar .ui.selection.dropdown>.dropdown.icon, 
+.project__search-bar .ui.selection.dropdown>.delete.icon,
+.project__search-bar .ui.selection.dropdown>.dropdown.icon,
 .project__search-bar .ui.selection.dropdown>.search.icon {
   top: 50%;
   transform: translateY(-50%);
@@ -4861,7 +4864,7 @@ button.btn-verified {
 }
 .project__search-bar .ui.search.dropdown>.text {
   padding-right: 10px;
-} 
+}
 */
 
 .project__search-bar .ui.selection.active.dropdown .menu {
@@ -4889,4 +4892,22 @@ button.btn-verified {
   top: 50%;
   transform: translateY(-50%);
   padding: 13px 20px;
+}
+
+.error-search-project.angel-suggest{
+    height: 83px;
+}
+
+.btn-more-owner-angel {
+    background: var(--color-7);
+    color: var(--color-first);
+    font-size: 16px;
+    padding: 10px 0px;
+    border-radius: 5px;
+    width: inherit;
+    margin: 0 auto;
+    display: block;
+}
+.see-all-notifications{
+    color: #7583aac7;
 }

@@ -35,7 +35,7 @@
             <a class="nav__search" href="#"></a>
         @endif
         <div class="nav__notifications-wrap">
-            <a class="nav__notifications {{ $check_notif ? 'has-notific' : '' }}" href="#"></a>
+            <a class="nav__notifications {{ $check_notif ? 'has-notific' : 'non-notific' }}" href="{{ $check_notif ? '#' : route("notifications") }}"></a>
             <ul class="nav__notifications-popup">
                 @if(!Auth::user()->hasVerifiedEmail())
 {{--                    <li>Email not verified</li>--}}
@@ -62,6 +62,7 @@
                     @endforeach
                 @endif
 
+                    <li><a class="see-all-notifications" href="{{route("notifications")}}">See All Notifications</a></li>
             </ul>
         </div>
         @if(!empty(Auth::user()->detail->photo))

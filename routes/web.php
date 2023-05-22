@@ -80,6 +80,10 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/home-angel', [InvestorController::class, 'indexInvestor'])->name('homeInvestor');
 
+    //notifications
+    Route::get('/notifications', [HomeController::class, 'notifications'])->name('notifications');
+    Route::get('/profile/{id}/projects', [HomeController::class, 'viewProfileProjects'])->name('viewProfileProjects');
+
 
     Route::get('/profile', [HomeController::class, 'profile'])->name('profile');
     Route::post('/profile/save', [HomeController::class, 'profileSave'])->name('profileSave');
@@ -96,6 +100,18 @@ Route::middleware(['auth'])->group(function () {
 
     // ajax share-profile
     Route::post('/share-profile', [HomeController::class, 'ajaxShareProfile']);
+
+    //ajax load agents
+    Route::post('/dashboard-load-agents', [OwnerController::class, 'dashboardAgentsLoad'])->name('dashboardAgentsLoad');
+
+    //ajax public profile favorite
+    Route::post('/profile-public/favorite', [OwnerController::class, 'profilePublicFavorite'])->name('profilePublicFavorite');
+
+    //ajax load projects more
+    Route::post('/dashboard-load-projects', [InvestorController::class, 'dashboardProjectsLoad'])->name('dashboardProjectsLoad');
+
+    //ajax notifications
+    Route::post('/notifications-ajax', [HomeController::class, 'notificationsAjax'])->name('notificationsAjax');
 
     // project
     Route::get('/create-project', [OwnerController::class, 'createProject'])->name('createProject');

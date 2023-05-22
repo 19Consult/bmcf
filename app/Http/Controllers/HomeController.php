@@ -18,6 +18,10 @@ use App\Mail\MailTestTemplateBlade;
 use App\Models\Projects;
 use App\Models\NotificationsUsers;
 use App\Models\ReportProblems;
+use App\Models\NdaProjects;
+use App\Models\FavoriteProject;
+
+use Illuminate\Support\Facades\URL;
 
 class HomeController extends Controller
 {
@@ -371,7 +375,7 @@ class HomeController extends Controller
             Mail::to($emails)->send(new MailGeneralTemplate($data));
             */
 
-            $text_notification = "User " . Auth::user()->name . " shared the " . $profile->name . " profile with you (follow the link for review: " . $link . ").";
+            $text_notification = "User " . Auth::user()->name . " shared " . $profile->name . " profile with you (follow the link for review: " . $link . ").";
             $data = [
                 'subject' => '',
                 'first_name' => '',
@@ -394,5 +398,128 @@ class HomeController extends Controller
             'status' => '0',
         ]);
     }
+
+    public function notifications(){
+        $data['title_page'] = 'Notifications';
+
+        $userId = Auth::id();
+        //$userId = 14;
+
+//        $perPage = 10;
+//
+//        $notifications = NotificationsUsers::where('user_id', $userId)
+//            ->orderBy('seen', 'asc')
+//            ->orderBy('id', 'desc')
+//            ->paginate($perPage);
+//
+//        $data['notifications'] = $notifications;
+
+        $nda_notifications = null;
+        if(User::checkOwner()){
+            $nda_notifications = NdaProjects::where('owner_pr_id', auth()->id())->where('seen', false)->where('status', 'pending')->get();
+        }
+        $data['nda_notifications'] = $nda_notifications;
+
+        $notificationsChat = CustomMessagesController::getNotSeeMessage();
+        $data['notificationsChat'] = $notificationsChat;
+
+        return view("notifications", ['data' => $data]);
+
+    }
+
+    public function  notificationsAjax(Request $request){
+        $offset = $request->input('offset', 0);
+        $limit = 5;
+
+        $notifications = NotificationsUsers::where('user_id', Auth::id())
+            ->orderBy('seen', 'asc')
+            ->orderBy('id', 'desc')
+            ->offset($offset)
+            ->limit($limit)
+            ->get();
+
+        $posts = [
+            'data' => $notifications,
+        ];
+
+        return response()->json($posts);
+    }
+
+    public function viewProfileProjects($id, Request $request){
+        $data['title_page'] = '';
+
+        $user_detail = UserDetail::where('user_id', $id)->first();
+        if (!$user_detail || !User::checkInvestor()){
+            return redirect()->back();
+        }
+        $data['user'] = $user_detail;
+
+        $data['projects'] = [];
+
+        $data['open_projects'] = $request->get("view-projects", 0);
+
+        if($data['open_projects']){
+            $perPage = 6;
+
+            $projects = Projects::where('user_id', $id)
+                ->orderBy('id', 'desc')
+                ->paginate($perPage);
+
+            $data['projects'] = $projects;
+
+//            $currentUser = Auth::user();
+//            if ($currentUser) {
+//                $projects = $data['projects'];
+//                foreach ($projects as $key => $project) {
+//                    $projectID = $project->id;
+//
+//                    $ndaProject = NdaProjects::where('id_project', $projectID)
+//                        ->where('user_id', $currentUser->id)
+//                        ->where('status', 'signed')
+//                        ->first();
+//
+//                    if (!$ndaProject) {
+//                        $data['projects']->forget($key);
+//                    }
+//                }
+//            }
+
+
+            //data investor
+            $investor = UserDetail::where('user_id', Auth::id())->first();
+            $address_investor = '';
+            if(!empty($investor->street) && !empty($investor->house) && !empty($investor->city) && !empty($investor->country)){
+                $address_investor .= '(';
+
+                $address_investor .= (new CountryController)->getNameCountry($investor->country);
+                $address_investor .= ', ' . $investor->city;
+                $address_investor .= ', ' . $investor->street;
+                $address_investor .= ', ' . $investor->house;
+
+                if(!empty($investor->postal_code)){
+                    $address_investor .= ', ' . $investor->postal_code;
+                }
+
+                $address_investor .= ')';
+            }else{
+                $address_investor .= '(';
+                $user = User::where('id', $investor->user_id)->first();
+                $address_investor .= $user->email;
+                $address_investor .= ')';
+            }
+            $nda_address_investor = $investor->first_name . ' ' . $investor->last_name . ' ' . $address_investor;
+
+            $data['favorite_project'] = FavoriteProject::where('user_id', Auth::id())->pluck('project_id')->toArray();
+        }
+
+
+
+
+        return view("profile-projects", [
+            'data' => $data,
+            'nda_address_investor' => $nda_address_investor,
+        ]);
+    }
+
 
 }
