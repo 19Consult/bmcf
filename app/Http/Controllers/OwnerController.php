@@ -108,10 +108,17 @@ class OwnerController extends Controller
 
             $notificationsUsers = collect();
             $text_notification = "A new project added \"" . $project->name_project . "\" matches your interest";
+
+            $url = route('dashboardInvestor') . '?id_project=' . $project->id;
+            $path = URL::to($url);
+            $baseUrl = URL::to('/');
+            $url_link = str_replace($baseUrl, '', $path);
+
             foreach ($userIds as $userId) {
                 $notificationsUsers->push([
                     'user_id' => $userId,
                     'text' => $text_notification,
+                    'url' => $url_link
                 ]);
             }
             NotificationsUsers::insert($notificationsUsers->toArray());
@@ -292,7 +299,7 @@ class OwnerController extends Controller
         $project_detail = Projects::where('id', $project_id)->first();
         $text_notification = "Status changed to " . $ndaProjects->status . " for project " . $project_detail->name_project;
 
-        $url = route('ndaList');
+        $url = route('viewProject', ['id' => $project_id]);
         $path = URL::to($url);
         $baseUrl = URL::to('/');
         $url_link = str_replace($baseUrl, '', $path);
