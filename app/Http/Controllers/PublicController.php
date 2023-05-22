@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\UserDetail;
 use App\Models\CategoryName;
 use App\Models\accountDeletionConfirmation;
+use App\Models\FavoriteProfileOwner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -53,6 +54,7 @@ class PublicController extends Controller
 
         $check_type = false;
         $check_nda = false;
+        $check_favorite_owner = false;
         if(Auth::check() && Auth::id() != $id){
             $check_type = true;
 
@@ -71,6 +73,14 @@ class PublicController extends Controller
                 }
             }
 
+            //Favorite
+            $favorite_profile = FavoriteProfileOwner::where('owner_id', auth()->id())->where('investor_id', $id)->first();
+            if(!$favorite_profile){
+                $check_favorite_owner = false;
+            }else{
+                $check_favorite_owner = true;
+            }
+
         }
 
         return view("profile-public", [
@@ -78,6 +88,7 @@ class PublicController extends Controller
             'user_id' => $id,
             'check_type' => $check_type,
             'check_nda' => $check_nda,
+            'check_favorite_owner' => $check_favorite_owner,
         ]);
     }
 

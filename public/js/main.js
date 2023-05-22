@@ -90,7 +90,7 @@ jQuery(document).ready(function ($) {
 	$('.projects-search-v1 .project__title').click(function(){
 		$('.project-preview').addClass('open');
 	})
-	$('.projects-search-v2 .project__title').click(function(){
+	$(document).on('click', '.projects-search-v2 .project__title', function(){
 		$('.projects-wrapper').fadeOut(function(){
 			$('.project-preview__wrap--page').addClass('open');
 		});
@@ -186,7 +186,7 @@ jQuery(document).ready(function ($) {
         $('.nda-agreement.nda-agreement--popup').removeClass('open');
     })
 
-    $('.project__favorite').click(function() {
+    $(document).on('click', '.project__favorite', function() {
 
         $.ajaxSetup({
             headers: {
@@ -525,6 +525,11 @@ jQuery(document).ready(function ($) {
         }
 
 	})
+
+    // $('body').on('click','.nav__notifications', function() {
+    //     console.log(123)
+    //     $(this).siblings('.nav__notifications-popup').toggleClass('show')
+    // })
 
 	$('.nda__more').click(function(){
 		if(!$(this).hasClass('open')) {
