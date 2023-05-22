@@ -374,8 +374,9 @@ class HomeController extends Controller
             ];
             Mail::to($emails)->send(new MailGeneralTemplate($data));
             */
+            // substr($profile->name, 0, strlen($profile->name) / 2).'...'
 
-            $text_notification = "User " . Auth::user()->name . " shared " . $profile->name . " profile with you (follow the link for review: " . $link . ").";
+            $text_notification = "User " . Auth::user()->name . " shared " . substr($profile->name, 0, strlen($profile->name) / 2).'' . " profile with you (follow the link for review: " . $link . ").";
             $data = [
                 'subject' => '',
                 'first_name' => '',
@@ -484,35 +485,33 @@ class HomeController extends Controller
 //                }
 //            }
 
-
-            //data investor
-            $investor = UserDetail::where('user_id', Auth::id())->first();
-            $address_investor = '';
-            if(!empty($investor->street) && !empty($investor->house) && !empty($investor->city) && !empty($investor->country)){
-                $address_investor .= '(';
-
-                $address_investor .= (new CountryController)->getNameCountry($investor->country);
-                $address_investor .= ', ' . $investor->city;
-                $address_investor .= ', ' . $investor->street;
-                $address_investor .= ', ' . $investor->house;
-
-                if(!empty($investor->postal_code)){
-                    $address_investor .= ', ' . $investor->postal_code;
-                }
-
-                $address_investor .= ')';
-            }else{
-                $address_investor .= '(';
-                $user = User::where('id', $investor->user_id)->first();
-                $address_investor .= $user->email;
-                $address_investor .= ')';
-            }
-            $nda_address_investor = $investor->first_name . ' ' . $investor->last_name . ' ' . $address_investor;
-
             $data['favorite_project'] = FavoriteProject::where('user_id', Auth::id())->pluck('project_id')->toArray();
+
         }
 
+        //data investor
+        $investor = UserDetail::where('user_id', Auth::id())->first();
+        $address_investor = '';
+        if(!empty($investor->street) && !empty($investor->house) && !empty($investor->city) && !empty($investor->country)){
+            $address_investor .= '(';
 
+            $address_investor .= (new CountryController)->getNameCountry($investor->country);
+            $address_investor .= ', ' . $investor->city;
+            $address_investor .= ', ' . $investor->street;
+            $address_investor .= ', ' . $investor->house;
+
+            if(!empty($investor->postal_code)){
+                $address_investor .= ', ' . $investor->postal_code;
+            }
+
+            $address_investor .= ')';
+        }else{
+            $address_investor .= '(';
+            $user = User::where('id', $investor->user_id)->first();
+            $address_investor .= $user->email;
+            $address_investor .= ')';
+        }
+        $nda_address_investor = $investor->first_name . ' ' . $investor->last_name . ' ' . $address_investor;
 
 
         return view("profile-projects", [
