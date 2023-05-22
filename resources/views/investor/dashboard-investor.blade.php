@@ -175,7 +175,8 @@
                                             },
                                             success: function(response) {
                                                 //console.log(response)
-                                                if (response.data.length > 0) {
+                                                // if (response.data !== undefined && response.data.length !== undefined && ) {
+                                                if (response.data !== undefined && response.data.length !== undefined && response.data.length > 0) {
 
                                                     let title = `<div class="error-search-project angel-suggest">Project Suggested for you</div>`;
                                                     $('#project-more-list').append(title);
