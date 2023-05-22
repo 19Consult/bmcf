@@ -514,6 +514,7 @@ class InvestorController extends Controller
         $limit = 5;
         //$limit = 1;
 
+        try{
         $favorite_project = FavoriteProject::where('user_id', Auth::id())->pluck('project_id')->toArray();
 
         $user = Auth::user()->detail;
@@ -552,7 +553,7 @@ class InvestorController extends Controller
         $using_ajax_projects = session('using_ajax_projects');
         //delete id using projects
         $id_projects_more = array_diff($id_projects_more, $using_ajax_projects);
-        
+
 
         $list_projects_more = Projects::whereIn('id', $id_projects_more)
             ->offset($offset)
@@ -600,8 +601,12 @@ class InvestorController extends Controller
 
         }
 
-
         return response()->json($data_ajax);
+        } catch (\Exception $e) {
+            //$e->getMessage();
+            $data_ajax['data'] = [];
+            return response()->json($data_ajax);
+        }
 
     }
 
