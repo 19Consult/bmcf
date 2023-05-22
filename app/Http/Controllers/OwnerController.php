@@ -291,9 +291,16 @@ class OwnerController extends Controller
         //add notification
         $project_detail = Projects::where('id', $project_id)->first();
         $text_notification = "Status changed to " . $ndaProjects->status . " for project " . $project_detail->name_project;
+
+        $url = route('ndaList');
+        $path = URL::to($url);
+        $baseUrl = URL::to('/');
+        $url_link = str_replace($baseUrl, '', $path);
+
         NotificationsUsers::create([
             'user_id' => $ndaProjects->user_id,
             'text' => $text_notification,
+            'url' => $url_link,
         ]);
 
         try {
@@ -337,9 +344,16 @@ class OwnerController extends Controller
         //add notification
         $project_detail = Projects::where('id', $project_id)->first();
         $text_notification = "Status changed to " . $ndaProjects->status . " for project " . $project_detail->name_project;
+
+        $url = route('ndaList');
+        $path = URL::to($url);
+        $baseUrl = URL::to('/');
+        $url_link = str_replace($baseUrl, '', $path);
+
         NotificationsUsers::create([
             'user_id' => $ndaProjects->user_id,
             'text' => $text_notification,
+            'url' => $url_link,
         ]);
 
         //Email
@@ -601,6 +615,7 @@ class OwnerController extends Controller
                 'user_id' => $investor_id,
                 'text' => $text_notification,
                 'url' => $url_link,
+                'type' => 'like',
             ]);
 
             return response()->json(['success' => true, 'data' => $favorite_profile]);
