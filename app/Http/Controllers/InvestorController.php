@@ -411,9 +411,18 @@ class InvestorController extends Controller
         $sort_order = $request->input('sort_order', 'desc');
         $items_per_page = $request->input('items_per_page', 3);
 
+        //Current id project
+        $current_id_project = $request->input('id_project', 0);
+
+
         //Search
-        if(isset($categories) || isset($search_keyword)){
+        if(isset($categories) || isset($search_keyword) || $current_id_project != 0){
             $query = Projects::query();
+
+            if($current_id_project != 0){
+                $query->where('id', $current_id_project);
+            }
+
             //$query->where('user_id', Auth::id());
             if ($categories) {
                 $query->where('keyword1', 'LIKE', '%' . $categories . '%')
