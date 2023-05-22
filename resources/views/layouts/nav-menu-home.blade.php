@@ -63,8 +63,9 @@
                         if( !empty($val->url) ){
                             $link = url($val->url);
                         }
+                        //notification-user -- class
                         @endphp
-                        <li><a class="notification-user" data-id="{{$val->id}}" href="{{$link}}">{{$val->text}}</a></li>
+                        <li><a class="" data-id="{{$val->id}}" href="{{$link}}">{{$val->text}}</a></li>
                     @endforeach
                 @endif
 
