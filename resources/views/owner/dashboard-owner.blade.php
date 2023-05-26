@@ -8,7 +8,7 @@
             @include("layouts.sidebar")
             <div class="dashboard__wrapper projects-wrapper">
                 <form class="project__search-bar" method="GET" action="">
-                    <div style="color: var(--color-first);">Selected for you</div>
+
                     <div class="project__search-field">
                         <input name="search_keyword" type="text" placeholder="Search by Keyword" value="{{$search_keyword}}">
                         <button class="search-btn" onchange="this.form.submit()"></button>
@@ -40,7 +40,9 @@
 
                 </form>
                 <div class="dashboard-begin">
+
                     <div class="dashboard-s1">
+                        <div class="title-dashboard">My projects</div>
                         @if(!empty($data['projects']) && isset($data['projects']) && $data['projects']->toArray()['total'] > 0)
                             @foreach($data['projects'] as $key => $val)
                                 <?php
@@ -89,7 +91,9 @@
                             <div class="error-search-project">Sorry, nothing found</div>
                         @endif
                     </div>
+                    <div class="dashboard-line"></div>
                     <div class="dashboard-s2">
+                        <div class="title-dashboard">Angels under NDA</div>
                         @if(!empty($data['nda_list']) && isset($data['nda_list']) && count($data['nda_list']->toArray()) > 0)
                             <?php
                                 $using_user = [];
@@ -170,7 +174,7 @@
                                                 //console.log(response)
                                                 if (response.data.length > 0) {
 
-                                                    let title = `<div class="error-search-project angel-suggest">Angels suggested for you</div>`;
+                                                    let title = `<div class="error-search-project angel-suggest">Suggested Angels</div>`;
                                                     $('#angel-more-list').append(title);
                                                     $('#angel-more-list').show();
 

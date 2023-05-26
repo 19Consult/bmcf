@@ -63,6 +63,18 @@ class HomeController extends Controller
     }
 
     public function profile(){
+
+//        $user_id_email = Auth::id();
+//        if(User::checkInvestor($user_id_email)){
+//            echo 'investor';
+//            $user_investor_info = User::where('id', $user_id_email)->first();
+//            $user_investor_email = $user_investor_info->email;
+//
+//            if(isset($user_investor_info->detail) && !empty($user_investor_info->detail) && $user_investor_info->detail->notification_email){
+//                echo 'true';
+//            }
+//        }
+
         $data['title_page'] = 'My Profile';
         $data['user'] = Auth::user();
         $data['userDetail'] = null;
@@ -129,16 +141,6 @@ class HomeController extends Controller
             $path = public_path('profile-photos/');
             $photo->move($path, $filename);
             $data['photo'] = 'profile-photos/' . $filename;
-
-
-//            $user_module = User::where('id', $user_id)->first();
-//            // сохраняем в storage-директории
-//            $path_storage = storage_path('app/public/users-avatar/');
-//            $photo->move($path_storage, $filename);
-//            $user_module->avatar = $filename;
-//            $user_module->save();
-
-
         }
 
 
@@ -161,10 +163,6 @@ class HomeController extends Controller
         $user->email = $request->get('email');
         $user->name = $request->get('first_name') . ' ' . $request->get('last_name');
         $user->save();
-
-//        if($data['city'] == 0){
-//            $data['city'] = null;
-//        }
 
         if ($user_detail) {
             $user_detail->update($data);
@@ -227,9 +225,6 @@ class HomeController extends Controller
         return redirect(route("profile"))->with('success', 'Account deletion request sent!');
     }
 
-//    public function chatView(){
-//        return view('chat-view');
-//    }
 
     public function markAsRead($id){
         if($id == 'all'){
@@ -301,18 +296,6 @@ class HomeController extends Controller
         //Email
         try {
             $link = route("viewProjectPublic", ['id' => $project_id]);
-//            $text_notification = '';
-//            $text_notification .= "<p>Hi,<br>";
-//            $text_notification .= "User " . Auth::user()->name . " shared the " . $project->name_project . " project with you (<a href=\"$link\">follow the link for review</a>).<br>";
-//            $text_notification .= "Thank you,<br>";
-//            $text_notification .= "Membership team<br>";
-//            $text_notification .= "<a href=\"" . route("welcome") . "\">BeMyCoFounders.com</a></p>";
-
-//            $text_notification = "Hi,\n" .
-//                "User " . Auth::user()->name . " shared the " . $project->name_project . " project with you (follow the link for review: " . $link . ").\n" .
-//                "Thank you,\n" .
-//                "Membership team\n" .
-//                "BeMyCoFounders.com";
 
             /*
             $data = [

@@ -51,46 +51,6 @@
                     </div>
                 </div>
 
-                <script>
-                    document.addEventListener('DOMContentLoaded', function () {
-
-                        // $(document).ready(function () {
-                        //     $.ajaxSetup({
-                        //         headers: {
-                        //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        //         }
-                        //     });
-                        //
-                        //     $('.project__favorite').click(function() {
-                        //         var project_id = $(this).attr('project-id');
-                        //         console.log(project_id)
-                        //
-                        //         let data = {
-                        //             project_id: project_id,
-                        //         };
-                        //
-                        //         $.ajax({
-                        //             url: '/project/favorite',
-                        //             method: 'POST',
-                        //             data: data,
-                        //             success: function(data) {
-                        //                 let favoriteClass = $(`.favorite-projid-${project_id}`);
-                        //
-                        //                 if(data.success){
-                        //                     favoriteClass.addClass("active")
-                        //                 }else {
-                        //                     favoriteClass.removeClass("active")
-                        //                 }
-                        //             },
-                        //             error: function(xhr, textStatus, errorThrown) {
-                        //                 console.log(xhr.responseText); // replace with your own error callback function
-                        //             }
-                        //         });
-                        //     });
-                        // });
-                    });
-                </script>
-
                 <form class="form-profile project-form" action="">
                     <div class="row project-field">
                         <div class="col title">Project Story</div>
@@ -104,29 +64,33 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row project-video">
-                        <div class="col title">Video Teaser </div>
-                        <div class="col fields">
-                            <div class="col row-field">
-                                <a href="{{!empty($data['project']->youtube_link) ? $data['project']->youtube_link : ''}}">{{!empty($data['project']->youtube_link) ? $data['project']->youtube_link : ''}}</a>
-                            </div>
-                            <div class="col row-field">
-                                <a href="{{!empty($data['project']->vimeo_link) ? $data['project']->vimeo_link : ''}}">{{!empty($data['project']->vimeo_link) ? $data['project']->vimeo_link : ''}}</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row project-plan">
-                        <div class="col title">Business Plan</div>
-                        <div class="col fields">
-                            <div class="col row-field">
-                                <div class="form_input_wrap full-text">
-                                    @if(!empty($data['project']->business_plan))
-                                        {!! $data['project']->business_plan !!}
-                                    @endif
+                    @if( !$data['project']->video_skip )
+                        <div class="row project-video">
+                            <div class="col title">Video Teaser </div>
+                            <div class="col fields">
+                                <div class="col row-field">
+                                    <a href="{{!empty($data['project']->youtube_link) ? $data['project']->youtube_link : ''}}">{{!empty($data['project']->youtube_link) ? $data['project']->youtube_link : ''}}</a>
+                                </div>
+                                <div class="col row-field">
+                                    <a href="{{!empty($data['project']->vimeo_link) ? $data['project']->vimeo_link : ''}}">{{!empty($data['project']->vimeo_link) ? $data['project']->vimeo_link : ''}}</a>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    @endif
+                    @if( !$data['project']->business_plan_skip )
+                        <div class="row project-plan">
+                            <div class="col title">Business Plan</div>
+                            <div class="col fields">
+                                <div class="col row-field">
+                                    <div class="form_input_wrap full-text">
+                                        @if(!empty($data['project']->business_plan))
+                                            {!! $data['project']->business_plan !!}
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
                     <div class="row">
                         <div class="col title">CoFounder Terms & Conditions</div>
                         <div class="col fields">

@@ -9,7 +9,7 @@
         @include("layouts.sidebar")
         <div class="projects-wrapper">
             <form class="project__search-bar" method="GET" action="">
-                <div style="color: var(--color-first);">Selected for you</div>
+                
                 <div class="project__search-field">
                     <input name="search_keyword" type="text" placeholder="Search by Keyword" value="{{$search_keyword}}">
                     <button class="search-btn" onchange="this.form.submit()"></button>
