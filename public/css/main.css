@@ -4896,6 +4896,10 @@ button.btn-verified {
 
 .error-search-project.angel-suggest{
     height: 83px;
+    justify-content: flex-start;
+    color: var(--color-6);
+    font-size: 20px;
+    font-weight: 400;
 }
 
 .btn-more-owner-angel {
@@ -4910,4 +4914,29 @@ button.btn-verified {
 }
 .see-all-notifications{
     color: #7583aac7;
+}
+
+.dashboard-wrapper .title-dashboard {
+    color: var(--color-6);
+    height: 40px;
+    font-size: 20px;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    margin-bottom: 18px;
+}
+.dashboard__wrapper .dashboard-s1{
+    margin-right: 8px;
+}
+.dashboard__wrapper .dashboard-s2{
+    margin-left: 8px;
+}
+.dashboard__wrapper .dashboard-line {
+    width: 3px;
+    height: 100%;
+    background-color: #e5eaf5;
+}
+.dashboard-wrapper.angel-dashboard .dashboard-s1.margin {
+    margin-left: 8px;
+    margin-right: 0px;
 }

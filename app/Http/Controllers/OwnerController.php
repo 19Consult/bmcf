@@ -120,6 +120,29 @@ class OwnerController extends Controller
                     'text' => $text_notification,
                     'url' => $url_link
                 ]);
+
+                try {
+
+                    $user_investor_id = $userId;
+                    $user_investor_info = User::where('id', $user_investor_id)->first();
+                    $user_investor_email = $user_investor_info->email;
+
+                    $text_body = "A new project added \"" . $project->name_project . "\" matches your interest." . 'Please, <a href="' . $url . '">click here</a>';
+
+                    $data = [
+                        'subject' => '',
+                        'first_name' => $user_investor_info->name,
+                        'text_body' => $text_body,
+                        'text_before' => '',
+                    ];
+
+                    if(isset($user_investor_info->detail) && !empty($user_investor_info->detail) && $user_investor_info->detail->new_project_email){
+                        Mail::to($user_investor_email)->send(new MailTestTemplateBlade($data));
+                    }
+
+                } catch (\Exception $e) {
+                    $e->getMessage();
+                }
             }
             NotificationsUsers::insert($notificationsUsers->toArray());
             //
@@ -326,7 +349,9 @@ class OwnerController extends Controller
                 'text_before' => '',
             ];
 
-            Mail::to($user_investor_email)->send(new MailTestTemplateBlade($data));
+            if(isset($user_investor_info->detail) && !empty($user_investor_info->detail) && $user_investor_info->detail->nda_approved_email){
+                Mail::to($user_investor_email)->send(new MailTestTemplateBlade($data));
+            }
 
         } catch (\Exception $e) {
             $e->getMessage();
@@ -377,7 +402,9 @@ class OwnerController extends Controller
                 'text_before' => '',
             ];
 
-            Mail::to($user_email)->send(new MailTestTemplateBlade($data));
+            if(isset($user->detail) && !empty($user->detail) && $user->detail->nda_approved_email){
+                Mail::to($user_email)->send(new MailTestTemplateBlade($data));
+            }
 
         } catch (\Exception $e) {
             $e->getMessage();
@@ -425,7 +452,13 @@ class OwnerController extends Controller
                         'text_before' => '',
                     ];
 
-                    Mail::to($user_email)->send(new MailTestTemplateBlade($data));
+
+                    if(User::checkInvestor($user_id)){
+                        if(isset($user->detail) && !empty($user->detail) && $user->detail->notification_email){
+                            Mail::to($user_email)->send(new MailTestTemplateBlade($data));
+                        }
+                    }
+
 
                 } catch (\Exception $e) {
                     $e->getMessage();
