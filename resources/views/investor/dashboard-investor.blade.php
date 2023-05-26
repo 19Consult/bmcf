@@ -4,11 +4,11 @@
 
     <main class="wrapper profile projects-search-v2">
         @include("layouts.nav-menu-home", ['title_page' => $data['title_page']])
-        <div class="dashboard-wrapper">
+        <div class="dashboard-wrapper angel-dashboard">
             @include("layouts.sidebar")
             <div class="dashboard__wrapper projects-wrapper">
                 <form class="project__search-bar" method="GET" action="">
-                    <div style="color: var(--color-first);">Selected for you</div>
+
                     <div class="project__search-field">
                         <input name="search_keyword" type="text" placeholder="Search by Keyword" value="{{$search_keyword}}">
                         <button class="search-btn" onchange="this.form.submit()"></button>
@@ -40,6 +40,7 @@
                 </form>
                 <div class="dashboard-begin">
                     <div class="dashboard-s1">
+                        <div class="title-dashboard">Suggested Projects</div>
                         @if(!empty($data['projects_int']) && isset($data['projects_int']) && count($data['projects_int']->toArray()) > 0)
 
                             @foreach($data['projects_int'] as $key => $val)
@@ -94,7 +95,9 @@
                             <div class="error-search-project">Sorry, nothing found</div>
                         @endif
                     </div>
+                    <div class="dashboard-line"></div>
                     <div class="dashboard-s1 margin">
+                        <div class="title-dashboard">Projects under NDA</div>
                         @if(!empty($data['single_nda_project']) && isset($data['single_nda_project']) && count($data['single_nda_project']->toArray()) > 0)
                             @foreach($data['single_nda_project'] as $key => $val)
                                 <?php
@@ -178,7 +181,7 @@
                                                 // if (response.data !== undefined && response.data.length !== undefined && ) {
                                                 if (response.data !== undefined && response.data.length !== undefined && response.data.length > 0) {
 
-                                                    let title = `<div class="error-search-project angel-suggest">Project Suggested for you</div>`;
+                                                    let title = `<div class="error-search-project angel-suggest">Suggested Projects</div>`;
                                                     $('#project-more-list').append(title);
                                                     $('#project-more-list').show();
 
