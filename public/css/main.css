@@ -4245,7 +4245,20 @@ body {
       -ms-flex-pack: justify;
           justify-content: space-between;
   padding-top: 20px;
-  gap: 40px;
+  gap: 70px;
+}
+.home-page__middle .form_input_wrap {
+  text-align: left;
+}
+.home-page__middle-right {
+  text-align: right;
+}
+.home-page__middle-right .home-page__title-top::after {
+  left: unset !important;
+  right: 0;
+}
+.home-page__middle-right .btn {
+  margin-left: auto;
 }
 .home-page__middle .col {
   width: 50%;
@@ -4269,6 +4282,18 @@ body {
 }
 .home-page__middle .btn {
   margin-bottom: min(4.5rem, 72px);
+}
+.home-page__middle .right-title {
+  font-size: 30px;
+  line-height: 1.2;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+.home-page__middle .right-descr {
+  max-width: 300px;
+  margin-left: auto;
+  line-height: 1.2;
+  margin-bottom: 30px;
 }
 .home-page__title {
   margin-bottom: 30px;
@@ -4301,6 +4326,7 @@ body {
 }
 .home-page__descr-wrapper {
   height: 170px;
+  text-align: left;
 }
 .home-page__descr-title {
   margin-bottom: 24px;
