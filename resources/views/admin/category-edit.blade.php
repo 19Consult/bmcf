@@ -22,5 +22,14 @@
     </main>
 @endsection
 
+<style>
+    .admin-users .profile__wrapper form button{
+        margin-top: 20px;
+        border-radius: 5px;
+        padding: 10px 21px;
+        font-weight: 500;
+        font-size: 14px;
+    }
+</style>
 
 
