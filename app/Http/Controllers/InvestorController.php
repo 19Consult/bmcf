@@ -71,7 +71,11 @@ class InvestorController extends Controller
                     ->orWhere('brief_description', 'LIKE', "%{$search_keyword}%")
                     ->orWhere('project_story', 'LIKE', "%{$search_keyword}%")
                     ->orWhere('business_plan', 'LIKE', "%{$search_keyword}%")
-                    ->orWhere('co_founder_terms_condition', 'LIKE', "%{$search_keyword}%");
+                    ->orWhere('co_founder_terms_condition', 'LIKE', "%{$search_keyword}%")
+
+                    ->orWhere('keyword1', 'LIKE', '%' . $search_keyword . '%')
+                    ->orWhere('keyword2', 'LIKE', '%' . $search_keyword . '%')
+                    ->orWhere('keyword3', 'LIKE', '%' . $search_keyword . '%');
             });
         }
 
@@ -435,7 +439,11 @@ class InvestorController extends Controller
                         ->orWhere('brief_description', 'LIKE', "%{$search_keyword}%")
                         ->orWhere('project_story', 'LIKE', "%{$search_keyword}%")
                         ->orWhere('business_plan', 'LIKE', "%{$search_keyword}%")
-                        ->orWhere('co_founder_terms_condition', 'LIKE', "%{$search_keyword}%");
+                        ->orWhere('co_founder_terms_condition', 'LIKE', "%{$search_keyword}%")
+
+                        ->orWhere('keyword1', 'LIKE', '%' . $search_keyword . '%')
+                        ->orWhere('keyword2', 'LIKE', '%' . $search_keyword . '%')
+                        ->orWhere('keyword3', 'LIKE', '%' . $search_keyword . '%');
                 });
             }
             $query->orderBy($sort_by, $sort_order);

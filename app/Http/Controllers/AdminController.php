@@ -292,18 +292,27 @@ class AdminController extends Controller
         return redirect()->back()->with('success', 'User deleted successfully.');
     }
 
-    public function categoryList(){
+    public function categoryList(Request $request){
         $data['title_page'] = 'Category list';
 
         $data['category_list'] = [];
 
-        $category_list = CategoryName::all();
-        if (!empty($category_list)){
+        $searchTerm = $request->get('q', false);
+
+        if($searchTerm){
+            $category_list = CategoryName::where('category_name', 'LIKE', '%' . $searchTerm . '%')->orderBy('category_name', 'asc')->get();
+        }else{
+            //$category_list = CategoryName::all();
+            $category_list = CategoryName::orderBy('category_name', 'asc')->get();
+        }
+
+        if (isset($category_list) && !empty($category_list)){
             $data['category_list'] = $category_list;
         }
 
         return view("admin.category-list", [
             'data' => $data,
+            'searchTerm' => $searchTerm,
         ]);
     }
 

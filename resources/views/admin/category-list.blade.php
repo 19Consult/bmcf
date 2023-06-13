@@ -6,7 +6,18 @@
         <div class="dashboard-wrapper">
             @include("admin.sidebar")
             <div class="profile__wrapper category-list">
-                <a href="{{route("admin.category.create")}}" class="link-cat create-new">Add new category</a>
+                <div class="div-header2-panel-cat">
+                    <a href="{{route("admin.category.create")}}" class="link-cat create-new">Add new category</a>
+
+                    <form action="" method="get" class="form-header2-panel-cat">
+                        <input name="q" type="text" value="{{($searchTerm) ? $searchTerm : ''}}">
+                        <button class="link-cat" type="submit">Search</button>
+                    </form>
+
+                    <a href="{{route("admin.category.list")}}">Reset Search</a>
+                </div>
+
+
                 <ul>
                     @if(!empty($data['category_list']))
                         @foreach($data['category_list'] as $val)
@@ -29,6 +40,28 @@
 
 
 <style>
+
+    .div-header2-panel-cat  a.link-cat.create-new{
+        padding: 12px 10px;
+        background: var(--color-2);
+    }
+
+    .form-header2-panel-cat button{
+        margin-left: 20px !important;
+        background: var(--color-2);
+    }
+    .form-header2-panel-cat{
+        display: flex;
+        align-items: center;
+        align-content: center;
+        margin: 0px 20px;
+    }
+    .div-header2-panel-cat {
+        display: flex;
+        flex-direction: row;
+        align-content: center;
+        align-items: center;
+    }
     .category-list li{
         display: flex;
         justify-content: space-between;
