@@ -323,7 +323,7 @@ class AdminController extends Controller
 
         if($request->get("category_name")){
             $category_name = CategoryName::create(['category_name' => $request->get("category_name")]);
-            return redirect(route("admin.category.edit", ['id' => $category_name->id]));
+            return redirect(route("admin.category.list"))->with('success', 'Category added successfully!');
         }
 
         return view("admin.category-edit", [
@@ -348,12 +348,12 @@ class AdminController extends Controller
         $category = CategoryName::where('id', $id)->first();
         $category->update(['category_name' => $request->get("category_name")]);
 
-        return redirect()->back();
+        return redirect(route("admin.category.list"))->with('success', 'Category updated successfully!');
     }
 
     public function categoryDelete($id){
         CategoryName::where('id', $id)->delete();
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Category deleted successfully!');
     }
 
     public function settingsPage(){
