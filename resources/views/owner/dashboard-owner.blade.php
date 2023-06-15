@@ -7,22 +7,14 @@
         <div class="dashboard-wrapper">
             @include("layouts.sidebar")
             <div class="dashboard__wrapper projects-wrapper">
+
+                @if(false)
                 <form class="project__search-bar" method="GET" action="">
 
                     <div class="project__search-field">
                         <input name="search_keyword" type="text" placeholder="Search by Keyword" value="{{$search_keyword}}">
                         <button class="search-btn" onchange="this.form.submit()"></button>
                     </div>
-
-{{--                    <select name="categories" class="categories select-list" onchange="this.form.submit()">--}}
-{{--                        <option></option>--}}
-{{--                        <option selected="true" value="">All Categories</option>--}}
-{{--                        @if(!empty($data['category']))--}}
-{{--                            @foreach($data['category'] as $key => $val)--}}
-{{--                                <option value="{{$val->category_name}}" {{ $categories == $val->category_name ? 'selected' : '' }}>{{$val->category_name}}</option>--}}
-{{--                            @endforeach--}}
-{{--                        @endif--}}
-{{--                    </select>--}}
 
                     <div class="ui fluid search selection dropdown" style="width: auto;">
                         <input type="hidden" name="categories" value="{{(isset($categories) ) ? $categories : ''}}" onchange="this.form.submit()">
@@ -39,6 +31,8 @@
                     <a href="{{route("dashboardOwner")}}" class="btn--arrow btn--solid search-reset">Reset</a>
 
                 </form>
+                @endif
+
                 <div class="dashboard-begin">
 
                     <div class="dashboard-s1">
