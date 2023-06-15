@@ -168,6 +168,10 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/category/{id}/save', [AdminController::class, 'categorySave'])->name('admin.category.save');
         Route::get('/category/{id}/delete', [AdminController::class, 'categoryDelete'])->name('admin.category.delete');
 
+        Route::get('/categories/download', [AdminController::class, 'downloadExselCategories'])->name('admin.categories.download.exsel');
+        Route::post('/categories/upload', [AdminController::class, 'uploadExselCategories'])->name('admin.categories.upload.exsel');
+
+
 
         Route::get('/settings', [AdminController::class, 'settingsPage'])->name('admin.settingsPage');
         Route::post('/settings/save', [AdminController::class, 'settingsPageSave'])->name('admin.settingsPageSave');

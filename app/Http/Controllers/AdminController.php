@@ -17,6 +17,8 @@ use Illuminate\Validation\Rule;
 use League\Csv\Writer;
 use App\Models\SettingsTable;
 use App\Models\ReportProblems;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\CategoriesExport;
 
 class AdminController extends Controller
 {
@@ -501,6 +503,59 @@ class AdminController extends Controller
         }
 
         return redirect()->back()->with('success', 'Changes saved successfully!');
+    }
+
+
+    public function downloadExselCategories()
+    {
+        return Excel::download(new CategoriesExport(), 'categories.xlsx');
+    }
+
+    public function uploadExselCategories(Request $request)
+    {
+        // Drop old categories
+        CategoryName::truncate();
+
+        if ($request->hasFile('categories_file')) {
+            $file = $request->file('categories_file');
+
+            // Check type file
+            if ($file->getClientOriginalExtension() == 'xlsx' || $file->getClientOriginalExtension() == 'xls') {
+                //PhpSpreadsheet
+                $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+                // For .xls format use: $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xls();
+                if($file->getClientOriginalExtension() == 'xls'){
+                    $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xls();
+                }
+
+                $spreadsheet = $reader->load($file->getPathname());
+                $worksheet = $spreadsheet->getActiveSheet();
+
+                // Reading categories from file and saving to database
+                foreach ($worksheet->getRowIterator() as $row) {
+                    $cellIterator = $row->getCellIterator();
+                    $cellIterator->setIterateOnlyExistingCells(false);
+
+                    $categoryName = null;
+                    foreach ($cellIterator as $cell) {
+                        $categoryName = $cell->getValue();
+                        break; // Take only the first cell in a row
+                    }
+
+                    if ($categoryName) {
+                        CategoryName::create([
+                            'category_name' => $categoryName,
+                        ]);
+                    }
+                }
+
+                return redirect()->back()->with('success', 'The list of categories has been successfully updated');
+            } else {
+                return redirect()->back()->with('error', 'Invalid file format. Please upload the excel file');
+            }
+        }
+
+        return redirect()->back()->with('error', 'File upload error');
     }
 
 }
