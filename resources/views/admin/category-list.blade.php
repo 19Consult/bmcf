@@ -15,6 +15,17 @@
                     </form>
 
                     <a href="{{route("admin.category.list")}}">Reset Search</a>
+
+                    <div class="div-header2-panel-cat-import-exspot">
+                        <a href="{{ route('admin.categories.download.exsel') }}" class="btn btn-export-cat link-cat">Category export</a>
+
+                        <form action="{{ route('admin.categories.upload.exsel') }}" method="post" enctype="multipart/form-data">
+                            @csrf
+                            <input type="file" name="categories_file" accept=".xlsx, .xls">
+                            <button type="submit" class="btn btn-primary btn-export-cat link-cat">Import categories</button>
+                        </form>
+                    </div>
+
                 </div>
 
 
@@ -40,12 +51,30 @@
 
 
 <style>
+    .div-header2-panel-cat-import-exspot {
+        border-radius: 5px;
+        padding: 10px 10px;
+        margin: auto;
+    }
+    .div-header2-panel-cat-import-exspot .btn-export-cat.link-cat {
+        margin-left: 0px;
+        background: var(--color-2);
+        padding: 5px 10px;
+    }
+    .div-header2-panel-cat-import-exspot form{
+        margin-top: 15px;
+        border: 1px dotted var(--color-first);
+        border-radius: 5px;
+        padding: 10px 10px;
+    }
+    .div-header2-panel-cat-import-exspot form button{
+        margin-top: 10px;
+    }
 
     .div-header2-panel-cat  a.link-cat.create-new{
         padding: 12px 10px;
         background: var(--color-2);
     }
-
     .form-header2-panel-cat button{
         margin-left: 20px !important;
         background: var(--color-2);
