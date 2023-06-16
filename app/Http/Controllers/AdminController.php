@@ -274,6 +274,12 @@ class AdminController extends Controller
         Projects::where('user_id', $id)->delete();
         FavoriteProject::where('user_id', $id)->delete();
 
+        //Check user again
+        $user_check_again = User::find($id);
+        if ($user_check_again) {
+            $user_check_again->delete();
+        }
+
         //send email user
         try {
             //Mail::to($email)->send(new AccountDeletionNotification());
