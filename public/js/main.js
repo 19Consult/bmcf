@@ -40,7 +40,7 @@ jQuery(document).ready(function ($) {
 
             //console.log( bytesToKilobytes(file.size) )
 
-			if( bytesToKilobytes(file.size) <= 512 ){
+			if( bytesToKilobytes(file.size) <= 2048 ){
                 reader.addEventListener('load', (event) => {
                     const img = document.createElement('img');
                     imageGrid.querySelector('img').remove();
@@ -49,7 +49,10 @@ jQuery(document).ready(function ($) {
                     img.alt = file.name;
                 });
 
-                document.querySelector(".default-img-user").classList.remove('display-none');
+                if(document.querySelector('.default-img-user') !== null){
+                    document.querySelector(".default-img-user").classList.remove('display-none');
+                }
+
             }else {
 			    $('.style-span-max-size').css('color', 'var(--color-warning-2)');
                 console.log('max size 512 kb')
