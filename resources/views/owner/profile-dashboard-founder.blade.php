@@ -75,10 +75,10 @@
                                         <span></span>
                                     </div>
                                     <label>
-                                        <input type="file" name="photo" maxlength="524288" accept="image/*,image/jpeg" id="file-uploader"><span class="btn btn--solid btn--arrow btn--photo">Upload Photo</span>
+                                        <input type="file" name="photo" maxlength="2097152" accept="image/*,image/jpeg" id="file-uploader"><span class="btn btn--solid btn--arrow btn--photo">Upload Photo</span>
                                     </label>
                                 </div>
-                                <span class="style-span-max-size">*max size 512 kB</span>
+                                <span class="style-span-max-size">*max size 2 MB</span>
                             </div>
                         </div>
                     </div>
