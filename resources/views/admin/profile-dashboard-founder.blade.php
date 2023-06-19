@@ -1,13 +1,13 @@
-@extends('layouts.app')
+@extends('admin.loyout')
 
 @section('content')
-
-    <main class="wrapper profile">
-        @include("layouts.nav-menu", ['title_page' => $data['title_page']])
+    <main class="wrapper admin-users">
+        @include("admin.nav-menu", ['title_page' => $data['title_page']])
         <div class="dashboard-wrapper">
-            @include("layouts.sidebar")
+            @include("admin.sidebar")
             <div class="profile__wrapper">
-                <form class="form-profile" action="{{route("profileSave")}}" method="POST" enctype="multipart/form-data">
+
+                <form class="form-profile" action="{{route("admin.user.profile.save", ['id' => $data['user']->id])}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row base">
                         <div class="col title">Basic Info <span>*</span></div>
@@ -80,6 +80,7 @@
                                 </div>
                                 <span class="style-span-max-size">*max size 2 MB</span>
                             </div>
+                            <div class="btn-delete-photo-user" data-user-id="{{{$data['user']->id}}}">Delete photo</div>
                         </div>
                     </div>
                     <div class="row about">
@@ -114,13 +115,6 @@
 
                             <div class="row row-field">
                                 <div class="form_input_wrap">
-{{--                                    <select name="country" class="click-select-country select-list">--}}
-{{--                                        <option selected="true" disabled="disabled" id="country" name="country">Select country</option>--}}
-{{--                                        @foreach($data['allCountry'] as $key => $val)--}}
-{{--                                            <option value="{{$key}}" {{(isset($data['userDetail']->country) && $data['userDetail']->country == $key) ? 'selected' : ''}}>{{$val}}</option>--}}
-{{--                                        @endforeach--}}
-{{--                                    </select>--}}
-{{--                                    <label for="country">Country</label>--}}
 
                                     <div class="ui fluid search selection dropdown">
                                         <input type="hidden" name="country" value="{{(isset($data['userDetail']->country) ) ? $data['userDetail']->country : ''}}">
@@ -136,19 +130,6 @@
                                     <label for="country">Country</label>
                                 </div>
                                 <div class="form_input_wrap city-checkbox">
-{{--                                    <select name="city" class="click-select-cities select-list">--}}
-
-{{--                                        @if(isset($data['userDetail']->city) && !empty(isset($data['userDetail']->city)))--}}
-{{--                                            @foreach((new \App\Http\Controllers\CountryController)->getCities($data['userDetail']->country) as $val )--}}
-
-{{--                                                <option {{($data['userDetail']->city == $val) ? 'selected' : ''}} value="{{$val}}" >{{$val}}</option>--}}
-{{--                                            @endforeach--}}
-{{--                                        @else--}}
-{{--                                            <option selected="true" disabled="disabled" id="city" >Select city</option>--}}
-{{--                                        @endif--}}
-
-{{--                                    </select>--}}
-{{--                                    <label for="city">City</label>--}}
 
                                     <div class="ui fluid search selection dropdown ples-city-change">
                                         <input class="city-select-class" type="hidden" name="city" value="{{(isset($data['userDetail']->city) ) ? $data['userDetail']->city : ''}}">
@@ -208,21 +189,15 @@
                             <input type="checkbox" name="change_password" id="change_password" value="1">
                             <label for="change_password">Do you want to change your password?</label>
 
-                            <div class="col row-field change-password-fields first-row-cp">
-                                <div class="form_input_wrap">
-                                    <input id="current_password" type="password" name="current_password" autocomplete="off">
-                                    <label for="current_password">Current Password</label>
-                                </div>
-                            </div>
                             <div class="col row-field change-password-fields">
                                 <div class="form_input_wrap">
-                                    <input id="new_password" type="password" name="new_password" >
+                                    <input id="new_password" type="password" name="new_password" autocomplete="off">
                                     <label for="new_password">New Password</label>
                                 </div>
                             </div>
                             <div class="col row-field change-password-fields">
                                 <div class="form_input_wrap">
-                                    <input id="new_password_confirmation" type="password" name="new_password_confirmation" >
+                                    <input id="new_password_confirmation" type="password" name="new_password_confirmation" autocomplete="off">
                                     <label for="new_password_confirmation">Password confirmation</label>
                                 </div>
                             </div>
@@ -230,12 +205,7 @@
                     </div>
 
                     <div class="form-profile__bottom">
-                        @if(\App\Models\accountDeletionConfirmation::checkDeletionConfirmation())
-                            <div class="warning-box">Account deletion request sent</div>
-                        @else
-                            <a href="{{route("AccountDeletionConfirmation")}}" class="btn btn--solid delete-account send">Delete account</a>
-                        @endif
-                        <button type="submit" class="btn btn--solid btn--arrow send send-form">{{isset($data['userDetail']->first_name) ? 'Save' : 'Submit & Start Project'}}</button>
+                        <button type="submit" class="btn btn--solid btn--arrow send send-form">Save</button>
                     </div>
 
                 </form>
@@ -244,6 +214,7 @@
             </div>
         </div>
     </main>
-
     <script src="{{asset("js/form.js")}}"> </script>
 @endsection
+
+

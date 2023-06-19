@@ -12,7 +12,9 @@ use App\Models\CategoryName;
 use App\Models\accountDeletionConfirmation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\Rule;
 use League\Csv\Writer;
 use App\Models\SettingsTable;
@@ -562,6 +564,121 @@ class AdminController extends Controller
         }
 
         return redirect()->back()->with('error', 'File upload error');
+    }
+
+
+    public function editUserProfile($id){
+        $data['user'] = User::find($id);
+        $data['userDetail'] = null;
+        $data['title_page'] = 'Profile: ' . $data['user']->name;
+
+        $user_detail = UserDetail::where('user_id', $id)->first();
+        if ($user_detail){
+            $data['userDetail'] = $user_detail;
+        }
+
+        $data['category'] = CategoryName::orderBy('category_name', 'asc')->get();
+
+        $data['allCountry'] = (new CountryController)->allCountries();
+        unset($data['allCountry']['EU']);
+        asort($data['allCountry']);
+
+        if(User::checkOwner($id)){
+            return view("admin.profile-dashboard-founder", ['data' => $data]);
+        }
+        if (User::checkInvestor($id)){
+            return view("admin.profile-dashboard-co-founder", ['data' => $data]);
+        }
+    }
+
+    public function saveUserProfile($id, Request $request){
+
+        $validated = $request->validate([
+            'email' => [
+                'required',
+                'string',
+                'email',
+                'max:255',
+                Rule::unique('users', 'email')->ignore($id),
+            ],
+            'photo' => 'image|max:2048',
+        ]);
+
+        $user = User::find($id);
+        $user_id = $user->id;
+        $user_detail = UserDetail::where('user_id', $user_id)->first();
+
+        $data = [
+            'first_name' => $request->get('first_name'),
+            'last_name' => $request->get('last_name'),
+            'date_of_birth' => $request->get('date_of_birth'),
+            'phone' => $request->get('code_phone') . ' ' . $request->get('phone'),
+            'about_you' => $request->get('about_you'),
+            'company_name' => $request->get('company_name'),
+            'occupation' => $request->get('occupation'),
+            'street' => $request->get('street'),
+            'house' => $request->get('house'),
+            'postal_code' => $request->get('postal_code'),
+            'salutation' => $request->get('salutation'),
+            'country' => $request->get('country'),
+            'city' => $request->get('city'),
+        ];
+
+        if ($request->hasFile('photo')) {
+            $photo = $request->file('photo');
+            $filename = time() . '.' . $photo->getClientOriginalExtension();
+            $path = public_path('profile-photos/');
+            $photo->move($path, $filename);
+            $data['photo'] = 'profile-photos/' . $filename;
+        }
+
+        $data['basic_interests_investor'] = $request->get('basic_interests_investor');
+        $data['categorty1_investor'] = $request->get('categorty1_investor');
+        $data['categorty2_investor'] = $request->get('categorty2_investor');
+        $data['categorty3_investor'] = $request->get('categorty3_investor');
+
+        $data['city_other'] = empty($request->input('city_other')) ? false : true;
+        if( !empty($request->input('city_other'))  ){
+            $data['city'] = $request->get('city_other_name');
+        }
+
+        $user->email = $request->get('email');
+        $user->name = $request->get('first_name') . ' ' . $request->get('last_name');
+        $user->save();
+
+        if ($user_detail) {
+            $user_detail->update($data);
+        } else {
+            $data['user_id'] = $user_id;
+            UserDetail::create($data);
+        }
+
+        if ($request->has('new_password') && $request->has('new_password_confirmation')){
+            $request->validate([
+                'new_password' => 'required|min:6|confirmed',
+            ]);
+
+            $user->update([
+                'password' => Hash::make($request->get('new_password')),
+            ]);
+        }
+
+        return redirect()->back()->with('success', 'Changes saved successfully!');
+
+    }
+
+    public function deletePhotoUserProfile(Request $request){
+        $user_id = $request->user_id;
+        $user_detail = UserDetail::where('user_id', $user_id)->first();
+
+        if ($user_detail) {
+            $data['photo'] = null;
+            $user_detail->update($data);
+        }
+
+        return response()->json([
+            'message' => 'Successfully!',
+        ]);
     }
 
 }

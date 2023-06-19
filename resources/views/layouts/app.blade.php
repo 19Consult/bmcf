@@ -38,7 +38,6 @@
 <script src="{{asset("js/main.js")}}"> </script>
 
     <script src="{{asset("js/libs/ckeditor/ckeditor.js")}}"> </script>
-{{--    <script src="//cdn.ckeditor.com/4.20.2/standard/ckeditor.js"></script>--}}
     <script src="{{asset("Semantic/semantic.min.js")}}"></script>
 
 

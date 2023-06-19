@@ -23,7 +23,14 @@ function saveBtn() {
     unsavedChanges = false;
     let forms = document.querySelectorAll('form');
     let lastForm = forms[forms.length - 1];
-    lastForm.submit();
+
+    if ( validateEmail() ){
+        lastForm.submit();
+    }else {
+        return;
+    }
+
+    //lastForm.submit();
 }
 
 
@@ -38,3 +45,22 @@ document.addEventListener('DOMContentLoaded', function () {
         $('.select-list').select2();
     });
 })
+
+
+function validateEmail() {
+    var emailInput = document.getElementById('mail');
+
+    if (emailInput) {
+        var email = emailInput.value;
+        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (emailRegex.test(email)) {
+            return true;
+        } else {
+            alert('Email entered incorrectly.');
+            return false;
+        }
+    } else {
+        return true;
+    }
+}

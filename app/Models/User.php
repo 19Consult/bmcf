@@ -44,7 +44,14 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-    public static function checkOwner(){
+    public static function checkOwner($id = false){
+        if (empty(Auth::user()->role )){return false;}
+
+        if($id){
+            $user_role = User::where('id', $id)->pluck('role')->first();
+            return ($user_role == 2);
+        }
+
         return (Auth::user()->role == 2);
     }
 
