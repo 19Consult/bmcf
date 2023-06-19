@@ -4984,3 +4984,24 @@ button.btn-verified {
     margin-bottom: 10px;
   }
 }
+
+.form-profile .col.row-field.change-password-fields{
+    display: none;
+}
+.form-profile .col.row-field.change-password-fields.first-row-cp {
+    margin-top: 20px;
+}
+.error-message.alert.text-white.alert-danger.alert-success.type-error{
+    color: var(--color-warning-2);
+}
+
+.alert.alert-danger.login-error{
+    background: var(--color-warning-2);
+}
+
+.form-profile .btn-delete-photo-user{
+    border: 1px solid;
+    width: max-content;
+    padding: 2px 7px;
+    border-radius: 5px;
+}
