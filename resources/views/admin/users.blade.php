@@ -38,7 +38,7 @@
                         <button type="submit" class="btn btn--solid btn--arrow send send-form">Search</button>
 
                     </form>
-                    
+
                     @if(app('checkNameRoute_app') == 'admin.users')
                         <a class="export-users btn btn--solid btn--arrow send" href="{{route("admin.users.export")}}">Export SCV</a>
                     @endif
@@ -71,7 +71,7 @@
                                 <div>House: {{!empty($user->detail->house) ? $user->detail->house : ''}}</div>
                                 <div>Postal code: {{!empty($user->detail->postal_code) ? $user->detail->postal_code : ''}}</div>
                                 <div>Last Activity: {{!empty($user->last_activity_at) ? $user->last_activity_at : ''}}</div>
-                                <div><a href="#" class="link-user-edit">Edit user</a></div>
+                                <div><a href="{{route('admin.user.profile.edit', ['id' => $user->id])}}" class="link-user-edit">Edit user</a></div>
                             </div>
                             <div class="section-2 section-3">
                                 <div>

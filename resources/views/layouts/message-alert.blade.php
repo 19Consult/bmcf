@@ -2,7 +2,7 @@
     <div class="alert-box {{isset($classes) ? $classes : ''}}">
 @endif
 @if(Session::has('error'))
-    <div class="error-message alert text-white alert-danger alert-success mb-0">
+    <div class="error-message alert text-white alert-danger alert-success mb-0 type-error">
         <button type="button" class="close" data-dismiss="alert">×</button>
         {{ Session::get("error") }}
     </div>

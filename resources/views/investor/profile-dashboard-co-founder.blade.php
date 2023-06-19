@@ -52,7 +52,7 @@
                         </div>
                         <div class="col row-field">
                             <div class="form_input_wrap">
-                                <input type="mail" id="mail" name="email" required value="{{$data['user']->email}}">
+                                <input type="email" id="mail" name="email" required value="{{$data['user']->email}}">
                                 <label for="mail">Your Email</label>
                             </div>
                         </div>
@@ -273,6 +273,34 @@
                             <div class="form_input_wrap">
                                 <input type="checkbox" name="nda_approved_email" id="NDA" {{(isset($data['userDetail']->nda_approved_email) && $data['userDetail']->nda_approved_email)? 'checked' : ''}} value="1">
                                 <label for="NDA">Email me when NDA approved</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row change-password">
+                    <div class="col title">Change Password</div>
+                    <div class="col fields">
+
+                        <input type="checkbox" name="change_password" id="change_password" value="1">
+                        <label for="change_password">Do you want to change your password?</label>
+
+                        <div class="col row-field change-password-fields first-row-cp">
+                            <div class="form_input_wrap">
+                                <input id="current_password" type="password" name="current_password" autocomplete="off">
+                                <label for="current_password">Current Password</label>
+                            </div>
+                        </div>
+                        <div class="col row-field change-password-fields">
+                            <div class="form_input_wrap">
+                                <input id="new_password" type="password" name="new_password" >
+                                <label for="new_password">New Password</label>
+                            </div>
+                        </div>
+                        <div class="col row-field change-password-fields">
+                            <div class="form_input_wrap">
+                                <input id="new_password_confirmation" type="password" name="new_password_confirmation" >
+                                <label for="new_password_confirmation">Password confirmation</label>
                             </div>
                         </div>
                     </div>

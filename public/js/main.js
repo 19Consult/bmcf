@@ -55,7 +55,7 @@ jQuery(document).ready(function ($) {
 
             }else {
 			    $('.style-span-max-size').css('color', 'var(--color-warning-2)');
-                console.log('max size 512 kb')
+                alert('Maximum image size 2 MB')
                 return;
             }
 
@@ -88,6 +88,43 @@ jQuery(document).ready(function ($) {
             $('#city_other_name').hide();
             $('.city-checkbox').show();
         }
+    });
+
+    $('#change_password').change(function() {
+        if ($(this).is(':checked')) {
+            $('.change-password-fields').show();
+            $('.change-password-fields input').prop('required', true);
+        } else {
+            $('.change-password-fields').hide();
+            $('.change-password-fields input').prop('required', false);
+        }
+    });
+
+    $('.btn-delete-photo-user').on('click', function (){
+
+        $('.form_input_wrap .add-photo').removeClass('show');
+        $('.form_input_wrap .add-photo #show-photo img').remove();
+        let img_html_default = `<img class="default-img-user display-none" src="" alt="user">`;
+        $('.form_input_wrap .add-photo #show-photo').html(img_html_default);
+
+        let user_id = $(this).attr('data-user-id');
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'POST',
+            url: '/admin/user-profile/delete-user-photo',
+            data: {user_id: user_id},
+            success: function (response) {
+                //console.log(response);
+            }
+        });
+
+
     });
 
 	$('.projects-search-v1 .project__title').click(function(){
