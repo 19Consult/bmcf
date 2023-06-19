@@ -8,6 +8,7 @@ use App\Models\CategoryName;
 use App\Models\accountDeletionConfirmation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Mail;
@@ -183,6 +184,22 @@ class HomeController extends Controller
                 return redirect(route("createProject"));
             }
         }
+
+        if ($request->has('current_password') && $request->has('new_password') && $request->has('new_password_confirmation')){
+            $request->validate([
+                'current_password' => 'required',
+                'new_password' => 'required|min:6|confirmed',
+            ]);
+
+            if (Hash::check($request->current_password, $user->password)) {
+                $user->update([
+                    'password' => Hash::make($request->get('new_password')),
+                ]);
+            }else{
+                return redirect()->back()->with('error', 'Invalid current password.');
+            }
+        }
+
 
         return redirect()->back()->with('success', 'Changes saved successfully!');
 

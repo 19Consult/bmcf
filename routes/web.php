@@ -171,6 +171,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/categories/download', [AdminController::class, 'downloadExselCategories'])->name('admin.categories.download.exsel');
         Route::post('/categories/upload', [AdminController::class, 'uploadExselCategories'])->name('admin.categories.upload.exsel');
 
+        Route::get('/user-profile/{id}/edit', [AdminController::class, 'editUserProfile'])->name('admin.user.profile.edit');
+        Route::post('/user-profile/{id}/save', [AdminController::class, 'saveUserProfile'])->name('admin.user.profile.save');
+        Route::post('/user-profile/delete-user-photo', [AdminController::class, 'deletePhotoUserProfile']);
 
 
         Route::get('/settings', [AdminController::class, 'settingsPage'])->name('admin.settingsPage');
