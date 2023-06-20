@@ -4190,7 +4190,8 @@ body {
   right: 50%;
   top: 0;
   bottom: 0;
-  background: var(--color-first);
+  /*background: var(--color-first);*/
+  background: var(--color-second);
 }
 .home-page::after {
   content: "";
@@ -4199,7 +4200,8 @@ body {
   right: 0;
   top: 0;
   bottom: 0;
-  background: var(--color-second);
+  /*background: var(--color-second);*/
+  background: var(--color-first);
 }
 .home-page .container {
   position: relative;
@@ -4227,7 +4229,8 @@ body {
           justify-content: space-between;
 }
 .home-page__top-logo {
-  border: 1px solid #7583aa;
+  /*border: 1px solid #7583aa;*/
+  border: 1px solid #303e65;
   padding: 5px;
   font-size: 0;
 }
