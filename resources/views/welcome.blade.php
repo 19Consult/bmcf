@@ -4,7 +4,7 @@
 
 @php
     $role_token = app("roleIdMD5_register");
-    $role_md5 = $role_token[3];
+    $role_md5 = $role_token[2];
 @endphp
 
 <main class="wrapper home-page">
@@ -26,7 +26,7 @@
                 <div class="home-page__middle-right">
                     <div class="home-page__title-top">WANT TO BE A</div>
                     <h2 class="home-page__title">COFOUNDER?</h2>
-                    <a class="btn btn--border" href="{{ route('sign-up-founder') }}">START HERE</a>
+                    <a class="btn btn--border" href="{{ route('sign-up-co-founder') }}">START HERE</a>
                     <div class="home-page__descr-wrapper">
                         <div class="home-page__descr-title">True value of you</div>
                         <div class="home-page__descr">Realise the full value of your skills, market knowledge and experience with BeMyCoFounder. Free sign up will connect you with unique opportunities to team up with innovators and start-ups to do what you love and on your terms.</div>
