@@ -72,19 +72,7 @@ Route::middleware('guest')->group(function () {
  */
 Route::middleware(['auth'])->group(function () {
 
-    //Dashboard
-    Route::get('/dashboard', [OwnerController::class, 'dashboardOwner'])->name('dashboardOwner');
-    Route::get('/dashboard-angel', [InvestorController::class, 'dashboardInvestor'])->name('dashboardInvestor');
-
-    Route::get('/home', [HomeController::class, 'index'])->name('home');
-
-    Route::get('/home-angel', [InvestorController::class, 'indexInvestor'])->name('homeInvestor');
-
-    //notifications
-    Route::get('/notifications', [HomeController::class, 'notifications'])->name('notifications');
-    Route::get('/profile/{id}/projects', [HomeController::class, 'viewProfileProjects'])->name('viewProfileProjects');
-
-
+    // Profile page
     Route::get('/profile', [HomeController::class, 'profile'])->name('profile');
     Route::post('/profile/save', [HomeController::class, 'profileSave'])->name('profileSave');
 
@@ -92,62 +80,78 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/profile/account-deletion-confirmation', [HomeController::class, 'accountDeletionConfirmation'])->name('AccountDeletionConfirmation');
     Route::post('/profile/send-delete-account', [HomeController::class, 'sendDeleteAccount'])->name('sendDeleteAccount');
 
-    // ajax cities
-    Route::post('/ajax-get-cities', [CountryController::class, 'ajaxGetCities']);
+    Route::group(['middleware' => ['verified.email']], function () {
 
-    // ajax share-project
-    Route::post('/share-project', [HomeController::class, 'ajaxShareProject']);
+        //Dashboard
+        Route::get('/dashboard', [OwnerController::class, 'dashboardOwner'])->name('dashboardOwner');
+        Route::get('/dashboard-angel', [InvestorController::class, 'dashboardInvestor'])->name('dashboardInvestor');
 
-    // ajax share-profile
-    Route::post('/share-profile', [HomeController::class, 'ajaxShareProfile']);
+        Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-    //ajax load agents
-    Route::post('/dashboard-load-agents', [OwnerController::class, 'dashboardAgentsLoad'])->name('dashboardAgentsLoad');
+        Route::get('/home-angel', [InvestorController::class, 'indexInvestor'])->name('homeInvestor');
 
-    //ajax public profile favorite
-    Route::post('/profile-public/favorite', [OwnerController::class, 'profilePublicFavorite'])->name('profilePublicFavorite');
+        //notifications
+        Route::get('/notifications', [HomeController::class, 'notifications'])->name('notifications');
+        Route::get('/profile/{id}/projects', [HomeController::class, 'viewProfileProjects'])->name('viewProfileProjects');
 
-    //ajax load projects more
-    Route::post('/dashboard-load-projects', [InvestorController::class, 'dashboardProjectsLoad'])->name('dashboardProjectsLoad');
+        // ajax cities
+        Route::post('/ajax-get-cities', [CountryController::class, 'ajaxGetCities']);
 
-    //ajax notifications
-    Route::post('/notifications-ajax', [HomeController::class, 'notificationsAjax'])->name('notificationsAjax');
+        // ajax share-project
+        Route::post('/share-project', [HomeController::class, 'ajaxShareProject']);
 
-    // project
-    Route::get('/create-project', [OwnerController::class, 'createProject'])->name('createProject');
-    Route::post('/create-project/save', [OwnerController::class, 'saveProject'])->name('saveProject');
+        // ajax share-profile
+        Route::post('/share-profile', [HomeController::class, 'ajaxShareProfile']);
 
-    Route::get('/project/{id}', [OwnerController::class, 'viewProject'])->name('viewProject');
+        //ajax load agents
+        Route::post('/dashboard-load-agents', [OwnerController::class, 'dashboardAgentsLoad'])->name('dashboardAgentsLoad');
 
-    Route::post('/project/pda-project-save', [InvestorController::class, 'saveNdaProject'])->name('saveNdaProject');
+        //ajax public profile favorite
+        Route::post('/profile-public/favorite', [OwnerController::class, 'profilePublicFavorite'])->name('profilePublicFavorite');
+
+        //ajax load projects more
+        Route::post('/dashboard-load-projects', [InvestorController::class, 'dashboardProjectsLoad'])->name('dashboardProjectsLoad');
+
+        //ajax notifications
+        Route::post('/notifications-ajax', [HomeController::class, 'notificationsAjax'])->name('notificationsAjax');
+
+        // project
+        Route::get('/create-project', [OwnerController::class, 'createProject'])->name('createProject');
+        Route::post('/create-project/save', [OwnerController::class, 'saveProject'])->name('saveProject');
+
+        Route::get('/project/{id}', [OwnerController::class, 'viewProject'])->name('viewProject');
+
+        Route::post('/project/pda-project-save', [InvestorController::class, 'saveNdaProject'])->name('saveNdaProject');
 
 
-    Route::get('/nda-list', [OwnerController::class, 'ndaList'])->name('ndaList');
-    Route::get('/nda-list-angel', [InvestorController::class, 'ndaListInvestor'])->name('ndaListInvestor');
+        Route::get('/nda-list', [OwnerController::class, 'ndaList'])->name('ndaList');
+        Route::get('/nda-list-angel', [InvestorController::class, 'ndaListInvestor'])->name('ndaListInvestor');
 
-    Route::get('/nda-download/{nda_id}', [InvestorController::class, 'downloadNda'])->name('downloadNda');
+        Route::get('/nda-download/{nda_id}', [InvestorController::class, 'downloadNda'])->name('downloadNda');
 
-    // project-favorites (The page is created, and the functionality is hidden)
-    //Route::get('/project-favorites', [InvestorController::class, 'viewProjectFavorites'])->name('viewProjectFavorites');
+        // project-favorites (The page is created, and the functionality is hidden)
+        //Route::get('/project-favorites', [InvestorController::class, 'viewProjectFavorites'])->name('viewProjectFavorites');
 
 //    Route::get('/project-list', [OwnerController::class, 'listProject'])->name('listProject');
 
-    Route::post('/project/counter-projects-views', [InvestorController::class, 'counterProjectsViews'])->name('counterProjectsViews');
-    Route::post('/project/favorite', [InvestorController::class, 'favoriteProject'])->name('favoriteProject');
+        Route::post('/project/counter-projects-views', [InvestorController::class, 'counterProjectsViews'])->name('counterProjectsViews');
+        Route::post('/project/favorite', [InvestorController::class, 'favoriteProject'])->name('favoriteProject');
 
-    Route::post('/project/ajax-project-details', [OwnerController::class, 'ajaxProjectDetails'])->name('ajaxProjectDetails');
+        Route::post('/project/ajax-project-details', [OwnerController::class, 'ajaxProjectDetails'])->name('ajaxProjectDetails');
 
-    Route::post('/project/seen-nda-project', [OwnerController::class, 'seenNdaProject'])->name('seenNdaProject');
+        Route::post('/project/seen-nda-project', [OwnerController::class, 'seenNdaProject'])->name('seenNdaProject');
 
-    Route::post('/project/confirm-nda-project', [OwnerController::class, 'confirmNdaProject'])->name('confirmNdaProject');
-    Route::post('/project/rejected-nda-project', [OwnerController::class, 'rejectedNdaProject'])->name('rejectedNdaProject');
+        Route::post('/project/confirm-nda-project', [OwnerController::class, 'confirmNdaProject'])->name('confirmNdaProject');
+        Route::post('/project/rejected-nda-project', [OwnerController::class, 'rejectedNdaProject'])->name('rejectedNdaProject');
 
-    Route::get('/project/delete-project/{id_project}', [OwnerController::class, 'deleteProjectPreview'])->name('deleteProjectPreview');
-    Route::post('/project/delete-project', [OwnerController::class, 'deleteProject'])->name('deleteProject');
+        Route::get('/project/delete-project/{id_project}', [OwnerController::class, 'deleteProjectPreview'])->name('deleteProjectPreview');
+        Route::post('/project/delete-project', [OwnerController::class, 'deleteProject'])->name('deleteProject');
 
-    Route::post('/notifications/{id}/mark-as-read', [HomeController::class, 'markAsRead'])->name('markAsRead');
+        Route::post('/notifications/{id}/mark-as-read', [HomeController::class, 'markAsRead'])->name('markAsRead');
 
-    Route::post('/report-problem', [HomeController::class, 'reportProblem'])->name('reportProblem');
+        Route::post('/report-problem', [HomeController::class, 'reportProblem'])->name('reportProblem');
+
+    });
 
     Route::prefix('admin')->middleware(['admin'])->group(function () {
         Route::get('/', [AdminController::class, 'index'])->name('admin.dashboard');

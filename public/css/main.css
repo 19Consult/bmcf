@@ -5008,3 +5008,56 @@ button.btn-verified {
     padding: 2px 7px;
     border-radius: 5px;
 }
+
+.form-verified-profile-page{
+    margin: 0 auto;
+    padding: 30px 0;
+    max-width: 1350px;
+    padding-left: 7.4%;
+    padding-right: 7.4%;
+}
+.form-verified-profile-page .profile-page-email-verification {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1;
+    color: var(--color-6);
+    border: 1px solid var(--color-first);
+    border-radius: 5px;
+    padding: 14px 20px;
+    background: var(--color-2);
+}
+.form-verified-profile-page .sec-1 span{
+    font-size: 14px;
+}
+.form-verified-profile-page .sec-1{
+    line-height: 1.5;
+    display: flex;
+    flex-direction: column;
+
+    user-select: text;
+    pointer-events: auto;
+}
+.form-verified-profile-page .sec-1 h5{
+    font-weight: 500;
+}
+.form-verified-profile-page .btn-verified{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    border: unset;
+    border-radius: 5px;
+    padding: 14px 20px;
+    width: 100%;
+    max-width: 225px;
+    font-family: "WorkSans", sans-serif;
+    font-size: 16px;
+    line-height: 19px;
+    color: var(--color-white);
+    background: var(--color-4);
+}
