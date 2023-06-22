@@ -48,6 +48,10 @@ class LoginController extends Controller
             return redirect()->back()->with('error', 'Your account has been blocked.');
         }
 
+        if (!$user->hasVerifiedEmail()) {
+            return redirect()->route('profile')->with('error', 'Please verify your email.');
+        }
+
         // redirect public project page
         $retrievedValue = Session::get('id_project_view');
         if (!empty($retrievedValue) && isset($retrievedValue)){

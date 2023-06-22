@@ -7,6 +7,24 @@
         <div class="dashboard-wrapper">
             @include("layouts.sidebar")
             <div class="profile__wrapper">
+
+                @if(!Auth::user()->hasVerifiedEmail())
+                    <form class="form-verified-profile-page" method="POST" action="{{ route('verification.resend') }}">
+                        @csrf
+
+                        <div class="profile-page-email-verification">
+                            <div class="sec-1">
+                                <h5>Your email has not been verified</h5>
+                                <span>Until you activate your account, the possibilities of the service will be limited.</span>
+                                <span>Please, contact for any help - hello@bemycofounders.com</span>
+                            </div>
+                            <div class="sec-2">
+                                <button type="submit" class="btn-verified">Send again</button>
+                            </div>
+                        </div>
+                    </form>
+                @endif
+
                 <form class="form-profile" action="{{route("profileSave")}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row base">
@@ -193,7 +211,7 @@
 
                             <div class="row row-field">
                                 <div class="form_input_wrap">
-                                    <input type="text" id="postal-code" placeholder="Postal Code" name="postal_code" value="{{isset($data['userDetail']->postal_code) ? $data['userDetail']->postal_code : ''}}">
+                                    <input type="text" id="postal-code" placeholder="Postal Code" autocomplete="off" name="postal_code" value="{{isset($data['userDetail']->postal_code) ? $data['userDetail']->postal_code : ''}}">
                                     <label for="postal-code">Postal Code</label>
                                 </div>
                             </div>
@@ -210,19 +228,19 @@
 
                             <div class="col row-field change-password-fields first-row-cp">
                                 <div class="form_input_wrap">
-                                    <input id="current_password" type="password" name="current_password" autocomplete="off">
+                                    <input id="current_password" type="password" name="current_password" autocomplete="old-password">
                                     <label for="current_password">Current Password</label>
                                 </div>
                             </div>
                             <div class="col row-field change-password-fields">
                                 <div class="form_input_wrap">
-                                    <input id="new_password" type="password" name="new_password" >
+                                    <input id="new_password" type="password" name="new_password" autocomplete="new-password">
                                     <label for="new_password">New Password</label>
                                 </div>
                             </div>
                             <div class="col row-field change-password-fields">
                                 <div class="form_input_wrap">
-                                    <input id="new_password_confirmation" type="password" name="new_password_confirmation" >
+                                    <input id="new_password_confirmation" type="password" name="new_password_confirmation" autocomplete="new-password">
                                     <label for="new_password_confirmation">Password confirmation</label>
                                 </div>
                             </div>
