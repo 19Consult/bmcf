@@ -186,7 +186,7 @@
         @include("layouts.sidebar")
         <div class="project-create-wrap">
             <div class="project-create-wrap-img"><img src="{{asset("img/create-project-bg.webp")}}" alt="Project background"></div>
-            <form class="project-create__content-wrap" action="{{route("saveProject")}}" method="POST" enctype="multipart/form-data">
+            <form id="form-project-owner" class="project-create__content-wrap" action="{{route("saveProject")}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" name="id_project" value="{{!empty($id_project) ? $id_project : 0}}">
                 <div class="project-create__top">
@@ -199,7 +199,7 @@
                     <div class="project-create__top-descr">
                         <div class="project-create__top-descr-top">
                             <div class="project-create__top-descr-top-title name-project-title">
-                                <input type="text" id="name_project" placeholder="Name project" name="name_project" value="{{!empty($data['project']->name_project) ? $data['project']->name_project : ''}}">
+                                <input type="text" required id="name_project" placeholder="Name project" name="name_project" value="{{!empty($data['project']->name_project) ? $data['project']->name_project : ''}}">
                                 <span class="present-process">{{$present_process}}%</span>
                                 <input type="hidden" name="present_process" class="present-process-input" value="{{$present_process}}">
                             </div>
@@ -467,6 +467,28 @@
 
                             });
 
+
+                            var formProject = document.getElementById('form-project-owner');
+                            formProject.addEventListener('submit', function(event) {
+                                var content_project_story = CKEDITOR.instances["content_project_story"];
+                                var ckeditorContent = content_project_story.getData().trim();
+
+                                var co_founder_terms_condition = CKEDITOR.instances["co_founder_terms_condition"];
+                                var ckeditorContentCoFounder = co_founder_terms_condition.getData().trim();
+
+                                if (ckeditorContent === ''){
+                                    event.preventDefault();
+                                    var contentProjectStory = document.getElementById('id_content_project_story');
+                                    contentProjectStory.scrollIntoView({ behavior: 'smooth' });
+                                    alert('Please fill in the Project Story field.');
+                                }else if (ckeditorContentCoFounder === ''){
+                                    event.preventDefault();
+                                    var scrollFun = document.getElementById('id_co_founder_terms_condition');
+                                    scrollFun.scrollIntoView({ behavior: 'smooth' });
+                                    alert('Please complete the CoFounder Terms & Conditions field.');
+                                }
+                            });
+
                         });
 
 
@@ -510,7 +532,8 @@
                                 </div>
                                 <a href="{{route("profile")}}" class="project-preview__author-settings" target="_blank"></a>
                             </div>
-                            <div class="project-create__top-right-send btn--solid btn--arrow btn" onclick="saveBtn()">Submit</div>
+{{--                            <div class="project-create__top-right-send btn--solid btn--arrow btn" onclick="saveBtn()">Submit</div>--}}
+                            <button type="submit" class="project-create__top-right-send btn--solid btn--arrow btn send send-form">Submit</button>
                         </div>
                         <?php
                         if(!empty($data['project']->views)){
@@ -564,7 +587,7 @@
                         <div class="progress__item-point"></div>
                     </div>
                 </div>
-                <div class="form-profile project-form" >
+                <div class="form-profile project-form" id="id_content_project_story">
                     <div class="row project-field">
                         <div class="col title">Project Story <span>*</span></div>
                         <div class="col fields">
@@ -654,7 +677,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row project-co-founder">
+                    <div class="row project-co-founder" id="id_co_founder_terms_condition">
                         <div class="col title">CoFounder Terms & Conditions <span>*</span></div>
                         <div class="col fields">
                             <div class="col row-field">

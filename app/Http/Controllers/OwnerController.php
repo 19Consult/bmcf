@@ -65,6 +65,17 @@ class OwnerController extends Controller
     }
 
     public function saveProject(Request $request){
+
+         $request->validate([
+            'content_project_story' => [
+                'required',
+            ],
+             'co_founder_terms_condition' => [
+                'required',
+            ],
+        ]);
+
+
         $data = [
             'name_project' => $request->get("name_project"),
             'brief_description' => $request->get("brief_description_project"),

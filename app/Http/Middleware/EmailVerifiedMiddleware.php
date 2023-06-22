@@ -2,13 +2,11 @@
 
 namespace App\Http\Middleware;
 
-use Carbon\Carbon;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
 
-class LogUserLastActivity
+class EmailVerifiedMiddleware
 {
     /**
      * Handle an incoming request.
@@ -20,11 +18,7 @@ class LogUserLastActivity
     public function handle(Request $request, Closure $next)
     {
         if (Auth::check()) {
-            $user = Auth::user();
-            $user->last_activity_at = Carbon::now();
-            $user->save();
-
-            if(Route::currentRouteName() == 'chat' && !Auth::user()->hasVerifiedEmail()){
+            if (!Auth::user()->hasVerifiedEmail()) {
                 return redirect()->route('profile')->with('error', 'Please verify your email.');
             }
         }
