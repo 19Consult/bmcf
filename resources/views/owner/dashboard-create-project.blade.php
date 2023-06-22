@@ -215,7 +215,7 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="field-add brief_description_project scrollbar-inner scrollbar-init">
+                        <div class="field-add brief_description_project scrollbar-inner scrollbar-init" id="id_brief_description_project">
                             @if(!empty($data['project']->brief_description))
                                 {{$data['project']->brief_description}}
                             @else
@@ -235,7 +235,7 @@
                                             <div class="col fields">
                                                 <div class="row row-field">
                                                     <div class="form_input_wrap full-width">
-                                                        <textarea name="brief_description_project" type="text" placeholder="Type" rows="10" maxlength="3400">{{!empty($data['project']->brief_description) ? $data['project']->brief_description : ''}}</textarea>
+                                                        <textarea id="brief_description_project" name="brief_description_project" type="text" placeholder="Type" rows="10" maxlength="3400">{{!empty($data['project']->brief_description) ? $data['project']->brief_description : ''}}</textarea>
                                                         <label class="schetchik-brief-desc">(0/3400)</label>
                                                     </div>
                                                 </div>
@@ -476,6 +476,9 @@
                                 var co_founder_terms_condition = CKEDITOR.instances["co_founder_terms_condition"];
                                 var ckeditorContentCoFounder = co_founder_terms_condition.getData().trim();
 
+                                var brief_description_project = document.getElementById('brief_description_project');
+                                var textareaValueDescriptions = brief_description_project.value;
+
                                 if (ckeditorContent === ''){
                                     event.preventDefault();
                                     var contentProjectStory = document.getElementById('id_content_project_story');
@@ -486,6 +489,12 @@
                                     var scrollFun = document.getElementById('id_co_founder_terms_condition');
                                     scrollFun.scrollIntoView({ behavior: 'smooth' });
                                     alert('Please complete the CoFounder Terms & Conditions field.');
+                                }else if(textareaValueDescriptions.trim() === ''){
+                                    event.preventDefault();
+                                    var scrollFun = document.getElementById('id_brief_description_project');
+                                    scrollFun.scrollIntoView({ behavior: 'smooth' });
+                                    document.querySelector('.project-create__top--popup.popup').classList.add('open');
+                                    alert('Please complete the Brief Project Desription field.');
                                 }
                             });
 
