@@ -496,6 +496,11 @@
                                     document.querySelector('.project-create__top--popup.popup').classList.add('open');
                                     alert('Please complete the Brief Project Desription field.');
                                 }
+
+                                if(typeof unsavedChanges !== "undefined"){
+                                    unsavedChanges = false;
+                                }
+
                             });
 
                         });
