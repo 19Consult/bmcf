@@ -80,6 +80,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/profile/account-deletion-confirmation', [HomeController::class, 'accountDeletionConfirmation'])->name('AccountDeletionConfirmation');
     Route::post('/profile/send-delete-account', [HomeController::class, 'sendDeleteAccount'])->name('sendDeleteAccount');
 
+    // ajax cities
+    Route::post('/ajax-get-cities', [CountryController::class, 'ajaxGetCities']);
+
     Route::group(['middleware' => ['verified.email']], function () {
 
         //Dashboard
@@ -93,9 +96,6 @@ Route::middleware(['auth'])->group(function () {
         //notifications
         Route::get('/notifications', [HomeController::class, 'notifications'])->name('notifications');
         Route::get('/profile/{id}/projects', [HomeController::class, 'viewProfileProjects'])->name('viewProfileProjects');
-
-        // ajax cities
-        Route::post('/ajax-get-cities', [CountryController::class, 'ajaxGetCities']);
 
         // ajax share-project
         Route::post('/share-project', [HomeController::class, 'ajaxShareProject']);

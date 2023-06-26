@@ -505,6 +505,7 @@ jQuery(document).ready(function ($) {
         });
 
         let value = $(this).attr("data-value");
+        console.log(value)
 
         $.ajax({
             url: "/ajax-get-cities",
@@ -513,7 +514,7 @@ jQuery(document).ready(function ($) {
                 code_country: value,
             },
             success: function(result){
-
+            console.log(result)
                 $('.city-select-class').val('');
                 $('.ples-city-change .text').text('Select city');
 
@@ -729,6 +730,7 @@ if( $('.nda-info__signature').length > 0 && false) {
 
 $(document).ready(function() {
     $('.ui.dropdown').dropdown({
-        fullTextSearch: true
+        // fullTextSearch: true,
+        match: 'text'
     });
 });
