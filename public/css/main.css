@@ -5061,3 +5061,25 @@ button.btn-verified {
     color: var(--color-white);
     background: var(--color-4);
 }
+
+.list-keyword-prj-create .ui.fluid.dropdown {
+    width: auto;
+    line-height: 18px;
+    background-color: var(--color-2);
+    min-width: 170px;
+}
+
+.list-keyword-prj-create .ui.selection.dropdown .menu>.item {
+    color: var(--color-6);
+}
+
+.list-keyword-prj-create .col.fields{
+    margin-top: 6px;
+}
+
+.project-create__top--popup.popup .popup__content{
+    overflow: visible;
+}
+.project-create__top--popup.popup .popup__content .popup__nav{
+    border-radius: 30px;
+}
