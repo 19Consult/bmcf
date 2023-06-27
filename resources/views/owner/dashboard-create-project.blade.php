@@ -241,53 +241,50 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row keyword">
+                                        <div class="row keyword list-keyword-prj-create">
+                                            <label for="salutation">Key words (up to 3)</label>
                                             <div class="col fields">
                                                 <div class="col row-field">
-                                                    <div class="form_input_wrap">
 
-                                                        {{--<input type="text" placeholder="Key Word" name="keyword1" value="{{!empty($data['project']->keyword1) ? $data['project']->keyword1 : ''}}">--}}
-
-                                                        <select class="keyword-list" name="keyword1">
-                                                            <option></option>
-                                                            <option selected="true" disabled="disabled">All Categories</option>
-                                                            @if(!empty($data['category']))
-                                                                @foreach($data['category'] as $key => $val)
-                                                                    <option value="{{$val->category_name}}" {{ !empty($data['project']->keyword1) && $data['project']->keyword1 == $val->category_name ? 'selected' : '' }}>{{$val->category_name}}</option>
-                                                                @endforeach
-                                                            @endif
-                                                        </select>
-
-                                                        <label for="salutation">Key words (up to 3)</label>
+                                                    <div class="form_input_wrap ui fluid search selection dropdown">
+                                                        <input type="hidden"  name="keyword1" value="{{(isset($data['project']->keyword1) ) ? $data['project']->keyword1 : ''}}">
+                                                        <i class="dropdown icon"></i>
+                                                        <input class="search" tabindex="0">
+                                                        <div class="default text">All Categories</div>
+                                                        <div class="menu">
+                                                            <div class="item" data-value="" >All Categories</div>
+                                                            @foreach($data['category'] as $key => $val)
+                                                                <div class="item" data-value="{{$val->category_name}}" >{{$val->category_name}}</div>
+                                                            @endforeach
+                                                        </div>
                                                     </div>
-                                                    <div class="form_input_wrap">
-                                                        {{--<input type="text" placeholder="Key Word" name="keyword2" value="{{!empty($data['project']->keyword2) ? $data['project']->keyword2 : ''}}">--}}
 
-                                                        <select class="keyword-list" name="keyword2">
-                                                            <option></option>
-                                                            <option selected="true" disabled="disabled">All Categories</option>
-                                                            @if(!empty($data['category']))
-                                                                @foreach($data['category'] as $key => $val)
-                                                                    <option value="{{$val->category_name}}" {{ !empty($data['project']->keyword2) && $data['project']->keyword2 == $val->category_name ? 'selected' : '' }}>{{$val->category_name}}</option>
-                                                                @endforeach
-                                                            @endif
-                                                        </select>
-
+                                                    <div class="form_input_wrap ui fluid search selection dropdown">
+                                                        <input type="hidden"  name="keyword2" value="{{(isset($data['project']->keyword2) ) ? $data['project']->keyword2 : ''}}">
+                                                        <i class="dropdown icon"></i>
+                                                        <input class="search" tabindex="0">
+                                                        <div class="default text">All Categories</div>
+                                                        <div class="menu">
+                                                            <div class="item" data-value="" >All Categories</div>
+                                                            @foreach($data['category'] as $key => $val)
+                                                                <div class="item" data-value="{{$val->category_name}}" >{{$val->category_name}}</div>
+                                                            @endforeach
+                                                        </div>
                                                     </div>
-                                                    <div class="form_input_wrap">
-                                                        {{--<input type="text" placeholder="Key Word" name="keyword3" value="{{!empty($data['project']->keyword3) ? $data['project']->keyword3 : ''}}">--}}
 
-                                                        <select class="keyword-list" name="keyword3">
-                                                            <option></option>
-                                                            <option selected="true" disabled="disabled">All Categories</option>
-                                                            @if(!empty($data['category']))
-                                                                @foreach($data['category'] as $key => $val)
-                                                                    <option value="{{$val->category_name}}" {{ !empty($data['project']->keyword3) && $data['project']->keyword3 == $val->category_name ? 'selected' : '' }}>{{$val->category_name}}</option>
-                                                                @endforeach
-                                                            @endif
-                                                        </select>
-
+                                                    <div class="form_input_wrap ui fluid search selection dropdown">
+                                                        <input type="hidden"  name="keyword3" value="{{(isset($data['project']->keyword3) ) ? $data['project']->keyword3 : ''}}">
+                                                        <i class="dropdown icon"></i>
+                                                        <input class="search" tabindex="0">
+                                                        <div class="default text">All Categories</div>
+                                                        <div class="menu">
+                                                            <div class="item" data-value="" >All Categories</div>
+                                                            @foreach($data['category'] as $key => $val)
+                                                                <div class="item" data-value="{{$val->category_name}}" >{{$val->category_name}}</div>
+                                                            @endforeach
+                                                        </div>
                                                     </div>
+
                                                 </div>
                                             </div>
                                         </div><a class="btn--arrow btn--solid btn btn-ajax-first-section" >Submit</a>
@@ -305,7 +302,7 @@
 
                             $(document).ready(function() {
                                 //keyword-list
-                                $('.keyword-list').select2();
+                                //$('.keyword-list').select2();
 
                                 function isEmptyOrSpaces(str){
                                     return str === null || str.match(/^ *$/) !== null;
@@ -322,9 +319,9 @@
                                     event.preventDefault();
 
                                     var brief_description_project = $('textarea[name="brief_description_project"]').val();
-                                    var keyword1 = $('select[name="keyword1"]').val();
-                                    var keyword2 = $('select[name="keyword2"]').val();
-                                    var keyword3 = $('select[name="keyword3"]').val();
+                                    var keyword1 = $('input[name="keyword1"]').val();
+                                    var keyword2 = $('input[name="keyword2"]').val();
+                                    var keyword3 = $('input[name="keyword3"]').val();
 
                                     $(".add-keyword").html('');
 
