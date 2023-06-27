@@ -41,6 +41,7 @@ btn_send.addEventListener('click', function() {
 
 
 document.addEventListener('DOMContentLoaded', function () {
+
     $(document).ready(function () {
         $('.select-list').select2({
             matcher: function (params, data) {
@@ -53,17 +54,17 @@ document.addEventListener('DOMContentLoaded', function () {
                     return null;
                 }
 
-                if (typeof params.term !== 'undefined' && typeof data.text !== 'undefined') {
-                    var term = params.term.toLowerCase();
-                    var text = data.text.toLowerCase();
+                var term = params.term.toLowerCase();
+                var text = data.text.toLowerCase();
 
-                    if (text.indexOf(term) > -1 || data.id === '') {
-                        return data;
-                    }
+                if (text.indexOf(term) === 0) {
+                    return data;
                 }
 
                 return null;
             }
+        }).on('select2:open', function() {
+            $('.select2-search__field').attr('placeholder', 'Search');
         });
     });
 
