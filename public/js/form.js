@@ -42,35 +42,31 @@ btn_send.addEventListener('click', function() {
 
 document.addEventListener('DOMContentLoaded', function () {
     $(document).ready(function () {
+        $('.select-list').select2({
+            matcher: function (params, data) {
 
-        function matchCustom(params, data) {
+                if ($.trim(params.term) === '') {
+                    return data;
+                }
 
-            if ($.trim(params.term) === '') {
-                return data;
-            }
+                if (typeof data.text === 'undefined') {
+                    return null;
+                }
 
-            if (typeof data.text === 'undefined') {
+                if (typeof params.term !== 'undefined' && typeof data.text !== 'undefined') {
+                    var term = params.term.toLowerCase();
+                    var text = data.text.toLowerCase();
+
+                    if (text.indexOf(term) > -1 || data.id === '') {
+                        return data;
+                    }
+                }
+
                 return null;
             }
-
-            if (data.text.toLowerCase().indexOf(params.term.toLowerCase()) === 0) {
-                var modifiedData = $.extend({}, data, true);
-                modifiedData.text += ' (matched)';
-                return modifiedData;
-            }
-
-            return null;
-        }
-
-        $(document).ready(function () {
-            $('.select-list').select2({
-                matcher: matchCustom,
-                //minimumResultsForSearch: Infinity
-            });
         });
-
-
     });
+
 })
 
 
